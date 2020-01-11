@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T03:33:12.768Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="-cATzsFkf9G3mr4QEy_8" version="12.5.1" type="github" pages="5">
+<mxfile host="www.draw.io" modified="2020-01-11T03:34:41.720Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="OX6_hwK9w8UWwfz0fZJK" version="12.5.1" type="github" pages="5">
   <diagram id="tta4BG7myAs_LOdCfXMy" name="Home">
     <mxGraphModel dx="1030" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" math="0" shadow="0">
       <root>
@@ -594,14 +594,14 @@
         <mxCell id="ROgJbsBXNC5F3ZIjQSrW-11" value="Database" style="html=1;fillColor=#76608a;strokeColor=#432D57;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="_kJBPQFpwyEUnUIjhqd3-1">
           <mxGeometry x="694" y="49" width="90" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-12" value="return Products of category" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-12" value="return About Us info" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1">
           <mxGeometry x="0.0178" relative="1" as="geometry">
             <mxPoint x="734.5" y="360" as="sourcePoint"/>
             <mxPoint x="524" y="360" as="targetPoint"/>
             <mxPoint as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-13" value="return Products" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;exitX=-0.2;exitY=0.636;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" source="ROgJbsBXNC5F3ZIjQSrW-8">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-13" value="return About Us info" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;exitX=-0.2;exitY=0.636;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" source="ROgJbsBXNC5F3ZIjQSrW-8">
           <mxGeometry x="-0.0448" relative="1" as="geometry">
             <mxPoint x="490" y="400" as="sourcePoint"/>
             <mxPoint x="292" y="400" as="targetPoint"/>
@@ -609,20 +609,20 @@
             <Array as="points"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-14" value="view Product page (of category)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;exitX=-0.16;exitY=0.388;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-14" value="View About Us page" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;exitX=-0.16;exitY=0.388;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1">
           <mxGeometry x="0.0178" relative="1" as="geometry">
             <mxPoint x="282" y="440" as="sourcePoint"/>
             <mxPoint x="63.59999999999991" y="440" as="targetPoint"/>
             <mxPoint as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-15" value="click Category on Homepage" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" target="ROgJbsBXNC5F3ZIjQSrW-5">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-15" value="click About Us" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" target="ROgJbsBXNC5F3ZIjQSrW-5">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="60" y="230" as="sourcePoint"/>
             <mxPoint x="140" y="230" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-16" value="get all Products of category" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" source="ROgJbsBXNC5F3ZIjQSrW-5" target="ROgJbsBXNC5F3ZIjQSrW-8">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-16" value="get About Us info" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" source="ROgJbsBXNC5F3ZIjQSrW-5" target="ROgJbsBXNC5F3ZIjQSrW-8">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="320" y="250" as="sourcePoint"/>
             <mxPoint x="500" y="278" as="targetPoint"/>
@@ -631,7 +631,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-17" value="get all Products of category" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;exitX=0.8;exitY=0.4;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.13;entryY=0.397;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" target="ROgJbsBXNC5F3ZIjQSrW-10">
+        <mxCell id="ROgJbsBXNC5F3ZIjQSrW-17" value="get About Us info" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;exitX=0.8;exitY=0.4;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.13;entryY=0.397;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="_kJBPQFpwyEUnUIjhqd3-1" target="ROgJbsBXNC5F3ZIjQSrW-10">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="522" y="320" as="sourcePoint"/>
             <mxPoint x="730" y="320" as="targetPoint"/>
