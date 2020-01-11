@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T13:12:51.535Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="wZ7qkb0b60zD8fGsnP0p" version="12.5.1" type="github" pages="4">
+<mxfile host="www.draw.io" modified="2020-01-11T13:14:03.382Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="mN8OBiICRfC544gIFW6s" version="12.5.1" type="github" pages="4">
   <diagram id="y54KFEtDyixcne_wNATt" name="Login - Profile">
     <mxGraphModel dx="1221" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" math="0" shadow="0">
       <root>
@@ -870,7 +870,7 @@
           <mxGeometry x="240" y="82" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="8abjjNlj5JST-PuxjQsc-6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="EkNZqG_XMhzEGpJQHcJB-1">
-          <mxGeometry x="288" y="190" width="10" height="300" as="geometry"/>
+          <mxGeometry x="288" y="190" width="10" height="290" as="geometry"/>
         </mxCell>
         <mxCell id="8abjjNlj5JST-PuxjQsc-7" value="Server" style="html=1;fillColor=#6d8764;strokeColor=#3A5431;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="EkNZqG_XMhzEGpJQHcJB-1">
           <mxGeometry x="476" y="82" width="90" height="50" as="geometry"/>
@@ -1017,13 +1017,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="8abjjNlj5JST-PuxjQsc-36" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="EkNZqG_XMhzEGpJQHcJB-1">
-          <mxGeometry x="58" y="430" width="10" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="8abjjNlj5JST-PuxjQsc-37" value="click Edit Product" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;entryX=-0.159;entryY=0.449;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.938;exitY=0.659;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="EkNZqG_XMhzEGpJQHcJB-1">
-          <mxGeometry width="80" relative="1" as="geometry">
-            <mxPoint x="68" y="480" as="sourcePoint"/>
-            <mxPoint x="287.6500000000001" y="480.46000000000004" as="targetPoint"/>
-          </mxGeometry>
+          <mxGeometry x="58" y="430" width="10" height="50" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
