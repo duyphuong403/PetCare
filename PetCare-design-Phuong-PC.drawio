@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T03:35:09.252Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="2gWFpD_nEPqnWP_RQJih" version="12.5.1" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2020-01-11T03:54:58.244Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="v80Y-34x8ZGCcqce4-FX" version="12.5.1" type="github" pages="3">
   <diagram id="7LpO5EOzTAifgRIAqHfi" name="Site Map">
     <mxGraphModel dx="2207" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -18,12 +18,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="T8gd6lg5fiwz8AZ0PaH3-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="2lpMWu2Pm7IM3AcU56vd-11" target="T8gd6lg5fiwz8AZ0PaH3-1" edge="1">
+        <mxCell id="T8gd6lg5fiwz8AZ0PaH3-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="2lpMWu2Pm7IM3AcU56vd-11" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="500" y="70"/>
               <mxPoint x="780" y="70"/>
             </Array>
+            <mxPoint x="800" y="90" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
         <mxCell id="C8qJMsCPvdj4eR9B169--36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2lpMWu2Pm7IM3AcU56vd-11" target="C8qJMsCPvdj4eR9B169--33" edge="1">
@@ -69,23 +70,17 @@
         <mxCell id="C8qJMsCPvdj4eR9B169--31" value="Detail" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="335" y="170" width="110" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="T8gd6lg5fiwz8AZ0PaH3-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="T8gd6lg5fiwz8AZ0PaH3-1" target="T8gd6lg5fiwz8AZ0PaH3-15" edge="1">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="T8gd6lg5fiwz8AZ0PaH3-1" value="Cart" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="745" y="90" width="110" height="50" as="geometry"/>
-        </mxCell>
         <mxCell id="T8gd6lg5fiwz8AZ0PaH3-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="T8gd6lg5fiwz8AZ0PaH3-15" target="T8gd6lg5fiwz8AZ0PaH3-9" edge="1">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="T8gd6lg5fiwz8AZ0PaH3-15" value="Cart Detail" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="745" y="170" width="110" height="50" as="geometry"/>
+          <mxGeometry x="745" y="90" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="T8gd6lg5fiwz8AZ0PaH3-5" value="Detail" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="185" y="170" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="T8gd6lg5fiwz8AZ0PaH3-9" value="Payment Info" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="745" y="247" width="110" height="50" as="geometry"/>
+          <mxGeometry x="745" y="167" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="C8qJMsCPvdj4eR9B169--1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="C8qJMsCPvdj4eR9B169--6" target="C8qJMsCPvdj4eR9B169--8" edge="1">
           <mxGeometry relative="1" as="geometry"/>
