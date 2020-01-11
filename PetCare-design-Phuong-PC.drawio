@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T04:23:38.643Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="y68V2pj5Hdc5jJOTlkoe" version="12.5.1" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2020-01-11T11:48:21.603Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="abjaia7X3Kyr3_9qhKWJ" version="12.5.1" type="github" pages="3">
   <diagram id="7LpO5EOzTAifgRIAqHfi" name="Site Map">
     <mxGraphModel dx="2207" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -150,7 +150,7 @@
             <mxPoint x="1095" y="360" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="C8qJMsCPvdj4eR9B169--24" value="Manage Categories" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="C8qJMsCPvdj4eR9B169--24" value="Manage Products" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="175" y="510" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="C8qJMsCPvdj4eR9B169--29" value="Manage Orders" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -185,7 +185,7 @@
         <mxCell id="rtt-OWk4YbsZcnc7p3pG-2" value="Ku" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="868" y="320" width="120" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="rtt-OWk4YbsZcnc7p3pG-9" value="&lt;span style=&quot;white-space: normal&quot;&gt;Manage Products&lt;/span&gt;" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="rtt-OWk4YbsZcnc7p3pG-9" value="&lt;span style=&quot;white-space: normal&quot;&gt;Manage&amp;nbsp;&lt;/span&gt;Categories" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="45" y="510" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="rtt-OWk4YbsZcnc7p3pG-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" source="rtt-OWk4YbsZcnc7p3pG-11" target="C8qJMsCPvdj4eR9B169--33" edge="1">
@@ -211,9 +211,10 @@
         </mxCell>
         <mxCell id="rtt-OWk4YbsZcnc7p3pG-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" source="rtt-OWk4YbsZcnc7p3pG-11" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="375" y="490" as="targetPoint"/>
+            <mxPoint x="390" y="510" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="375" y="380"/>
+              <mxPoint x="390" y="380"/>
+              <mxPoint x="390" y="510"/>
             </Array>
           </mxGeometry>
         </mxCell>
