@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T15:46:28.810Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="Yi2DWyMrw04zzJJHOP9l" version="12.5.1" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2020-01-11T15:47:03.502Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="0RV3Z9bR1GoNHIFAswVd" version="12.5.1" type="github" pages="3">
   <diagram id="7LpO5EOzTAifgRIAqHfi" name="Site Map">
     <mxGraphModel dx="1221" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -138,7 +138,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="C8qJMsCPvdj4eR9B169--6" value="Administrator Homepage" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+        <mxCell id="C8qJMsCPvdj4eR9B169--6" value="Administrator Dashboard" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="500" y="420" width="110" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="C8qJMsCPvdj4eR9B169--8" value="Manage Accounts" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
@@ -194,6 +194,12 @@
         </mxCell>
         <mxCell id="rtt-OWk4YbsZcnc7p3pG-2" value="Ku" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="763" y="280" width="120" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="WrEfqPLF6sKYWM8HZiiT-11" value="" style="shape=link;html=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="10" y="360" as="sourcePoint"/>
+            <mxPoint x="1160" y="360" as="targetPoint"/>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
