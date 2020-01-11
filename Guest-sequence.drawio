@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-01-11T02:36:27.564Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="VLWgx4Nos5LpRsX33BzJ" version="12.5.1" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2020-01-11T02:40:25.144Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36" etag="9gyJqudOcJqlMljmPCTh" version="12.5.1" type="github" pages="3">
   <diagram id="tta4BG7myAs_LOdCfXMy" name="Home">
     <mxGraphModel dx="1038" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" math="0" shadow="0">
       <root>
@@ -333,7 +333,7 @@
             <mxPoint as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="i33DyUvxGaNnPulZV-Rd-27" value="route products page" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;entryX=1.18;entryY=0.521;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
+        <mxCell id="i33DyUvxGaNnPulZV-Rd-27" value="route products page&lt;br&gt;(with Category)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;strokeColor=#000000;entryX=1.18;entryY=0.521;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
           <mxGeometry x="0.0178" relative="1" as="geometry">
             <mxPoint x="397.20000000000005" y="410.06999999999994" as="sourcePoint"/>
             <mxPoint x="240" y="410" as="targetPoint"/>
@@ -359,13 +359,14 @@
             <mxPoint x="401.00000000000006" y="270.26" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="i33DyUvxGaNnPulZV-Rd-31" value="send request to get Category" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;entryX=-0.08;entryY=0.122;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
-          <mxGeometry width="80" relative="1" as="geometry">
+        <mxCell id="i33DyUvxGaNnPulZV-Rd-31" value="request get&lt;br&gt;&amp;nbsp;Products of Category" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;entryX=-0.08;entryY=0.122;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
+          <mxGeometry x="-0.0075" width="80" relative="1" as="geometry">
             <mxPoint x="410.99999999999994" y="290" as="sourcePoint"/>
             <mxPoint x="570.2" y="290.26" as="targetPoint"/>
+            <mxPoint as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="i33DyUvxGaNnPulZV-Rd-32" value="click Categories (on Homepage)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;entryX=-0.08;entryY=0.122;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
+        <mxCell id="i33DyUvxGaNnPulZV-Rd-32" value="get Products of Category" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#000000;entryX=-0.08;entryY=0.122;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="i33DyUvxGaNnPulZV-Rd-1">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="580" y="310" as="sourcePoint"/>
             <mxPoint x="739.2" y="310.26" as="targetPoint"/>
