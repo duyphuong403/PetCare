@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import vn.aptech.entity.Products;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-12T20:30:52")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-12T20:45:15")
 @StaticMetamodel(Categories.class)
 public class Categories_ { 
 
