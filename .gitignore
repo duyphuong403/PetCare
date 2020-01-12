@@ -1,5 +1,4 @@
 # Directories #
-#*.properties
 
 # OS Files #
 .DS_Store
@@ -40,6 +39,7 @@ Desktop.ini
 ######################
 # NetBeans
 ######################
+*.properties
 
  
 ######################
