@@ -14,7 +14,7 @@
         <li class="${Blog}"><a href="UserController?action=blog">Blog</a></li>
         <li class="${PetGuide}"><a href="UserController?action=petguide">PetGuide</a></li>
         <li class="${AboutUs}"><a href="UserController?action=aboutus">About us</a></li>
-        <li class="${ContactUS}"><a href="UserController?action=contactus">Contact us</a></li>
+        <li class="${ContactUS}"><a href="UserController?action=contactus">Feedback</a></li>
     </ul>
 </div>
 
