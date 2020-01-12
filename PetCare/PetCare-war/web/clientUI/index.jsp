@@ -13,8 +13,8 @@
             <ul>
                 <c:forEach items="${Articles}" var="article" >
                     <li> <a href="#"><img src="lib/images/${article.imageName}" width="114" height="160" alt=""></a>
-                        <h2>${article.name}</h2>
-                        <p>${article.content}<a class="more" href="${article.artId}">View all</a></p>
+                        <h2>${article.title}</h2>
+                        <p>${article.content}<a class="more" href="${article.petGuideId}">View all</a></p>
                     </li>
                 </c:forEach>
 

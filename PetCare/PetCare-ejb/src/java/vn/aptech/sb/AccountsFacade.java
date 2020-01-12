@@ -29,4 +29,12 @@ public class AccountsFacade extends AbstractFacade<Accounts> implements Accounts
         super(Accounts.class);
     }
     
+    @Override
+    public Accounts checkLogin(String user, String pwd){
+        try {
+            return em.createQuery("select a from Accounts a where a.username = :email and a.password = :pwd", Accounts.class).setParameter("email", user).setParameter("pwd", pwd).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

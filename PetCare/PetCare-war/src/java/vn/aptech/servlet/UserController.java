@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import vn.aptech.sb.ArticlesFacadeLocal;
+import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
 
 /**
@@ -22,7 +22,7 @@ import vn.aptech.sb.CategoriesFacadeLocal;
 public class UserController extends HttpServlet {
 
     @EJB
-    private ArticlesFacadeLocal articlesFacade;
+    private PetGuidesFacadeLocal petGuidesFacadeLocal;
 
     @EJB
     private CategoriesFacadeLocal categoriesFacade;
@@ -43,7 +43,7 @@ public class UserController extends HttpServlet {
         if (action == null) {
             request.setAttribute("Home", "active");
             request.setAttribute("Categories", categoriesFacade.findAll());
-            request.setAttribute("Articles", articlesFacade.findAll());
+            request.setAttribute("Articles", petGuidesFacadeLocal.findAll());
             request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
         } else {
             switch (action) {

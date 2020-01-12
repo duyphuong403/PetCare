@@ -30,4 +30,6 @@ public interface AccountsFacadeLocal {
 
     int count();
     
+    Accounts checkLogin(String user, String pwd);
+    
 }
