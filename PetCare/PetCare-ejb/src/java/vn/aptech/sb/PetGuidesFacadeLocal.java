@@ -7,26 +7,26 @@ package vn.aptech.sb;
 
 import java.util.List;
 import javax.ejb.Local;
-import vn.aptech.entity.Accounts;
+import vn.aptech.entity.PetGuides;
 
 /**
  *
  * @author ngodu
  */
 @Local
-public interface AccountsFacadeLocal {
+public interface PetGuidesFacadeLocal {
 
-    void create(Accounts accounts);
+    void create(PetGuides petGuides);
 
-    void edit(Accounts accounts);
+    void edit(PetGuides petGuides);
 
-    void remove(Accounts accounts);
+    void remove(PetGuides petGuides);
 
-    Accounts find(Object id);
+    PetGuides find(Object id);
 
-    List<Accounts> findAll();
+    List<PetGuides> findAll();
 
-    List<Accounts> findRange(int[] range);
+    List<PetGuides> findRange(int[] range);
 
     int count();
     

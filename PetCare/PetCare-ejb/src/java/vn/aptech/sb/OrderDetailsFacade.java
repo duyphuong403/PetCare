@@ -12,7 +12,7 @@ import vn.aptech.entity.OrderDetails;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Stateless
 public class OrderDetailsFacade extends AbstractFacade<OrderDetails> implements OrderDetailsFacadeLocal {

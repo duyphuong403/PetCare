@@ -7,26 +7,26 @@ package vn.aptech.sb;
 
 import java.util.List;
 import javax.ejb.Local;
-import vn.aptech.entity.Articles;
+import vn.aptech.entity.Feedback;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Local
-public interface ArticlesFacadeLocal {
+public interface FeedbackFacadeLocal {
 
-    void create(Articles articles);
+    void create(Feedback feedback);
 
-    void edit(Articles articles);
+    void edit(Feedback feedback);
 
-    void remove(Articles articles);
+    void remove(Feedback feedback);
 
-    Articles find(Object id);
+    Feedback find(Object id);
 
-    List<Articles> findAll();
+    List<Feedback> findAll();
 
-    List<Articles> findRange(int[] range);
+    List<Feedback> findRange(int[] range);
 
     int count();
     

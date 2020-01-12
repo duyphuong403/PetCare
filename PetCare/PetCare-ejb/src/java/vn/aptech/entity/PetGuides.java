@@ -26,35 +26,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Entity
-@Table(name = "Articles")
+@Table(name = "PetGuides")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Articles.findAll", query = "SELECT a FROM Articles a")
-    , @NamedQuery(name = "Articles.findByArtId", query = "SELECT a FROM Articles a WHERE a.artId = :artId")
-    , @NamedQuery(name = "Articles.findByName", query = "SELECT a FROM Articles a WHERE a.name = :name")
-    , @NamedQuery(name = "Articles.findByContent", query = "SELECT a FROM Articles a WHERE a.content = :content")
-    , @NamedQuery(name = "Articles.findByImageName", query = "SELECT a FROM Articles a WHERE a.imageName = :imageName")
-    , @NamedQuery(name = "Articles.findByIsNew", query = "SELECT a FROM Articles a WHERE a.isNew = :isNew")
-    , @NamedQuery(name = "Articles.findByDateCreated", query = "SELECT a FROM Articles a WHERE a.dateCreated = :dateCreated")})
-public class Articles implements Serializable {
+    @NamedQuery(name = "PetGuides.findAll", query = "SELECT p FROM PetGuides p")
+    , @NamedQuery(name = "PetGuides.findByPetGuideId", query = "SELECT p FROM PetGuides p WHERE p.petGuideId = :petGuideId")
+    , @NamedQuery(name = "PetGuides.findByTitle", query = "SELECT p FROM PetGuides p WHERE p.title = :title")
+    , @NamedQuery(name = "PetGuides.findByContent", query = "SELECT p FROM PetGuides p WHERE p.content = :content")
+    , @NamedQuery(name = "PetGuides.findByImageName", query = "SELECT p FROM PetGuides p WHERE p.imageName = :imageName")
+    , @NamedQuery(name = "PetGuides.findByIsNew", query = "SELECT p FROM PetGuides p WHERE p.isNew = :isNew")
+    , @NamedQuery(name = "PetGuides.findByDateCreated", query = "SELECT p FROM PetGuides p WHERE p.dateCreated = :dateCreated")})
+public class PetGuides implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ArtId")
-    private Integer artId;
+    @Column(name = "PetGuideId")
+    private Integer petGuideId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "Name")
-    private String name;
+    @Size(min = 1, max = 200)
+    @Column(name = "Title")
+    private String title;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2000)
+    @Size(min = 1, max = 2147483647)
     @Column(name = "Content")
     private String content;
     @Size(max = 200)
@@ -71,34 +71,34 @@ public class Articles implements Serializable {
     @ManyToOne(optional = false)
     private Accounts accId;
 
-    public Articles() {
+    public PetGuides() {
     }
 
-    public Articles(Integer artId) {
-        this.artId = artId;
+    public PetGuides(Integer petGuideId) {
+        this.petGuideId = petGuideId;
     }
 
-    public Articles(Integer artId, String name, String content, boolean isNew) {
-        this.artId = artId;
-        this.name = name;
+    public PetGuides(Integer petGuideId, String title, String content, boolean isNew) {
+        this.petGuideId = petGuideId;
+        this.title = title;
         this.content = content;
         this.isNew = isNew;
     }
 
-    public Integer getArtId() {
-        return artId;
+    public Integer getPetGuideId() {
+        return petGuideId;
     }
 
-    public void setArtId(Integer artId) {
-        this.artId = artId;
+    public void setPetGuideId(Integer petGuideId) {
+        this.petGuideId = petGuideId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -144,18 +144,18 @@ public class Articles implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (artId != null ? artId.hashCode() : 0);
+        hash += (petGuideId != null ? petGuideId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Articles)) {
+        if (!(object instanceof PetGuides)) {
             return false;
         }
-        Articles other = (Articles) object;
-        if ((this.artId == null && other.artId != null) || (this.artId != null && !this.artId.equals(other.artId))) {
+        PetGuides other = (PetGuides) object;
+        if ((this.petGuideId == null && other.petGuideId != null) || (this.petGuideId != null && !this.petGuideId.equals(other.petGuideId))) {
             return false;
         }
         return true;
@@ -163,7 +163,7 @@ public class Articles implements Serializable {
 
     @Override
     public String toString() {
-        return "vn.aptech.entity.Articles[ artId=" + artId + " ]";
+        return "vn.aptech.entity.PetGuides[ petGuideId=" + petGuideId + " ]";
     }
     
 }

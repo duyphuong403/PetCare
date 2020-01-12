@@ -11,7 +11,7 @@ import vn.aptech.entity.Contact;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Local
 public interface ContactFacadeLocal {

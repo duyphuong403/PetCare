@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Entity
 @Table(name = "Accounts")
@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Accounts.findByPhone", query = "SELECT a FROM Accounts a WHERE a.phone = :phone")
     , @NamedQuery(name = "Accounts.findByAddress", query = "SELECT a FROM Accounts a WHERE a.address = :address")
     , @NamedQuery(name = "Accounts.findByRole", query = "SELECT a FROM Accounts a WHERE a.role = :role")
+    , @NamedQuery(name = "Accounts.findByIsInactive", query = "SELECT a FROM Accounts a WHERE a.isInactive = :isInactive")
+    , @NamedQuery(name = "Accounts.findByReasonBaned", query = "SELECT a FROM Accounts a WHERE a.reasonBaned = :reasonBaned")
     , @NamedQuery(name = "Accounts.findByDateCreated", query = "SELECT a FROM Accounts a WHERE a.dateCreated = :dateCreated")})
 public class Accounts implements Serializable {
 
@@ -80,17 +82,22 @@ public class Accounts implements Serializable {
     private short role;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "IsInactive")
+    private boolean isInactive;
+    @Size(max = 1000)
+    @Column(name = "ReasonBaned")
+    private String reasonBaned;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DateCreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
+    private Collection<PetGuides> petGuidesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
     private Collection<Orders> ordersCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
     private Collection<Products> productsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
-    private Collection<Articles> articlesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
-    private Collection<Contact> contactCollection;
 
     public Accounts() {
     }
@@ -99,11 +106,12 @@ public class Accounts implements Serializable {
         this.accId = accId;
     }
 
-    public Accounts(Integer accId, String username, String password, short role, Date dateCreated) {
+    public Accounts(Integer accId, String username, String password, short role, boolean isInactive, Date dateCreated) {
         this.accId = accId;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.isInactive = isInactive;
         this.dateCreated = dateCreated;
     }
 
@@ -171,12 +179,37 @@ public class Accounts implements Serializable {
         this.role = role;
     }
 
+    public boolean getIsInactive() {
+        return isInactive;
+    }
+
+    public void setIsInactive(boolean isInactive) {
+        this.isInactive = isInactive;
+    }
+
+    public String getReasonBaned() {
+        return reasonBaned;
+    }
+
+    public void setReasonBaned(String reasonBaned) {
+        this.reasonBaned = reasonBaned;
+    }
+
     public Date getDateCreated() {
         return dateCreated;
     }
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    @XmlTransient
+    public Collection<PetGuides> getPetGuidesCollection() {
+        return petGuidesCollection;
+    }
+
+    public void setPetGuidesCollection(Collection<PetGuides> petGuidesCollection) {
+        this.petGuidesCollection = petGuidesCollection;
     }
 
     @XmlTransient
@@ -195,24 +228,6 @@ public class Accounts implements Serializable {
 
     public void setProductsCollection(Collection<Products> productsCollection) {
         this.productsCollection = productsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Articles> getArticlesCollection() {
-        return articlesCollection;
-    }
-
-    public void setArticlesCollection(Collection<Articles> articlesCollection) {
-        this.articlesCollection = articlesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Contact> getContactCollection() {
-        return contactCollection;
-    }
-
-    public void setContactCollection(Collection<Contact> contactCollection) {
-        this.contactCollection = contactCollection;
     }
 
     @Override

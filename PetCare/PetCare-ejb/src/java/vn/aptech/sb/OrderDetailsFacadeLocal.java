@@ -11,7 +11,7 @@ import vn.aptech.entity.OrderDetails;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Local
 public interface OrderDetailsFacadeLocal {

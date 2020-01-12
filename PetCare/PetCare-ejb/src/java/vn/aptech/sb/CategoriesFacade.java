@@ -12,7 +12,7 @@ import vn.aptech.entity.Categories;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Stateless
 public class CategoriesFacade extends AbstractFacade<Categories> implements CategoriesFacadeLocal {

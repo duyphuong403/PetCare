@@ -8,15 +8,16 @@ package vn.aptech.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,26 +27,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Entity
 @Table(name = "Contact")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c")
-    , @NamedQuery(name = "Contact.findByContactId", query = "SELECT c FROM Contact c WHERE c.contactId = :contactId")
+    , @NamedQuery(name = "Contact.findByFeedbacktId", query = "SELECT c FROM Contact c WHERE c.feedbacktId = :feedbacktId")
     , @NamedQuery(name = "Contact.findByAddress", query = "SELECT c FROM Contact c WHERE c.address = :address")
     , @NamedQuery(name = "Contact.findByPhone", query = "SELECT c FROM Contact c WHERE c.phone = :phone")
     , @NamedQuery(name = "Contact.findByEmbededMap", query = "SELECT c FROM Contact c WHERE c.embededMap = :embededMap")
-    , @NamedQuery(name = "Contact.findByDateChanged", query = "SELECT c FROM Contact c WHERE c.dateChanged = :dateChanged")})
+    , @NamedQuery(name = "Contact.findByIsRead", query = "SELECT c FROM Contact c WHERE c.isRead = :isRead")
+    , @NamedQuery(name = "Contact.findByDateChanged", query = "SELECT c FROM Contact c WHERE c.dateChanged = :dateChanged")
+    , @NamedQuery(name = "Contact.findByAccId", query = "SELECT c FROM Contact c WHERE c.accId = :accId")})
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ContactId")
-    private Integer contactId;
+    @Column(name = "FeedbacktId")
+    private Integer feedbacktId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -58,32 +61,44 @@ public class Contact implements Serializable {
     private String embededMap;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "IsRead")
+    private boolean isRead;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DateChanged")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateChanged;
-    @JoinColumn(name = "AccId", referencedColumnName = "AccId")
-    @ManyToOne(optional = false)
-    private Accounts accId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "AccId")
+    private int accId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contact1")
+    private Contact contact;
+    @JoinColumn(name = "FeedbacktId", referencedColumnName = "FeedbacktId", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Contact contact1;
 
     public Contact() {
     }
 
-    public Contact(Integer contactId) {
-        this.contactId = contactId;
+    public Contact(Integer feedbacktId) {
+        this.feedbacktId = feedbacktId;
     }
 
-    public Contact(Integer contactId, String address, Date dateChanged) {
-        this.contactId = contactId;
+    public Contact(Integer feedbacktId, String address, boolean isRead, Date dateChanged, int accId) {
+        this.feedbacktId = feedbacktId;
         this.address = address;
+        this.isRead = isRead;
         this.dateChanged = dateChanged;
+        this.accId = accId;
     }
 
-    public Integer getContactId() {
-        return contactId;
+    public Integer getFeedbacktId() {
+        return feedbacktId;
     }
 
-    public void setContactId(Integer contactId) {
-        this.contactId = contactId;
+    public void setFeedbacktId(Integer feedbacktId) {
+        this.feedbacktId = feedbacktId;
     }
 
     public String getAddress() {
@@ -110,6 +125,14 @@ public class Contact implements Serializable {
         this.embededMap = embededMap;
     }
 
+    public boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
+    }
+
     public Date getDateChanged() {
         return dateChanged;
     }
@@ -118,18 +141,34 @@ public class Contact implements Serializable {
         this.dateChanged = dateChanged;
     }
 
-    public Accounts getAccId() {
+    public int getAccId() {
         return accId;
     }
 
-    public void setAccId(Accounts accId) {
+    public void setAccId(int accId) {
         this.accId = accId;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Contact getContact1() {
+        return contact1;
+    }
+
+    public void setContact1(Contact contact1) {
+        this.contact1 = contact1;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (contactId != null ? contactId.hashCode() : 0);
+        hash += (feedbacktId != null ? feedbacktId.hashCode() : 0);
         return hash;
     }
 
@@ -140,7 +179,7 @@ public class Contact implements Serializable {
             return false;
         }
         Contact other = (Contact) object;
-        if ((this.contactId == null && other.contactId != null) || (this.contactId != null && !this.contactId.equals(other.contactId))) {
+        if ((this.feedbacktId == null && other.feedbacktId != null) || (this.feedbacktId != null && !this.feedbacktId.equals(other.feedbacktId))) {
             return false;
         }
         return true;
@@ -148,7 +187,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "vn.aptech.entity.Contact[ contactId=" + contactId + " ]";
+        return "vn.aptech.entity.Contact[ feedbacktId=" + feedbacktId + " ]";
     }
     
 }

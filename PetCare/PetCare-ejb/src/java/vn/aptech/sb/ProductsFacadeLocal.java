@@ -11,7 +11,7 @@ import vn.aptech.entity.Products;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Local
 public interface ProductsFacadeLocal {

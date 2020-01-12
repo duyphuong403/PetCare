@@ -12,7 +12,7 @@ import vn.aptech.entity.Contact;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Stateless
 public class ContactFacade extends AbstractFacade<Contact> implements ContactFacadeLocal {

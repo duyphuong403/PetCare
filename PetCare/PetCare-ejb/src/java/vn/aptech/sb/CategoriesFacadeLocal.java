@@ -11,7 +11,7 @@ import vn.aptech.entity.Categories;
 
 /**
  *
- * @author Dell
+ * @author ngodu
  */
 @Local
 public interface CategoriesFacadeLocal {
