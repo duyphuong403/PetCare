@@ -89,3 +89,5 @@ derby.log
 ######################
 
 .factorypath
+/PetCare/PetCare-ejb/dist/
+/PetCare/PetCare-war/dist/
