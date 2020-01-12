@@ -89,3 +89,6 @@ derby.log
 ######################
 
 
+*.properties
+*.properties
+*.properties
