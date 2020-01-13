@@ -1,6 +1,5 @@
 # Directories #
-#*.properties
-
+*.properties
 # OS Files #
 .DS_Store
  
@@ -40,6 +39,7 @@ Desktop.ini
 ######################
 # NetBeans
 ######################
+
 
  
 ######################
@@ -88,6 +88,7 @@ derby.log
 # Liberty tools
 ######################
 
-.factorypath
-/PetCare/PetCare-ejb/dist/
-/PetCare/PetCare-war/dist/
+
+*.properties
+*.properties
+*.properties
