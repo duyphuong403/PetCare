@@ -52,7 +52,7 @@ public class AdminController extends HttpServlet {
                         Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
                         session.setAttribute("curAcc", curAcc);
                         if (curAcc != null) {
-                            if (curAcc.getRole() == 3 || curAcc.getRole() == 2) {
+                            if (curAcc.getRole() == 1 || curAcc.getRole() == 2) {
                                 request.setAttribute("title", "Administrator Control Panel");
                                 request.getRequestDispatcher("adminUI/home.jsp").forward(request, response);
                             } else {
