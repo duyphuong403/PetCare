@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import vn.aptech.entity.Accounts;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T10:10:07")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T10:16:47")
 @StaticMetamodel(PetGuides.class)
 public class PetGuides_ { 
 
