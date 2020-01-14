@@ -9,7 +9,7 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
 import vn.aptech.entity.OrderDetails;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T10:16:47")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T20:09:48")
 @StaticMetamodel(Products.class)
 public class Products_ { 
 
