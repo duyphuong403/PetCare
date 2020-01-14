@@ -27,9 +27,8 @@
     </div>-->
     <div id="footnote">
         <div class="section">
-            Copyright &copy; 2012 <a href="UserController?action=login">Company Name</a> 
-            All rights reserved | Website Template By 
-            <a target="_blank" href="http://www.freewebsitetemplates.com/">freewebsitetemplates.com</a>
+            Copyright &copy; 2019 - 2020 <a href="UserController?action=login">Petcare</a> 
+            All rights reserved
         </div>
     </div>
 </div>
