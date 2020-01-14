@@ -21,9 +21,11 @@ private.properties
 *.zip
 *.tar.gz
 *.rar
+*rapt
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /build/
 /Pet-war/dist/
 /PetCare/build/
+/PetCare-ejb/build/generated-sources
