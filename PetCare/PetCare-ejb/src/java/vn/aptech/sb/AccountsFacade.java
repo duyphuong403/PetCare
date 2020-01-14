@@ -37,5 +37,4 @@ public class AccountsFacade extends AbstractFacade<Accounts> implements Accounts
             return null;
         }
     }
-    
 }

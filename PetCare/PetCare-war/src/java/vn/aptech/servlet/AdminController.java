@@ -45,7 +45,7 @@ public class AdminController extends HttpServlet {
                 case "login":
                     String email = request.getParameter("username");
                     String pwd = request.getParameter("password");
-                    if (email == null || email == "" || pwd == null || pwd == "") {
+                    if (email == null || email.equals("") || pwd == null || pwd.equals("")){
                         request.setAttribute("message", "Please enter username and password");
                         request.getRequestDispatcher("login.jsp").forward(request, response);
                     } else {

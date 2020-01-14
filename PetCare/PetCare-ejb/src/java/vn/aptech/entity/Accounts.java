@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ngodu
  */
 @Entity
-@Table(name = "Accounts", catalog = "PetcareDB", schema = "dbo")
+@Table(name = "Accounts")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Accounts a")
@@ -73,7 +73,7 @@ public class Accounts implements Serializable {
     private String email;
     @Column(name = "Phone")
     private Integer phone;
-    @Size(max = 250)
+    @Size(max = 255)
     @Column(name = "Address")
     private String address;
     @Basic(optional = false)

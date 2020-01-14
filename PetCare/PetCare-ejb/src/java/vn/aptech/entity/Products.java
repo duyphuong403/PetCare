@@ -6,8 +6,10 @@
 package vn.aptech.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,24 +19,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author ngodu
  */
 @Entity
-@Table(name = "Products", catalog = "PetcareDB", schema = "dbo")
+@Table(name = "Products")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
     , @NamedQuery(name = "Products.findByProdId", query = "SELECT p FROM Products p WHERE p.prodId = :prodId")
     , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
+    , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
+    , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
     , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
     , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
     , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
@@ -52,10 +58,16 @@ public class Products implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "Name")
     private String name;
+    @Size(max = 200)
+    @Column(name = "Description")
+    private String description;
+    @Size(max = 200)
+    @Column(name = "ImageName")
+    private String imageName;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Quantity")
-    private short quantity;
+    private int quantity;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -72,6 +84,8 @@ public class Products implements Serializable {
     @JoinColumn(name = "CateId", referencedColumnName = "CateId")
     @ManyToOne(optional = false)
     private Categories cateId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
+    private Collection<OrderDetails> orderDetailsCollection;
 
     public Products() {
     }
@@ -80,7 +94,7 @@ public class Products implements Serializable {
         this.prodId = prodId;
     }
 
-    public Products(Integer prodId, String name, short quantity, String unitPrice) {
+    public Products(Integer prodId, String name, int quantity, String unitPrice) {
         this.prodId = prodId;
         this.name = name;
         this.quantity = quantity;
@@ -103,11 +117,27 @@ public class Products implements Serializable {
         this.name = name;
     }
 
-    public short getQuantity() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(short quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -149,6 +179,15 @@ public class Products implements Serializable {
 
     public void setCateId(Categories cateId) {
         this.cateId = cateId;
+    }
+
+    @XmlTransient
+    public Collection<OrderDetails> getOrderDetailsCollection() {
+        return orderDetailsCollection;
+    }
+
+    public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
+        this.orderDetailsCollection = orderDetailsCollection;
     }
 
     @Override

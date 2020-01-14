@@ -28,12 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ngodu
  */
 @Entity
-@Table(name = "Categories", catalog = "PetcareDB", schema = "dbo")
+@Table(name = "Categories")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
     , @NamedQuery(name = "Categories.findByCateId", query = "SELECT c FROM Categories c WHERE c.cateId = :cateId")
-    , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")})
+    , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")
+    , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")})
 public class Categories implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +48,9 @@ public class Categories implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "Name")
     private String name;
+    @Size(max = 300)
+    @Column(name = "Description")
+    private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
     private Collection<Products> productsCollection;
 
@@ -76,6 +80,14 @@ public class Categories implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlTransient

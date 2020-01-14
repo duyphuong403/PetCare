@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ngodu
  */
 @Entity
-@Table(name = "PetGuides", catalog = "PetcareDB", schema = "dbo")
+@Table(name = "PetGuides")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PetGuides.findAll", query = "SELECT p FROM PetGuides p")
@@ -60,10 +60,8 @@ public class PetGuides implements Serializable {
     @Size(max = 200)
     @Column(name = "ImageName")
     private String imageName;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "IsNew")
-    private boolean isNew;
+    private Boolean isNew;
     @Column(name = "DateCreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
@@ -78,11 +76,10 @@ public class PetGuides implements Serializable {
         this.petGuideId = petGuideId;
     }
 
-    public PetGuides(Integer petGuideId, String title, String content, boolean isNew) {
+    public PetGuides(Integer petGuideId, String title, String content) {
         this.petGuideId = petGuideId;
         this.title = title;
         this.content = content;
-        this.isNew = isNew;
     }
 
     public Integer getPetGuideId() {
@@ -117,11 +114,11 @@ public class PetGuides implements Serializable {
         this.imageName = imageName;
     }
 
-    public boolean getIsNew() {
+    public Boolean getIsNew() {
         return isNew;
     }
 
-    public void setIsNew(boolean isNew) {
+    public void setIsNew(Boolean isNew) {
         this.isNew = isNew;
     }
 

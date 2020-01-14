@@ -28,12 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ngodu
  */
 @Entity
-@Table(name = "OrderDetails", catalog = "PetcareDB", schema = "dbo")
+@Table(name = "OrderDetails")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrderDetails.findAll", query = "SELECT o FROM OrderDetails o")
     , @NamedQuery(name = "OrderDetails.findByOdId", query = "SELECT o FROM OrderDetails o WHERE o.odId = :odId")
     , @NamedQuery(name = "OrderDetails.findByQuantity", query = "SELECT o FROM OrderDetails o WHERE o.quantity = :quantity")
+    , @NamedQuery(name = "OrderDetails.findByPrice", query = "SELECT o FROM OrderDetails o WHERE o.price = :price")
+    , @NamedQuery(name = "OrderDetails.findByIsDelivered", query = "SELECT o FROM OrderDetails o WHERE o.isDelivered = :isDelivered")
     , @NamedQuery(name = "OrderDetails.findByDateCreated", query = "SELECT o FROM OrderDetails o WHERE o.dateCreated = :dateCreated")})
 public class OrderDetails implements Serializable {
 
@@ -46,13 +48,24 @@ public class OrderDetails implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Quantity")
-    private short quantity;
+    private int quantity;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Price")
+    private int price;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IsDelivered")
+    private boolean isDelivered;
     @Column(name = "DateCreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
     @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
     @ManyToOne(optional = false)
     private Orders orderId;
+    @JoinColumn(name = "ProdId", referencedColumnName = "ProdId")
+    @ManyToOne(optional = false)
+    private Products prodId;
 
     public OrderDetails() {
     }
@@ -61,9 +74,11 @@ public class OrderDetails implements Serializable {
         this.odId = odId;
     }
 
-    public OrderDetails(Integer odId, short quantity) {
+    public OrderDetails(Integer odId, int quantity, int price, boolean isDelivered) {
         this.odId = odId;
         this.quantity = quantity;
+        this.price = price;
+        this.isDelivered = isDelivered;
     }
 
     public Integer getOdId() {
@@ -74,12 +89,28 @@ public class OrderDetails implements Serializable {
         this.odId = odId;
     }
 
-    public short getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(short quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean getIsDelivered() {
+        return isDelivered;
+    }
+
+    public void setIsDelivered(boolean isDelivered) {
+        this.isDelivered = isDelivered;
     }
 
     public Date getDateCreated() {
@@ -96,6 +127,14 @@ public class OrderDetails implements Serializable {
 
     public void setOrderId(Orders orderId) {
         this.orderId = orderId;
+    }
+
+    public Products getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Products prodId) {
+        this.prodId = prodId;
     }
 
     @Override
