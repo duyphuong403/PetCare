@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.Products;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T20:09:47")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-01-14T20:44:54")
 @StaticMetamodel(OrderDetails.class)
 public class OrderDetails_ { 
 
