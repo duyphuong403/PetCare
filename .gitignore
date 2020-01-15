@@ -24,3 +24,9 @@ hs_err_pid*
 /Petcare/Petcare-war/nbproject/private/
 /Petcare/nbproject/private/
 /Petcare/Petcare-ejb/nbproject/private/
+/Petcare/Petcare-ejb/build/
+/Petcare/Petcare-ejb/dist/
+/Petcare/Petcare-war/build/
+/Petcare/build/
+/Petcare/dist/
+/Petcare/Petcare-war/dist/
