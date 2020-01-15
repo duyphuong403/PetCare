@@ -6,7 +6,7 @@ GO
 
 USE [PetcareDB]
 GO
-/****** Object:  Table [dbo].[Accounts]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[Accounts]    Script Date: 1/15/2020 11:12:29 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -29,7 +29,7 @@ CREATE TABLE [dbo].[Accounts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Feedback]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[Feedback]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -60,7 +60,7 @@ CREATE TABLE [dbo].[Feedback](
 	[AccId] [int] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetails]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[OrderDetails]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -69,6 +69,7 @@ CREATE TABLE [dbo].[OrderDetails](
 	[OdId] [int] IDENTITY(1,1) NOT NULL,
 	[Quantity] [int] NOT NULL,
 	[Price] [int] NOT NULL,
+	[IsVerified] [bit] NOT NULL,
 	[IsDelivered] [bit] NOT NULL,
 	[DateCreated] [datetime] NULL,
 	[OrderId] [int] NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE [dbo].[OrderDetails](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +95,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PetGuides]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[PetGuides]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,7 +114,7 @@ CREATE TABLE [dbo].[PetGuides](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductImages]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[ProductImages]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +129,7 @@ CREATE TABLE [dbo].[ProductImages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 1/15/2020 11:12:30 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -179,7 +180,7 @@ INSERT [dbo].[Products] ([ProdId], [Name], [Description], [ImageName], [Quantity
 SET IDENTITY_INSERT [dbo].[Products] OFF
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [U_Name]    Script Date: 1/14/2020 9:33:36 AM ******/
+/****** Object:  Index [U_Name]    Script Date: 1/15/2020 11:12:30 AM ******/
 ALTER TABLE [dbo].[Categories] ADD  CONSTRAINT [U_Name] UNIQUE NONCLUSTERED 
 (
 	[Name] ASC
@@ -194,6 +195,8 @@ GO
 ALTER TABLE [dbo].[Feedback] ADD  CONSTRAINT [DF_Feedback_IsRead]  DEFAULT ((0)) FOR [IsRead]
 GO
 ALTER TABLE [dbo].[Feedback] ADD  CONSTRAINT [DF_Feedback_DateCreated]  DEFAULT (getdate()) FOR [DateCreated]
+GO
+ALTER TABLE [dbo].[OrderDetails] ADD  CONSTRAINT [DF_OrderDetails_IsVerified]  DEFAULT ((0)) FOR [IsVerified]
 GO
 ALTER TABLE [dbo].[OrderDetails] ADD  CONSTRAINT [DF_OrderDetails_IsDelivered]  DEFAULT ((0)) FOR [IsDelivered]
 GO
