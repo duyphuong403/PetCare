@@ -155,7 +155,7 @@ SET IDENTITY_INSERT [dbo].[Accounts] ON
 
 INSERT [dbo].[Accounts] ([AccId], [Username], [Password], [Fullname], [Email], [Phone], [Address], [Role], [IsInactive], [ReasonBaned], [DateCreated]) VALUES (1, N'admin', N'admin', N'Administrator', N'admin@gmail.com', 933113114, N'590 CMT8', 2, 0, NULL, CAST(N'2020-01-12T18:02:43.797' AS DateTime))
 INSERT [dbo].[Accounts] ([AccId], [Username], [Password], [Fullname], [Email], [Phone], [Address], [Role], [IsInactive], [ReasonBaned], [DateCreated]) VALUES (2, N'user', N'user', N'User', N'user@gmail.com', 902123321, N'21 Bui Thi Xuan', 0, 0, NULL, CAST(N'2020-01-12T19:05:26.450' AS DateTime))
-INSERT [dbo].[Accounts] ([AccId], [Username], [Password], [Fullname], [Email], [Phone], [Address], [Role], [IsInactive], [ReasonBaned], [DateCreated]) VALUES (3, N'phuong.nd', N'123456', N'Phuong Ngo', N'phuong.ngo@gmail.com', 762327226, N'70 Nguy?n S? Sách', 1, 0, NULL, CAST(N'2020-01-12T19:07:49.313' AS DateTime))
+INSERT [dbo].[Accounts] ([AccId], [Username], [Password], [Fullname], [Email], [Phone], [Address], [Role], [IsInactive], [ReasonBaned], [DateCreated]) VALUES (3, N'phuong.nd', N'123456', N'Phuong Ngo', N'phuong.ngo@gmail.com', 762327226, N'70 Nguy?n S? SÃ¡ch', 1, 0, NULL, CAST(N'2020-01-12T19:07:49.313' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
 SET IDENTITY_INSERT [dbo].[Categories] ON 
 
@@ -171,7 +171,7 @@ INSERT [dbo].[Orders] ([OrderId], [AccId], [DateCreated]) VALUES (1, 1, CAST(N'2
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 SET IDENTITY_INSERT [dbo].[PetGuides] ON 
 
-INSERT [dbo].[PetGuides] ([PetGuideId], [Title], [Content], [ImageName], [IsNew], [DateCreated], [AccId]) VALUES (1, N'Test Title', N'Lorem Ipsum...tét', N'test.jpg', 0, CAST(N'2020-01-12T19:17:36.627' AS DateTime), 1)
+INSERT [dbo].[PetGuides] ([PetGuideId], [Title], [Content], [ImageName], [IsNew], [DateCreated], [AccId]) VALUES (1, N'Test Title', N'Lorem Ipsum...tÃ©t', N'test.jpg', 0, CAST(N'2020-01-12T19:17:36.627' AS DateTime), 1)
 INSERT [dbo].[PetGuides] ([PetGuideId], [Title], [Content], [ImageName], [IsNew], [DateCreated], [AccId]) VALUES (3, N'Dog', N'Lorem ipsum....', NULL, 0, CAST(N'2020-01-14T09:22:07.367' AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[PetGuides] OFF
 SET IDENTITY_INSERT [dbo].[Products] ON 
@@ -247,3 +247,6 @@ REFERENCES [dbo].[Categories] ([CateId])
 GO
 ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_Categories]
 GO
+alter table ProductImages
+add foreign key (ProdId) references Products(ProdId)
+go
