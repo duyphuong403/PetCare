@@ -30,4 +30,5 @@ public interface FeedbackFacadeLocal {
 
     int count();
     
+    void searchByTitle(String title);
 }
