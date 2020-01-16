@@ -21,6 +21,10 @@
         <servlet-name>AdminController</servlet-name>
         <servlet-class>vn.aptech.servlet.AdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeController</servlet-name>
+        <servlet-class>vn.aptech.servlet.EmployeeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -36,6 +40,10 @@
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/AdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/EmployeeController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

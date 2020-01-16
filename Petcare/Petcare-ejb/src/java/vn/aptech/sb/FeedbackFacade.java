@@ -28,5 +28,9 @@ public class FeedbackFacade extends AbstractFacade<Feedback> implements Feedback
     public FeedbackFacade() {
         super(Feedback.class);
     }
+    public void searchByTitle(String title){
+        
+    }
+    
     
 }
