@@ -92,3 +92,11 @@ derby.log
 *.properties
 *.properties
 *.properties
+/Petcare/Petcare-ejb/build/
+/PetCare/PetCare-ejb/build/
+/PetCare/PetCare-ejb/nbproject/private/
+/PetCare/PetCare-war/build/
+/PetCare/PetCare-war/nbproject/private/
+/PetCare/build/
+/PetCare/dist/
+/PetCare/nbproject/private/
