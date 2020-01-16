@@ -14,6 +14,7 @@
         <li class="${PetGuide}"><a href="UserController?action=petguide">PetGuide</a></li>
         <li class="${AboutUs}"><a href="UserController?action=aboutus">About us</a></li>
         <li class="${ContactUS}"><a href="UserController?action=contactus">Contact us</a></li>
+        <li class="${Cart}"><a href="UserController?action=cart">Cart</a></li>
     </ul>
 </div>
 
