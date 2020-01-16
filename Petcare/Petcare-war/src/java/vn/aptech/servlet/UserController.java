@@ -67,6 +67,11 @@ public class UserController extends HttpServlet {
                     request.setAttribute("ContactUs", "active");
                     request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
                     break;
+                case "cart":
+                    request.setAttribute("title", "Cart");
+                    request.setAttribute("Cart", "active");
+                    request.getRequestDispatcher("clientUI/cart.jsp").forward(request, response);
+                    break;
                 case "login":
                     if (session.getAttribute("curAcc") != null) {
                         request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
