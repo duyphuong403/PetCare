@@ -3,8 +3,8 @@
     Created on : Dec 13, 2019, 10:08:46 AM
     Author     : Dell
 --%>
-<%@include file="../templates/header.jsp" %>
-<%@include file="../templates/navbar.jsp" %>
+<%@include file="../templates-Client/header.jsp" %>
+<%@include file="../templates-Client/navbar.jsp" %>
 
 <div id="body">
     <div class="banner">&nbsp;</div>
@@ -33,7 +33,7 @@
             </ul>
         </div>
         <div id="sidebar">
-            <%@include file="../templates/formSearch.jsp" %>
+            <%@include file="../templates-Client/formSearch.jsp" %>
             <div class="section">
                 <ul class="navigation">
                     <li class="active"><a href="#">Shopping Guides</a></li>
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <%@include file="../templates/feature.jsp" %>
+    <%@include file="../templates-Client/feature.jsp" %>
 </div>
 
-<%@include file="../templates/footer.jsp" %>
+    <%@include file="../templates-Client/footer.jsp" %>

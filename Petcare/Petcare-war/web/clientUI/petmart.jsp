@@ -4,11 +4,11 @@
     Author     : Dell
 --%>
 
-<%@include file="../templates/header.jsp" %>
-<%@include file="../templates/navbar.jsp" %>
+<%@include file="../templates-Client/header.jsp" %>
+<%@include file="../templates-Client/navbar.jsp" %>
 <div id="body">
     <div id="content">
-        <%@include file="../templates/formSearch.jsp" %>
+        <%@include file="../templates-Client/formSearch.jsp" %>
 
         <div class="content">
             <ul>
@@ -85,4 +85,4 @@
     </div>
 </div>
 
-<%@include file="../templates/footer.jsp" %>
+<%@include file="../templates-Client/footer.jsp" %>

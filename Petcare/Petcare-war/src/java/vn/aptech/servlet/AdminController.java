@@ -53,8 +53,8 @@ public class AdminController extends HttpServlet {
                         session.setAttribute("curAcc", curAcc);
                         if (curAcc != null) {
                             if (curAcc.getRole() == 1 || curAcc.getRole() == 2) {
-                                request.setAttribute("title", "Administrator Control Panel");
-                                request.getRequestDispatcher("adminUI/home.jsp").forward(request, response);
+                                request.setAttribute("title", "Dashboard");
+                                request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
                             } else {
                                 request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
                             }

@@ -6,10 +6,10 @@
 <div class="search">
     <input type="text" name="s" placeholder="Find...">
     <button>&nbsp;</button>
-    <label for="articles">
+<!--    <label for="articles">
         <input type="radio" id="articles" name="search">
         Articles</label>
     <label for="products">
         <input type="radio" id="products" name="search" checked>
-        PetMart Products</label>
+        PetMart Products</label>-->
 </div>
