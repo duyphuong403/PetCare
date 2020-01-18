@@ -99,7 +99,7 @@ public class Accounts implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
     private Collection<Products> productsCollection;
     @OneToMany(mappedBy = "accId")
-    private Collection<Feedback> feedbackCollection;
+    private Collection<Feedbacks> feedbacksCollection;
 
     public Accounts() {
     }
@@ -233,12 +233,12 @@ public class Accounts implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Feedback> getFeedbackCollection() {
-        return feedbackCollection;
+    public Collection<Feedbacks> getFeedbacksCollection() {
+        return feedbacksCollection;
     }
 
-    public void setFeedbackCollection(Collection<Feedback> feedbackCollection) {
-        this.feedbackCollection = feedbackCollection;
+    public void setFeedbacksCollection(Collection<Feedbacks> feedbacksCollection) {
+        this.feedbacksCollection = feedbacksCollection;
     }
 
     @Override

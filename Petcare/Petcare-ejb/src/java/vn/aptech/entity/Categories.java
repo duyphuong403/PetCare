@@ -7,6 +7,7 @@ package vn.aptech.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
     , @NamedQuery(name = "Categories.findByCateId", query = "SELECT c FROM Categories c WHERE c.cateId = :cateId")
     , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")
-    , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")})
+    , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")
+    , @NamedQuery(name = "Categories.findByDateUpdated", query = "SELECT c FROM Categories c WHERE c.dateUpdated = :dateUpdated")
+    , @NamedQuery(name = "Categories.findByDateCreated", query = "SELECT c FROM Categories c WHERE c.dateCreated = :dateCreated")})
 public class Categories implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,6 +56,14 @@ public class Categories implements Serializable {
     @Size(max = 300)
     @Column(name = "Description")
     private String description;
+    @Column(name = "DateUpdated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUpdated;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DateCreated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
     private Collection<Products> productsCollection;
 
@@ -61,9 +74,10 @@ public class Categories implements Serializable {
         this.cateId = cateId;
     }
 
-    public Categories(Integer cateId, String name) {
+    public Categories(Integer cateId, String name, Date dateCreated) {
         this.cateId = cateId;
         this.name = name;
+        this.dateCreated = dateCreated;
     }
 
     public Integer getCateId() {
@@ -88,6 +102,22 @@ public class Categories implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     @XmlTransient
