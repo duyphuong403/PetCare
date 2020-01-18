@@ -38,11 +38,12 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         if (action == null) {
-            if (session.getAttribute("Role") == null) {
+            Accounts curAcc = (Accounts)session.getAttribute("curAcc");
+            if (curAcc == null) {
                 request.setAttribute("Login", "active");
                 request.getRequestDispatcher("clientUI/login.jsp").forward(request, response);
             } else {
-                int role = Integer.parseInt(session.getAttribute("Role").toString());
+                int role = curAcc.getRole();
                 switch (role) {
                     case 1:
                         request.setAttribute("title", "Dashboard");
@@ -68,7 +69,6 @@ public class AdminController extends HttpServlet {
                     } else {
                         Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
                         session.setAttribute("curAcc", curAcc);
-                        Accounts fullname = (Accounts)session.getAttribute("curAcc");
                         if (curAcc != null) {
                             if (curAcc.getRole() == 1 || curAcc.getRole() == 2) {
                                 request.setAttribute("title", "Dashboard");
