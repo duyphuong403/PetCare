@@ -35,22 +35,40 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
         if (action == null) {
-            request.setAttribute("Login", "active");
-            request.getRequestDispatcher("clientUI/login.jsp").forward(request, response);
+            if (session.getAttribute("Role") == null) {
+                request.setAttribute("Login", "active");
+                request.getRequestDispatcher("clientUI/login.jsp").forward(request, response);
+            } else {
+                int role = Integer.parseInt(session.getAttribute("Role").toString());
+                switch (role) {
+                    case 1:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                        break;
+                    case 2:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                        break;
+                    default:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+                }
+            }
         } else {
             switch (action) {
                 case "login":
                     String email = request.getParameter("username");
                     String pwd = request.getParameter("password");
-                    if (email == null || email.equals("") || pwd == null || pwd.equals("")){
+                    if (email == null || email.equals("") || pwd == null || pwd.equals("")) {
                         request.setAttribute("message", "Please enter username and password");
                         request.getRequestDispatcher("login.jsp").forward(request, response);
                     } else {
                         Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
                         session.setAttribute("curAcc", curAcc);
+                        Accounts fullname = (Accounts)session.getAttribute("curAcc");
                         if (curAcc != null) {
                             if (curAcc.getRole() == 1 || curAcc.getRole() == 2) {
                                 request.setAttribute("title", "Dashboard");
@@ -59,7 +77,7 @@ public class AdminController extends HttpServlet {
                                 request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
                             }
                         } else {
-                            request.setAttribute("message", "Username or password not invalid.");
+                            request.setAttribute("message", "Username or password invalid.");
                             request.getRequestDispatcher("login.jsp").forward(request, response);
                         }
                     }
@@ -68,7 +86,7 @@ public class AdminController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
