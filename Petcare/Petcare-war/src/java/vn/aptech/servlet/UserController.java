@@ -60,6 +60,7 @@ public class UserController extends HttpServlet {
                 case "petguide":
                     request.setAttribute("title", "Pet Guide");
                     request.setAttribute("PetGuide", "active");
+                    request.setAttribute("Articles", articlesFacade.findAll());
                     request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
                     break;
                 case "contactus":

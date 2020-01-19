@@ -41,7 +41,7 @@ public class AdminController extends HttpServlet {
             Accounts curAcc = (Accounts) session.getAttribute("curAcc");
             if (curAcc == null) {
                 request.setAttribute("Login", "active");
-                request.getRequestDispatcher("clientUI/login.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 int role = curAcc.getRole();
                 switch (role) {
@@ -73,7 +73,7 @@ public class AdminController extends HttpServlet {
                             switch (curAcc.getRole()) {
                                 case 1:
                                     request.setAttribute("title", "Dashboard");
-                                    request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                                    request.getRequestDispatcher("EmployeeController/index.jsp").forward(request, response);
                                     break;
                                 case 2:
                                     request.setAttribute("title", "Dashboard");
@@ -88,6 +88,20 @@ public class AdminController extends HttpServlet {
                             request.getRequestDispatcher("login.jsp").forward(request, response);
                         }
                     }
+                    break;
+                case "accounts":
+                    break;
+                case "orders":
+                    break;
+                case "petguides":
+                    break;
+                case "aboutus":
+                    break;
+                case "profile":
+                    break;
+                case "logout":
+                    session.removeAttribute("curAcc");
+                    response.sendRedirect("login.jsp");
                     break;
             }
         }

@@ -20,8 +20,8 @@
             Accounts curAcc = (Accounts)session.getAttribute("curAcc");
             if (curAcc == null){
                 response.sendRedirect("login.jsp");
-            }else if (curAcc.getRole() == 1){
-                response.sendRedirect("employeeUI/index.jsp");                
+            }else if (curAcc.getRole() == 2){
+                response.sendRedirect("adminUI/index.jsp");                
             }else if (curAcc.getRole() == 0){
                 response.sendRedirect("clientUI/index.jsp");
             }
