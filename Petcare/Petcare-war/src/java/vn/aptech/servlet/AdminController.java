@@ -47,7 +47,7 @@ public class AdminController extends HttpServlet {
                 switch (role) {
                     case 1:
                         request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                        request.getRequestDispatcher("/EmployeeController").forward(request, response);
                         break;
                     case 2:
                         request.setAttribute("title", "Dashboard");
@@ -73,7 +73,7 @@ public class AdminController extends HttpServlet {
                             switch (curAcc.getRole()) {
                                 case 1:
                                     request.setAttribute("title", "Dashboard");
-                                    request.getRequestDispatcher("EmployeeController/index.jsp").forward(request, response);
+                                    request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
                                     break;
                                 case 2:
                                     request.setAttribute("title", "Dashboard");

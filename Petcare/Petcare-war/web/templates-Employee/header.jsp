@@ -17,16 +17,16 @@
             if (request.getAttribute("title") == null) {
                 request.setAttribute("title", "Home");
             }
-            Accounts curAcc = (Accounts)session.getAttribute("curAcc");
-            if (curAcc == null){
+            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+            if (curAcc == null) {
                 response.sendRedirect("login.jsp");
-            }else if (curAcc.getRole() == 2){
-                response.sendRedirect("adminUI/index.jsp");                
-            }else if (curAcc.getRole() == 0){
+            } else if (curAcc.getRole() == 2) {
+                response.sendRedirect("adminUI/index.jsp");
+            } else if (curAcc.getRole() == 0) {
                 response.sendRedirect("clientUI/index.jsp");
             }
         %>
-        <title>Administrator | ${title}</title>
+        <title>Employee | ${title}</title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -35,4 +35,11 @@
         <link href="lib/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="lib/css/demo/demo.css" rel="stylesheet" />
+        <style type="text/css">
+            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu a:hover, .dropdown-menu a:focus, .dropdown-menu a:active {
+                box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+                background-color: #00bcd4;
+                color: #FFFFFF;
+            }
+        </style>
     </head>

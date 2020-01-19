@@ -4,13 +4,13 @@
     Author     : Dell
 --%>
 
-<%@include file="../templates-Admin/header.jsp" %>
+<%@include file="../templates-Employee/header.jsp" %>
 <div class="wrapper ">
-    <%@include file="../templates-Admin/sidebar.jsp" %>    
+    <%@include file="../templates-Employee/sidebar.jsp" %>    
     <div class="main-panel">
-        <%@include file="../templates-Admin/status-bar.jsp" %>
+        <%@include file="../templates-Employee/status-bar.jsp" %>
 
     </div>
 </div>
 
-<%@include file="../templates-Admin/footer.jsp" %>
+<%@include file="../templates-Employee/footer.jsp" %>

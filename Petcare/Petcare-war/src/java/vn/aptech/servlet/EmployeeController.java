@@ -12,13 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import vn.aptech.entity.Accounts;
 
 /**
  *
  * @author ngodu
  */
-@WebServlet(name = "EmployeeServlet", urlPatterns = {"/EmployeeServlet"})
-public class EmployeeServlet extends HttpServlet {
+@WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
+public class EmployeeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +33,49 @@ public class EmployeeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EmployeeServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EmployeeServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+        if (action == null) {
+            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+            if (curAcc == null) {
+                request.setAttribute("Login", "active");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                int role = curAcc.getRole();
+                switch (role) {
+                    case 1:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                        break;
+                    case 2:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                        break;
+                    default:
+                        request.setAttribute("title", "Dashboard");
+                        request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+                }
+            }
+        } else {
+            switch (action) {
+                case "accounts":
+                    break;
+                case "orders":
+                    break;
+                case "petguides":
+                    break;
+                case "aboutus":
+                    break;
+                case "profile":
+                    break;
+                case "logout":
+                    session.removeAttribute("curAcc");
+                    response.sendRedirect("login.jsp");
+                    break;
+                default:
+                    request.setAttribute("title", "Dashboard");
+                    request.getRequestDispatcher("employeUI/index.jsp").forward(request, response);
+            }
         }
     }
 
