@@ -38,16 +38,16 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         if (action == null) {
-            Accounts curAcc = (Accounts)session.getAttribute("curAcc");
+            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
             if (curAcc == null) {
                 request.setAttribute("Login", "active");
-                request.getRequestDispatcher("clientUI/login.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 int role = curAcc.getRole();
                 switch (role) {
                     case 1:
                         request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                        request.getRequestDispatcher("/EmployeeController").forward(request, response);
                         break;
                     case 2:
                         request.setAttribute("title", "Dashboard");
@@ -70,17 +70,38 @@ public class AdminController extends HttpServlet {
                         Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
                         session.setAttribute("curAcc", curAcc);
                         if (curAcc != null) {
-                            if (curAcc.getRole() == 1 || curAcc.getRole() == 2) {
-                                request.setAttribute("title", "Dashboard");
-                                request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
-                            } else {
-                                request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+                            switch (curAcc.getRole()) {
+                                case 1:
+                                    request.setAttribute("title", "Dashboard");
+                                    request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                                    break;
+                                case 2:
+                                    request.setAttribute("title", "Dashboard");
+                                    request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                                    break;
+                                default:
+                                    request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+                                    break;
                             }
                         } else {
                             request.setAttribute("message", "Username or password invalid.");
                             request.getRequestDispatcher("login.jsp").forward(request, response);
                         }
                     }
+                    break;
+                case "accounts":
+                    break;
+                case "orders":
+                    break;
+                case "petguides":
+                    break;
+                case "aboutus":
+                    break;
+                case "profile":
+                    break;
+                case "logout":
+                    session.removeAttribute("curAcc");
+                    response.sendRedirect("login.jsp");
                     break;
             }
         }

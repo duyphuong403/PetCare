@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ProductImages.findAll", query = "SELECT p FROM ProductImages p")
     , @NamedQuery(name = "ProductImages.findByImageId", query = "SELECT p FROM ProductImages p WHERE p.imageId = :imageId")
-    , @NamedQuery(name = "ProductImages.findByImageName", query = "SELECT p FROM ProductImages p WHERE p.imageName = :imageName")})
+    , @NamedQuery(name = "ProductImages.findByImageName", query = "SELECT p FROM ProductImages p WHERE p.imageName = :imageName")
+    , @NamedQuery(name = "ProductImages.findByDesciption", query = "SELECT p FROM ProductImages p WHERE p.desciption = :desciption")})
 public class ProductImages implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,9 @@ public class ProductImages implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "ImageName")
     private String imageName;
+    @Size(max = 300)
+    @Column(name = "Desciption")
+    private String desciption;
     @JoinColumn(name = "ProdId", referencedColumnName = "ProdId")
     @ManyToOne(optional = false)
     private Products prodId;
@@ -75,6 +79,14 @@ public class ProductImages implements Serializable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getDesciption() {
+        return desciption;
+    }
+
+    public void setDesciption(String desciption) {
+        this.desciption = desciption;
     }
 
     public Products getProdId() {

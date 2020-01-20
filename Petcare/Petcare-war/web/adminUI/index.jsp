@@ -7,6 +7,10 @@
 <%@include file="../templates-Admin/header.jsp" %>
 <div class="wrapper ">
     <%@include file="../templates-Admin/sidebar.jsp" %>    
+    <div class="main-panel">
+        <%@include file="../templates-Admin/status-bar.jsp" %>
+
+    </div>
 </div>
 
 <%@include file="../templates-Admin/footer.jsp" %>

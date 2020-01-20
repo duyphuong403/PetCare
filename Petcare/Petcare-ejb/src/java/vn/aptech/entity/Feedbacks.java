@@ -29,18 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ngodu
  */
 @Entity
-@Table(name = "Feedback")
+@Table(name = "Feedbacks")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f")
-    , @NamedQuery(name = "Feedback.findByFeedbacktId", query = "SELECT f FROM Feedback f WHERE f.feedbacktId = :feedbacktId")
-    , @NamedQuery(name = "Feedback.findByFullname", query = "SELECT f FROM Feedback f WHERE f.fullname = :fullname")
-    , @NamedQuery(name = "Feedback.findByEmail", query = "SELECT f FROM Feedback f WHERE f.email = :email")
-    , @NamedQuery(name = "Feedback.findByPhone", query = "SELECT f FROM Feedback f WHERE f.phone = :phone")
-    , @NamedQuery(name = "Feedback.findByContent", query = "SELECT f FROM Feedback f WHERE f.content = :content")
-    , @NamedQuery(name = "Feedback.findByIsRead", query = "SELECT f FROM Feedback f WHERE f.isRead = :isRead")
-    , @NamedQuery(name = "Feedback.findByDateCreated", query = "SELECT f FROM Feedback f WHERE f.dateCreated = :dateCreated")})
-public class Feedback implements Serializable {
+    @NamedQuery(name = "Feedbacks.findAll", query = "SELECT f FROM Feedbacks f")
+    , @NamedQuery(name = "Feedbacks.findByFeedbacktId", query = "SELECT f FROM Feedbacks f WHERE f.feedbacktId = :feedbacktId")
+    , @NamedQuery(name = "Feedbacks.findByFullname", query = "SELECT f FROM Feedbacks f WHERE f.fullname = :fullname")
+    , @NamedQuery(name = "Feedbacks.findByEmail", query = "SELECT f FROM Feedbacks f WHERE f.email = :email")
+    , @NamedQuery(name = "Feedbacks.findByPhone", query = "SELECT f FROM Feedbacks f WHERE f.phone = :phone")
+    , @NamedQuery(name = "Feedbacks.findByContent", query = "SELECT f FROM Feedbacks f WHERE f.content = :content")
+    , @NamedQuery(name = "Feedbacks.findByIsRead", query = "SELECT f FROM Feedbacks f WHERE f.isRead = :isRead")
+    , @NamedQuery(name = "Feedbacks.findByDateCreated", query = "SELECT f FROM Feedbacks f WHERE f.dateCreated = :dateCreated")})
+public class Feedbacks implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,14 +75,14 @@ public class Feedback implements Serializable {
     @ManyToOne
     private Accounts accId;
 
-    public Feedback() {
+    public Feedbacks() {
     }
 
-    public Feedback(Integer feedbacktId) {
+    public Feedbacks(Integer feedbacktId) {
         this.feedbacktId = feedbacktId;
     }
 
-    public Feedback(Integer feedbacktId, String fullname, String email, String content) {
+    public Feedbacks(Integer feedbacktId, String fullname, String email, String content) {
         this.feedbacktId = feedbacktId;
         this.fullname = fullname;
         this.email = email;
@@ -163,10 +163,10 @@ public class Feedback implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Feedback)) {
+        if (!(object instanceof Feedbacks)) {
             return false;
         }
-        Feedback other = (Feedback) object;
+        Feedbacks other = (Feedbacks) object;
         if ((this.feedbacktId == null && other.feedbacktId != null) || (this.feedbacktId != null && !this.feedbacktId.equals(other.feedbacktId))) {
             return false;
         }
@@ -175,7 +175,7 @@ public class Feedback implements Serializable {
 
     @Override
     public String toString() {
-        return "vn.aptech.entity.Feedback[ feedbacktId=" + feedbacktId + " ]";
+        return "vn.aptech.entity.Feedbacks[ feedbacktId=" + feedbacktId + " ]";
     }
     
 }

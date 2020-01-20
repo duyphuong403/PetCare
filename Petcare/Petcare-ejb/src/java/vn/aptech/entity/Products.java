@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
     , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
     , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
+    , @NamedQuery(name = "Products.findByDateUpdated", query = "SELECT p FROM Products p WHERE p.dateUpdated = :dateUpdated")
     , @NamedQuery(name = "Products.findByDateCreated", query = "SELECT p FROM Products p WHERE p.dateCreated = :dateCreated")})
 public class Products implements Serializable {
 
@@ -73,8 +74,15 @@ public class Products implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "UnitPrice")
     private String unitPrice;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "IsNew")
-    private Boolean isNew;
+    private boolean isNew;
+    @Column(name = "DateUpdated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUpdated;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DateCreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
@@ -96,11 +104,13 @@ public class Products implements Serializable {
         this.prodId = prodId;
     }
 
-    public Products(Integer prodId, String name, int quantity, String unitPrice) {
+    public Products(Integer prodId, String name, int quantity, String unitPrice, boolean isNew, Date dateCreated) {
         this.prodId = prodId;
         this.name = name;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+        this.isNew = isNew;
+        this.dateCreated = dateCreated;
     }
 
     public Integer getProdId() {
@@ -151,12 +161,20 @@ public class Products implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public Boolean getIsNew() {
+    public boolean getIsNew() {
         return isNew;
     }
 
-    public void setIsNew(Boolean isNew) {
+    public void setIsNew(boolean isNew) {
         this.isNew = isNew;
+    }
+
+    public Date getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
     public Date getDateCreated() {
