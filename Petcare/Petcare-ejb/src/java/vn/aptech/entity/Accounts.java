@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Accounts.findByAddress", query = "SELECT a FROM Accounts a WHERE a.address = :address")
     , @NamedQuery(name = "Accounts.findByRole", query = "SELECT a FROM Accounts a WHERE a.role = :role")
     , @NamedQuery(name = "Accounts.findByIsInactive", query = "SELECT a FROM Accounts a WHERE a.isInactive = :isInactive")
-    , @NamedQuery(name = "Accounts.findByReasonBaned", query = "SELECT a FROM Accounts a WHERE a.reasonBaned = :reasonBaned")
+    , @NamedQuery(name = "Accounts.findByReasonBanned", query = "SELECT a FROM Accounts a WHERE a.reasonBanned = :reasonBanned")
     , @NamedQuery(name = "Accounts.findByDateCreated", query = "SELECT a FROM Accounts a WHERE a.dateCreated = :dateCreated")})
 public class Accounts implements Serializable {
 
@@ -85,8 +85,8 @@ public class Accounts implements Serializable {
     @Column(name = "IsInactive")
     private boolean isInactive;
     @Size(max = 1000)
-    @Column(name = "ReasonBaned")
-    private String reasonBaned;
+    @Column(name = "ReasonBanned")
+    private String reasonBanned;
     @Basic(optional = false)
     @NotNull
     @Column(name = "DateCreated")
@@ -190,11 +190,11 @@ public class Accounts implements Serializable {
     }
 
     public String getReasonBaned() {
-        return reasonBaned;
+        return reasonBanned;
     }
 
     public void setReasonBaned(String reasonBaned) {
-        this.reasonBaned = reasonBaned;
+        this.reasonBanned = reasonBaned;
     }
 
     public Date getDateCreated() {
