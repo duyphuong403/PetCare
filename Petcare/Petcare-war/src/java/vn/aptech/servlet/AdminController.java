@@ -73,14 +73,14 @@ public class AdminController extends HttpServlet {
                             switch (curAcc.getRole()) {
                                 case 1:
                                     request.setAttribute("title", "Dashboard");
-                                    request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+                                    response.sendRedirect("EmployeeController");
                                     break;
                                 case 2:
                                     request.setAttribute("title", "Dashboard");
-                                    request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                                    response.sendRedirect("AdminController");
                                     break;
                                 default:
-                                    request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+                                    response.sendRedirect("UserController");
                                     break;
                             }
                         } else {

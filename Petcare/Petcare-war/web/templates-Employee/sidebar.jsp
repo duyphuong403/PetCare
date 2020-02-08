@@ -24,6 +24,18 @@
                 </a>
             </li>
             <li class="nav-item ">
+                <a class="nav-link" href="AdminController?action=accounts">
+                    <i class="material-icons">category</i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="AdminController?action=accounts">
+                    <i class="material-icons">local_mall</i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="nav-item ">
                 <a class="nav-link" href="EmployeeController?action=accounts">
                     <i class="material-icons">person</i>
                     <p>Accounts</p>
@@ -41,23 +53,17 @@
                     <p>PetGuides</p>
                 </a>
             </li>
-            <!-- <li class="nav-item ">
-                <a class="nav-link" href="EmployeeController?action=products">
-                    <i class="material-icons">bubble_chart</i>
-                    <p>Products</p>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">account_box</i>
+                    <p>Welcome, <b>${curAcc.fullname}</b></p>
                 </a>
-            </li>-->
-            <li class="nav-item ">
-                <a class="nav-link" href="EmployeeController?action=aboutus">
-                    <i class="material-icons">location_ons</i>
-                    <p>About Us</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="EmployeeController?action=feedbacks">
-                    <i class="material-icons">feedback</i>
-                    <p>Feedbacks</p>
-                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <a class="dropdown-item" href="AdminController?action=profile">Profile</a>
+                    <!--<a class="dropdown-item" href="#">Settings</a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
+                </div>
             </li>
         </ul>
     </div>

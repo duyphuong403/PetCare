@@ -11,7 +11,7 @@
       Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="#" class="simple-text logo-normal">
+        <a href="UserController" class="simple-text logo-normal">
             PETCARE
         </a>
     </div>
@@ -41,12 +41,6 @@
                     <p>PetGuides</p>
                 </a>
             </li>
-            <!-- <li class="nav-item ">
-                <a class="nav-link" href="AdminController?action=products">
-                    <i class="material-icons">bubble_chart</i>
-                    <p>Products</p>
-                </a>
-            </li>-->
             <li class="nav-item ">
                 <a class="nav-link" href="AdminController?action=aboutus">
                     <i class="material-icons">location_ons</i>
@@ -58,6 +52,18 @@
                     <i class="material-icons">feedback</i>
                     <p>Feedbacks</p>
                 </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">account_box</i>
+                    <p>Welcome, <b>${curAcc.fullname}</b></p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <a class="dropdown-item" href="AdminController?action=profile">Profile</a>
+                    <!--<a class="dropdown-item" href="#">Settings</a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
+                </div>
             </li>
         </ul>
     </div>

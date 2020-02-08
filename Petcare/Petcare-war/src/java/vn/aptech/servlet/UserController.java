@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import vn.aptech.entity.Accounts;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
 
@@ -75,11 +76,33 @@ public class UserController extends HttpServlet {
                     break;
                 case "login":
                     if (session.getAttribute("curAcc") != null) {
-                        request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+                        Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+//                        switch (curAcc.getRole()) {
+//                            case 1:
+//                                response.sendRedirect("EmployeeController");
+//                                break;
+//                            case 2:
+//                                response.sendRedirect("AdminController");
+//                                break;
+//                            default:
+//                                response.sendRedirect("UserController");
+//                                break;
+//                        }
+                        switch (curAcc.getRole()) {
+                            case 2:
+                                response.sendRedirect("AdminController");
+                                break;
+                            case 1:
+                                response.sendRedirect("EmployeeController");
+                                break;
+                            default:
+                                response.sendRedirect("UserController");
+                                break;
+                        }
                     } else {
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                        break;
+                        response.sendRedirect("login.jsp");
                     }
+                    break;
                 default:
                     request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
                     break;

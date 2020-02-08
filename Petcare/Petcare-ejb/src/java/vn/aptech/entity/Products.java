@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
     , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
     , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
-    , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unitPrice = :unitPrice")
+    , @NamedQuery(name = "Products.findByUnitPrice", query = "SELECT p FROM Products p WHERE p.unit = :unit")
     , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
     , @NamedQuery(name = "Products.findByDateUpdated", query = "SELECT p FROM Products p WHERE p.dateUpdated = :dateUpdated")
     , @NamedQuery(name = "Products.findByDateCreated", query = "SELECT p FROM Products p WHERE p.dateCreated = :dateCreated")})
@@ -72,8 +72,8 @@ public class Products implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "UnitPrice")
-    private String unitPrice;
+    @Column(name = "Unit")
+    private String unit;
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsNew")
@@ -108,7 +108,7 @@ public class Products implements Serializable {
         this.prodId = prodId;
         this.name = name;
         this.quantity = quantity;
-        this.unitPrice = unitPrice;
+        this.unit = unitPrice;
         this.isNew = isNew;
         this.dateCreated = dateCreated;
     }
@@ -154,11 +154,11 @@ public class Products implements Serializable {
     }
 
     public String getUnitPrice() {
-        return unitPrice;
+        return unit;
     }
 
     public void setUnitPrice(String unitPrice) {
-        this.unitPrice = unitPrice;
+        this.unit = unitPrice;
     }
 
     public boolean getIsNew() {
