@@ -18,11 +18,15 @@
         %>
         <title>PetShop | ${title}</title>
         <meta charset="iso-8859-1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="lib/css/style.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
         <script src="lib/js/jquery-3.4.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
 
         <!--[if IE 6]><link href="css/ie6.css" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]-->
     </head>
-    <body>
+    <body class="container">

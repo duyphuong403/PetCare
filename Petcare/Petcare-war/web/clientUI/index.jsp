@@ -6,10 +6,10 @@
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
 
-<div id="body">
+<div id="body" class="container">
     <div class="banner">&nbsp;</div>
-    <div id="content">
-        <div class="content">
+    <div id="content" class="row">
+        <div class="content col-8 col-xm-4">
             <ul>
                 <c:forEach items="${Articles}" var="article" >
                     <li> <a href="#"><img src="lib/images/${article.imageName}" width="114" height="160" alt=""></a>
@@ -32,7 +32,7 @@
                 </li>
             </ul>
         </div>
-        <div id="sidebar">
+        <div id="sidebar" class="col-4 col-xm-8">
             <%@include file="../templates-Client/formSearch.jsp" %>
             <div class="section">
                 <ul class="navigation">

@@ -90,14 +90,19 @@ public class AdminController extends HttpServlet {
                     }
                     break;
                 case "accounts":
+                    response.sendRedirect("login.jsp");
                     break;
                 case "orders":
+                    response.sendRedirect("login.jsp");
                     break;
                 case "petguides":
+                    response.sendRedirect("login.jsp");
                     break;
                 case "aboutus":
+                    response.sendRedirect("login.jsp");
                     break;
                 case "profile":
+                    response.sendRedirect("login.jsp");
                     break;
                 case "logout":
                     session.removeAttribute("curAcc");

@@ -6,7 +6,7 @@
 package vn.aptech.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
+import vn.aptech.sb.CategoriesFacadeLocal;
 
 /**
  *
@@ -21,6 +22,9 @@ import vn.aptech.entity.Accounts;
  */
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
+
+    @EJB
+    private CategoriesFacadeLocal categoriesFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,28 +49,46 @@ public class EmployeeController extends HttpServlet {
                 switch (role) {
                     case 1:
                         request.setAttribute("title", "Dashboard");
+                        request.setAttribute("dashboard", "active");
                         request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
                         break;
                     case 2:
                         request.setAttribute("title", "Dashboard");
+                        request.setAttribute("dashboard", "active");
                         request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
                         break;
                     default:
                         request.setAttribute("title", "Dashboard");
+                        request.setAttribute("dashboard", "active");
                         request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
                 }
             }
         } else {
             switch (action) {
-                case "accounts":
+                case "category":
+                    if (request.getAttribute("Categories") == null) {
+                        request.setAttribute("Categories", categoriesFacade.findAll());
+                    }
+                    request.setAttribute("title", "Category");
+                    request.setAttribute("category", "active");
+                    request.getRequestDispatcher("employeeUI/category.jsp").forward(request, response);
                     break;
-                case "orders":
+                case "product":
+                    request.setAttribute("title", "Product");
+                    request.setAttribute("product", "active");
+                    request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);
                     break;
-                case "petguides":
+                case "account":
+                    request.setAttribute("title", "Account");
+                    request.setAttribute("account", "active");
                     break;
-                case "aboutus":
+                case "petguide":
+                    request.setAttribute("title", "PetGuide");
+                    request.setAttribute("petguide", "active");
                     break;
                 case "profile":
+                    request.setAttribute("title", "Profile-");
+                    request.setAttribute("profile", "active");
                     break;
                 case "logout":
                     session.removeAttribute("curAcc");
@@ -74,6 +96,7 @@ public class EmployeeController extends HttpServlet {
                     break;
                 default:
                     request.setAttribute("title", "Dashboard");
+                    request.setAttribute("dashboard", "active");
                     request.getRequestDispatcher("employeUI/index.jsp").forward(request, response);
             }
         }

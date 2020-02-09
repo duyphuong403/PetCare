@@ -13,6 +13,7 @@
         <meta charset="utf-8" />
         <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%
             if (request.getAttribute("title") == null) {
                 request.setAttribute("title", "Home");

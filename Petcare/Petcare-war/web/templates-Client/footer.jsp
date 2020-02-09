@@ -27,7 +27,7 @@
     </div>-->
     <div id="footnote">
         <div class="section">
-            Copyright &copy; 2019 - 2020 <a href="UserController?action=login">Petcare</a> 
+            Copyright &copy; 2019 - 2020 <a href="UserController?action=login"><b>Petcare</b></a> 
             All rights reserved
         </div>
     </div>

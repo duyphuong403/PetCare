@@ -16315,7 +16315,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #89229b;
+  color: #09edf8 !important;
   text-decoration: none;
 }
 
@@ -16778,7 +16778,7 @@ label {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #ab47bc, #8e24aa);
+  background: linear-gradient(60deg, #00b0c6, #00e2ff);
 }
 
 .card .card-header-info .card-icon,

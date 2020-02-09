@@ -1,3 +1,4 @@
+<%@page import="vn.aptech.entity.Accounts"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,7 +29,25 @@
         <!--===============================================================================================-->
     </head>
     <body>
-
+        <%
+            if (session.getAttribute("curAcc") != null){
+                Accounts acc = (Accounts)session.getAttribute("curAcc");
+                switch (acc.getRole()){
+                    case 0:
+                        response.sendRedirect("UserController");
+                        break;
+                    case 1:
+                        response.sendRedirect("EmployeeController");
+                        break;
+                    case 2:
+                        response.sendRedirect("AdminController");
+                        break;
+                    default:
+                        response.sendRedirect("UserController");
+                        break;
+                }
+            }
+        %>
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
@@ -36,7 +55,7 @@
                         <span class="login100-form-title p-b-26">
                             Welcome
                         </span>                      
-                        <span style="color:red">${message}</span><% request.removeAttribute("message"); %><br/>
+                        <span style="color:red">${message}</span><% request.removeAttribute("message");%><br/>
                         <div class="wrap-input100 validate-input" data-validate = "Enter username.">
                             <input class="input100" type="text" name="username" autocomplete="off" >
                             <span class="focus-input100" data-placeholder="Username"></span>
@@ -67,6 +86,9 @@
                             <a class="txt2" href="AdminController?action=register">
                                 Sign Up
                             </a>
+                            <a href="UserController" class="txt2" >
+                                / Back To Home
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -75,7 +97,7 @@
 
 
         <div id="dropDownSelect1"></div>
-        
+
         <!--===============================================================================================-->
         <script src="lib/vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
