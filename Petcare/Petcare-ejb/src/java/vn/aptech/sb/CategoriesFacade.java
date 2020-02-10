@@ -29,4 +29,17 @@ public class CategoriesFacade extends AbstractFacade<Categories> implements Cate
         super(Categories.class);
     }
     
+//    @Override
+//    public boolean createCate(Categories cate){
+//        return em.createQuery("insert into Categories (Name, Description) values (?, ?)", Categories.class).setParameter(1, cate.getName()).setParameter(2, cate.getDescription()).executeUpdate() > 0;
+//    }
+    
+    @Override
+    public Categories findCate(String cate){
+        try {
+            return em.createQuery("select Name from Categories where Name = :name", Categories.class).setParameter("name", cate).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

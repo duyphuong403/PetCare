@@ -5,6 +5,7 @@
 --%>
 
 <%@include file="../templates-Employee/header.jsp" %>
+
 <div class="wrapper ">
     <%@include file="../templates-Employee/sidebar.jsp" %>    
     <div class="main-panel">
@@ -18,27 +19,7 @@
                                 <a href="#" data-toggle="modal" data-target="#addCate" style="color: #333">
                                     Add new Category
                                 </a>
-                                <!-- Modal -->
-                                <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -64,29 +45,29 @@
                                         </th>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${Categories}" var="cate">
-                                            <tr>
-                                                <td>
-                                                    ${cate.cateId}
-                                                </td>
-                                                <td>
-                                                    ${cate.name}
-                                                </td>
-                                                <td>
-                                                    ${cate.description}
-                                                </td>
-                                                <td>
-                                                    ${cate.dateUpdated}
-                                                </td>
-                                                <td>
-                                                    ${cate.dateCreated}
-                                                </td>
-                                                <td>
-                                                    <a href="#" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
-                                                    <a href="#" style="color: #333" title="Delete" onclick="return confirm('Are you sure want Delete ?')"><i class="material-icons">delete</i></a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                            <c:forEach items="${Categories}" var="cate">
+                                                <tr>
+                                                    <td>
+                                                        ${cate.cateId}
+                                                    </td>
+                                                    <td>
+                                                        ${cate.name}
+                                                    </td>
+                                                    <td>
+                                                        ${cate.description}
+                                                    </td>
+                                                    <td>
+                                                        ${cate.dateUpdated}
+                                                    </td>
+                                                    <td>
+                                                        ${cate.dateCreated}
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
+                                                        <a href="#" style="color: #333" title="Delete" onclick="return confirm('Are you sure want Delete ?')"><i class="material-icons">delete</i></a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -98,4 +79,46 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="addCate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form autocomplete="off" action="EmployeeController?action=addCate" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Name" class="bmd-label-floating">Name</label>
+                        <input type="text" class="form-control" id="Name" name="name" required="true">
+                        <!--<span class="bmd-help">We'll never share your email with anyone else.</span>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="bmd-label-floating">Description</label>
+                        <input type="text" class="form-control" id="Description" name="description" required="true">
+                        <!--                        <span class="bmd-help">We'll never share your email with anyone else.</span>-->
+                    </div>
+                    <br/>
+
+                    <!--                    <button class="btn btn-default">Cancel</button>
+                                        <button type="submit" class="btn btn-primary btn-raised">Save</button>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<% if (request.getAttribute("Error") != null) { %>
+<script>
+    swal("Error", "${Error}", "OK");
+</script>
+<% request.removeAttribute("Error");}
+%>
 <%@include file="../templates-Employee/footer.jsp" %>

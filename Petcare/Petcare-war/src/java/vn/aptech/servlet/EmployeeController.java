@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
+import vn.aptech.entity.Categories;
 import vn.aptech.sb.CategoriesFacadeLocal;
 
 /**
@@ -72,6 +73,27 @@ public class EmployeeController extends HttpServlet {
                     request.setAttribute("title", "Category");
                     request.setAttribute("category", "active");
                     request.getRequestDispatcher("employeeUI/category.jsp").forward(request, response);
+                    break;
+                case "addCate":
+                    Categories cate = new Categories();
+                    cate.setName(request.getParameter("name"));
+                    cate.setDescription(request.getParameter("description"));
+
+//                    if (cate.getName() == null || cate.getDescription() == null) {
+//                        request.setAttribute("Error", "Category Name/Description was empty");
+//                        response.sendRedirect("EmployeeController?action=category");
+//                    }
+                    if (categoriesFacade.findCate(cate.getName()) != null) {
+                        request.setAttribute("Error", "Category Name already exists");
+//                        request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
+                    } else {
+                        try {
+                            categoriesFacade.create(cate);
+                        } catch (Exception e) {
+                            request.setAttribute("Error", "Add new Category failed. " + e);
+                        }
+                    }
+                    request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
                     break;
                 case "product":
                     request.setAttribute("title", "Product");

@@ -17,6 +17,8 @@ import vn.aptech.entity.Categories;
 public interface CategoriesFacadeLocal {
 
     void create(Categories categories);
+    
+//    boolean createCate(Categories cate);
 
     void edit(Categories categories);
 
@@ -29,5 +31,7 @@ public interface CategoriesFacadeLocal {
     List<Categories> findRange(int[] range);
 
     int count();
-    
+
+    Categories findCate(String cate);
+
 }
