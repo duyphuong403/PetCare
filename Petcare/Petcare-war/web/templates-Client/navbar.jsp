@@ -14,7 +14,8 @@
         <li class="${PetGuide}"><a href="UserController?action=petguide">PetGuide</a></li>
         <li class="${AboutUs}"><a href="UserController?action=aboutus">About us</a></li>
         <li class="${ContactUS}"><a href="UserController?action=contactus">Contact us</a></li>
-        <li class="${Cart}"><a href="UserController?action=cart">Cart</a></li>
+        <li class="" style="width: 135px;"><a href="UserController?action=login">Sign In/Sign Up</a></li>
+        <li class="${Cart}"><a href="UserController?action=cart"><i class="material-icons">shopping_cart</i></a></li>
     </ul>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
