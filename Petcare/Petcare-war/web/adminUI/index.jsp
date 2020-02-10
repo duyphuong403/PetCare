@@ -8,8 +8,7 @@
 <div class="wrapper ">
     <%@include file="../templates-Admin/sidebar.jsp" %>    
     <div class="main-panel">
-        <%@include file="../templates-Admin/status-bar.jsp" %>
-
+        <!-- content body -->
     </div>
 </div>
 

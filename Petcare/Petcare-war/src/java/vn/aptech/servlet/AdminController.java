@@ -96,7 +96,9 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect("login.jsp");
                     break;
                 case "petguides":
-                    response.sendRedirect("login.jsp");
+                    request.setAttribute("title", "PetGuides");
+                    request.setAttribute("petguide", "active");
+                    request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
                     break;
                 case "aboutus":
                     response.sendRedirect("login.jsp");

@@ -37,3 +37,6 @@ hs_err_pid*
 /PetCare/build/
 /PetCare/dist/
 /PetCare/PetCare-war/dist/
+/Petcare/PetCare-ejb/dist/
+/Petcare/PetCare-war/build/
+/Petcare/PetCare-war/dist/

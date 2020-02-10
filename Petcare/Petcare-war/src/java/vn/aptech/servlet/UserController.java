@@ -60,7 +60,7 @@ public class UserController extends HttpServlet {
                     break;
                 case "petguide":
                     request.setAttribute("title", "Pet Guide");
-                    request.setAttribute("PetGuide", "active");
+                    request.setAttribute("PetGuide", "active"); // Phuc
                     request.setAttribute("Articles", articlesFacade.findAll());
                     request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
                     break;
