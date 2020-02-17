@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.Products;
 
 /**
  *
@@ -28,18 +29,13 @@ public class CategoriesFacade extends AbstractFacade<Categories> implements Cate
     public CategoriesFacade() {
         super(Categories.class);
     }
-    
-//    @Override
-//    public boolean createCate(Categories cate){
-//        return em.createQuery("insert into Categories (Name, Description) values (?, ?)", Categories.class).setParameter(1, cate.getName()).setParameter(2, cate.getDescription()).executeUpdate() > 0;
-//    }
-    
+
     @Override
-    public Categories findCate(String cate){
+    public boolean Delete(int cateId) {
         try {
-            return em.createQuery("select Name from Categories where Name = :name", Categories.class).setParameter("name", cate).getSingleResult();
+            return em.createQuery("delete from Categories where CateId = :cateId", Categories.class).setParameter("cateId", cateId).executeUpdate() > 0;
         } catch (Exception e) {
-            return null;
+            return false;
         }
     }
 }

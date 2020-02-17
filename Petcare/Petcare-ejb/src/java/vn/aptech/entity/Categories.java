@@ -6,10 +6,8 @@
 package vn.aptech.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,13 +55,9 @@ public class Categories implements Serializable {
     @Column(name = "DateUpdated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUpdated;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "DateCreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
-    private Collection<Products> productsCollection;
 
     public Categories() {
     }
@@ -74,10 +66,9 @@ public class Categories implements Serializable {
         this.cateId = cateId;
     }
 
-    public Categories(Integer cateId, String name, Date dateCreated) {
+    public Categories(Integer cateId, String name) {
         this.cateId = cateId;
         this.name = name;
-        this.dateCreated = dateCreated;
     }
 
     public Integer getCateId() {
@@ -118,15 +109,6 @@ public class Categories implements Serializable {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    @XmlTransient
-    public Collection<Products> getProductsCollection() {
-        return productsCollection;
-    }
-
-    public void setProductsCollection(Collection<Products> productsCollection) {
-        this.productsCollection = productsCollection;
     }
 
     @Override

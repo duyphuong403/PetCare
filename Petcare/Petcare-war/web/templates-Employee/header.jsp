@@ -50,4 +50,6 @@
         <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
         <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
+        <script src="lib/js/jquery.min.js"></script>
     </head>

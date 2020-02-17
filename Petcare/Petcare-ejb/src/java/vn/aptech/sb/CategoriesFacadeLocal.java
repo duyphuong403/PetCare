@@ -8,6 +8,7 @@ package vn.aptech.sb;
 import java.util.List;
 import javax.ejb.Local;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.Products;
 
 /**
  *
@@ -17,12 +18,10 @@ import vn.aptech.entity.Categories;
 public interface CategoriesFacadeLocal {
 
     void create(Categories categories);
-    
-//    boolean createCate(Categories cate);
 
     void edit(Categories categories);
 
-    void remove(Categories categories);
+    boolean Delete(int cateId);
 
     Categories find(Object id);
 
@@ -31,7 +30,4 @@ public interface CategoriesFacadeLocal {
     List<Categories> findRange(int[] range);
 
     int count();
-
-    Categories findCate(String cate);
-
 }
