@@ -40,3 +40,4 @@ hs_err_pid*
 /Petcare/PetCare-ejb/dist/
 /Petcare/PetCare-war/build/
 /Petcare/PetCare-war/dist/
+/Petcare/PetCare-war/nbproject/private/
