@@ -8,14 +8,14 @@ package vn.aptech.sb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import vn.aptech.entity.Products;
+import vn.aptech.entity.ProductUnits;
 
 /**
  *
  * @author Dell
  */
 @Stateless
-public class ProductsFacade extends AbstractFacade<Products> implements ProductsFacadeLocal {
+public class ProductUnitsFacade extends AbstractFacade<ProductUnits> implements ProductUnitsFacadeLocal {
 
   @PersistenceContext(unitName = "Petcare-ejbPU")
   private EntityManager em;
@@ -25,8 +25,8 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
     return em;
   }
 
-  public ProductsFacade() {
-    super(Products.class);
+  public ProductUnitsFacade() {
+    super(ProductUnits.class);
   }
   
 }

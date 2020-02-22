@@ -117,7 +117,7 @@
                         }
 
                       </script>
-                      <!-- Modal Edit Category -->
+                      <!-- Modal Edit Product -->
                       <div class="modal fade" id="editProd${prod.prodId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
                            aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -183,7 +183,7 @@
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form autocomplete="off" action="EmployeeController?action=addProd" method="post" enctype="multipart/form-data">
+      <form autocomplete="off" action="EmployeeController?action=addProd" method="post" >
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -191,6 +191,14 @@
           </button>
         </div>
         <div class="modal-body">
+          <div class="form-group">
+            <label for="Category" class="bmd-label-floating">Category</label>
+            <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
+              <c:forEach items="${Categories}" var="category">
+                <option value="${category.cateId}">${category.name}</option>
+              </c:forEach>
+            </select>
+          </div>
           <div class="form-group">
             <label for="Name" class="bmd-label-floating">Name</label>
             <input type="text" class="form-control" id="Name" name="name" required="true" maxlength="200">
@@ -201,11 +209,15 @@
           </div>
           <div class="form-group">
             <label for="Quantiy" class="bmd-label-floating">Quantiy</label>
-            <input type="number" class="form-control" id="Quantiy" name="description" required="true">
+            <input type="number" class="form-control" id="Quantiy" name="quantity" required="true" min="0" max="99999">
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>
-            <input type="text" class="form-control" id="Unit" name="unit" required="true" maxlength="50">
+             <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
+              <c:forEach items="${Units}" var="unit">
+                <option value="${unit.unitId}">${unit.name}</option>
+              </c:forEach>
+            </select>            
           </div>
           <div class="form-group">
             <label for="Description" class="bmd-label-floating">Is New</label><br>
@@ -216,7 +228,7 @@
           </div>
           <div class="form-group">
             <label for="Image" class="bmd-label-floating">Choose Image</label>
-            <input type="file" class="form-control" id="fileupload" name="files" multiple required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
+            <input type="file" class="form-control" id="fileupload" name="images" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
           </div>
           <br/>
           <br/>
@@ -259,8 +271,8 @@
             var reader = new FileReader();
             reader.onload = function (e) {
               var img = document.createElement("IMG");
-              img.height = "115";
-              img.width = "115";
+              img.height = "250";
+              img.width = "250";
               img.src = e.target.result;
               dvPreview.appendChild(img);
             }

@@ -7,26 +7,26 @@ package vn.aptech.sb;
 
 import java.util.List;
 import javax.ejb.Local;
-import vn.aptech.entity.Products;
+import vn.aptech.entity.ProductUnits;
 
 /**
  *
  * @author Dell
  */
 @Local
-public interface ProductsFacadeLocal {
+public interface ProductUnitsFacadeLocal {
 
-  void create(Products products);
+  void create(ProductUnits productUnits);
 
-  void edit(Products products);
+  void edit(ProductUnits productUnits);
 
-  void remove(Products products);
+  void remove(ProductUnits productUnits);
 
-  Products find(Object id);
+  ProductUnits find(Object id);
 
-  List<Products> findAll();
+  List<ProductUnits> findAll();
 
-  List<Products> findRange(int[] range);
+  List<ProductUnits> findRange(int[] range);
 
   int count();
   

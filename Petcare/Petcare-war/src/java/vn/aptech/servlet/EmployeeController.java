@@ -18,8 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
 
 /**
@@ -28,6 +30,9 @@ import vn.aptech.sb.ProductsFacadeLocal;
  */
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
+
+  @EJB
+  private ProductUnitsFacadeLocal productUnitsFacade;
 
   @EJB
   private ProductsFacadeLocal productsFacade;
@@ -52,8 +57,8 @@ public class EmployeeController extends HttpServlet {
       Products prod;
       LocalDateTime dateTime;
       String action = request.getParameter("action");
+      Accounts curAcc = (Accounts) session.getAttribute("curAcc");
       if (action == null) {
-        Accounts curAcc = (Accounts) session.getAttribute("curAcc");
         if (curAcc == null) {
           request.setAttribute("Login", "active");
           request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -98,7 +103,6 @@ public class EmployeeController extends HttpServlet {
               log(e.toString());
               request.setAttribute("Error", "Category Name already exists.");
             }
-
             request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
             break;
           case "editCate":
@@ -130,6 +134,12 @@ public class EmployeeController extends HttpServlet {
             if (request.getAttribute("Products") == null) {
               request.setAttribute("Products", productsFacade.findAll());
             }
+            if (request.getAttribute("Categories") == null) {
+              request.setAttribute("Categories", categoriesFacade.findAll());
+            }
+            if (request.getAttribute("Units") == null) {
+              request.setAttribute("Units", productUnitsFacade.findAll());
+            }
             request.setAttribute("title", "Product");
             request.setAttribute("product", "active");
             request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);
@@ -141,8 +151,17 @@ public class EmployeeController extends HttpServlet {
             prod.setDescription(request.getParameter("description"));
             prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
             prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-            prod.setUnit(request.getParameter("unit"));
+            prod.setProductUnits((ProductUnits)request.getAttribute("Units"));
             prod.setDateCreated(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
+            prod.setAccId(curAcc);
+
+            try {
+              productsFacade.create(prod);
+            } catch (Exception e) {
+              System.out.println(e.getMessage());
+              request.setAttribute("Error", "Product Name already exists.");
+            }
+            request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
             break;
 
           case "account":
