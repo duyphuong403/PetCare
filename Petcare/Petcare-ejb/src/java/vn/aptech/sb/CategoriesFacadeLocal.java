@@ -8,7 +8,6 @@ package vn.aptech.sb;
 import java.util.List;
 import javax.ejb.Local;
 import vn.aptech.entity.Categories;
-import vn.aptech.entity.Products;
 
 /**
  *

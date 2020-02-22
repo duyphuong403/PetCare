@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import vn.aptech.entity.Categories;
-import vn.aptech.entity.Products;
 
 /**
  *
@@ -35,6 +34,7 @@ public class CategoriesFacade extends AbstractFacade<Categories> implements Cate
         try {
             return em.createQuery("delete from Categories where CateId = :cateId", Categories.class).setParameter("cateId", cateId).executeUpdate() > 0;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

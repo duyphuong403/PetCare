@@ -48,6 +48,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Accounts.findByDateCreated", query = "SELECT a FROM Accounts a WHERE a.dateCreated = :dateCreated")})
 public class Accounts implements Serializable {
 
+  @Basic(optional = false)
+  @NotNull
+  @Column(name = "Phone")
+  private int phone;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,8 +76,6 @@ public class Accounts implements Serializable {
     @Size(max = 200)
     @Column(name = "Email")
     private String email;
-    @Column(name = "Phone")
-    private Integer phone;
     @Size(max = 255)
     @Column(name = "Address")
     private String address;
@@ -157,13 +160,6 @@ public class Accounts implements Serializable {
         this.email = email;
     }
 
-    public Integer getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Integer phone) {
-        this.phone = phone;
-    }
 
     public String getAddress() {
         return address;
@@ -265,5 +261,13 @@ public class Accounts implements Serializable {
     public String toString() {
         return "vn.aptech.entity.Accounts[ accId=" + accId + " ]";
     }
+
+  public int getPhone() {
+    return phone;
+  }
+
+  public void setPhone(int phone) {
+    this.phone = phone;
+  }
     
 }
