@@ -30,4 +30,8 @@ public interface ProductUnitsFacadeLocal {
 
   int count();
   
+  boolean Delete(int unitId);
+  
+  boolean FindUnitByName(String name);
+  
 }

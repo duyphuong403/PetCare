@@ -18,6 +18,9 @@
                 <h4 class="card-title "><b>Products</b></h4>
                 <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
                   Add new Product
+                </a> | 
+                  <a href="EmployeeController?action=unit" style="color: #fff">
+                  Manage Product Unit
                 </a>
               </div>
               <div class="card-body">
@@ -125,7 +128,7 @@
                             <form autocomplete="off" action="EmployeeController?action=editProd" method="post">
                               <input type="text" name="cateId" hidden="true" value="${prod.prodId}"/>
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -288,10 +291,5 @@
       }
     }
   };
-</script>
-
-<!-- Count length and replace by ... -->
-<script>
-
 </script>
 <%@include file="../templates-Employee/footer.jsp" %>

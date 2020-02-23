@@ -29,4 +29,23 @@ public class ProductUnitsFacade extends AbstractFacade<ProductUnits> implements 
     super(ProductUnits.class);
   }
   
+   @Override
+    public boolean Delete(int unitId) {
+        try {
+            return em.createQuery("delete from ProductUnits where UnitId = :unitId", ProductUnits.class).setParameter("unitId", unitId).executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean FindUnitByName(String name){
+      try{
+        return em.createQuery("select * from PruductUnits where Name = :name", ProductUnits.class).setParameter("name", name).getSingleResult() != null;
+      } catch (Exception e){
+        return false;
+      }
+    }
+  
 }

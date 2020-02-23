@@ -107,11 +107,10 @@ public class EmployeeController extends HttpServlet {
             break;
           case "editCate":
             cate = new Categories();
-            dateTime = LocalDateTime.now();
             cate.setCateId(Integer.parseInt(request.getParameter("cateId")));
             cate.setName(request.getParameter("name"));
             cate.setDescription(request.getParameter("description"));
-            cate.setDateUpdated(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
+            cate.setDateUpdated(new Date());
             try {
               categoriesFacade.edit(cate);
               request.setAttribute("Success", "Edit Category Done");
@@ -146,22 +145,78 @@ public class EmployeeController extends HttpServlet {
             break;
           case "addProd":
             prod = new Products();
-            dateTime = LocalDateTime.now();
+            Categories addCate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
+            prod.setCateId(addCate);
             prod.setName(request.getParameter("name"));
             prod.setDescription(request.getParameter("description"));
             prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
             prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-            prod.setProductUnits((ProductUnits)request.getAttribute("Units"));
-            prod.setDateCreated(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
+            ProductUnits prodUnit = productUnitsFacade.find(request.getParameter("unitId"));
+            prod.setProductUnits(prodUnit);
+            prod.setDateCreated(new Date());
             prod.setAccId(curAcc);
 
             try {
               productsFacade.create(prod);
+              request.setAttribute("Success", "Add new Product Done.");
             } catch (Exception e) {
               System.out.println(e.getMessage());
               request.setAttribute("Error", "Product Name already exists.");
             }
             request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
+            break;
+
+          case "unit":
+            if (request.getAttribute("Units") == null) {
+              request.setAttribute("Units", productUnitsFacade.findAll());
+            }
+
+            request.setAttribute("title", "Product Units");
+            request.setAttribute("product", "active");
+            request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
+            break;
+          case "addUnit":
+            System.out.println(productUnitsFacade.FindUnitByName(request.getParameter("name")));
+            if (!productUnitsFacade.FindUnitByName(request.getParameter("name"))) {
+              request.setAttribute("Error", "Unit name already exists. Add new Unit failed.");
+            } else {
+              ProductUnits unit = new ProductUnits();
+              unit.setName(request.getParameter("name"));
+              unit.setDescription(request.getParameter("description"));
+              unit.setDateCreated(new Date());
+              try {
+                productUnitsFacade.create(unit);
+                request.setAttribute("Success", "Add new Unit done.");
+              } catch (Exception e) {
+                System.out.println(e.getMessage());
+                request.setAttribute("Error", "Add new Unit failed.");
+              }
+            }
+            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
+            break;
+          case "editUnit":
+            ProductUnits editUnit = new ProductUnits();
+            editUnit.setUnitId(Integer.parseInt(request.getParameter("unitId")));
+            editUnit.setName(request.getParameter("name"));
+            editUnit.setDescription(request.getParameter("description"));
+            editUnit.setDateUpdated(new Date());
+            try {
+              productUnitsFacade.edit(editUnit);
+              request.setAttribute("Success", "Edit Unit Done");
+            } catch (Exception e) {
+              System.out.println(e.getMessage());
+              request.setAttribute("Error", "Edit Unit failed.");
+            }
+            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
+            break;
+          case "deleteUnit":
+            int unitId = Integer.parseInt(request.getParameter("unitId"));
+            if (productUnitsFacade.Delete(unitId)) {
+              request.setAttribute("Success", "Delete Unit Successful");
+            } else {
+              request.setAttribute("Error", "Delete Unit Failed");
+            }
+            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
             break;
 
           case "account":
@@ -219,7 +274,7 @@ public class EmployeeController extends HttpServlet {
           throws ServletException, IOException {
     processRequest(request, response);
   }
-
+;;;;;
   /**
    * Returns a short description of the servlet.
    *
