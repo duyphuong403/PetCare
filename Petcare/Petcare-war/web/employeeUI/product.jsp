@@ -186,7 +186,7 @@
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form autocomplete="off" action="EmployeeController?action=addProd" method="post" >
+      <form autocomplete="off" action="EmployeeController?action=addProd" method="post" enctype="multipart/form-data" >
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -231,7 +231,7 @@
           </div>
           <div class="form-group">
             <label for="Image" class="bmd-label-floating">Choose Image</label>
-            <input type="file" class="form-control" id="fileupload" name="images" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
+            <input type="file" class="form-control" id="fileupload" name="file" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" multiple/>
           </div>
           <br/>
           <br/>
@@ -274,8 +274,8 @@
             var reader = new FileReader();
             reader.onload = function (e) {
               var img = document.createElement("IMG");
-              img.height = "250";
-              img.width = "250";
+              img.height = "110";
+              img.width = "110";
               img.src = e.target.result;
               dvPreview.appendChild(img);
             }

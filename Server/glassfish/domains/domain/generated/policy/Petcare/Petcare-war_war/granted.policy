@@ -1,0 +1,19 @@
+/* AUTOMATICALLY GENERATED ON Sun Feb 23 23:01:39 ICT 2020*/
+/* DO NOT EDIT */
+
+grant {
+  permission javax.security.jacc.WebUserDataPermission "/";
+  permission javax.security.jacc.WebResourcePermission "/";
+};
+
+grant      principal * * {
+  permission javax.security.jacc.WebRoleRefPermission "AdminController", "**";
+  permission javax.security.jacc.WebRoleRefPermission "jsp", "**";
+  permission javax.security.jacc.WebRoleRefPermission "", "**";
+  permission javax.security.jacc.WebRoleRefPermission "Faces Servlet", "**";
+  permission javax.security.jacc.WebRoleRefPermission "UserController", "**";
+  permission javax.security.jacc.WebRoleRefPermission "CategoriesServlet", "**";
+  permission javax.security.jacc.WebRoleRefPermission "EmployeeController", "**";
+  permission javax.security.jacc.WebRoleRefPermission "default", "**";
+};
+
