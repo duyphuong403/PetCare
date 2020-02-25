@@ -652,3 +652,75 @@ iframe {
 	display: none !important;
 }
 
+/* tr-pagination */
+
+.tr-pagination {
+	margin-top: 30px;
+	background-color: #fff;
+	border-radius: 4px;
+}
+
+.pagination {
+	margin: 0;
+	width: 100%;
+	padding: 0 15px;
+	display: block;
+}
+
+.pagination li {
+	font-size: 18px;
+	display: inline-block;
+}
+
+.pagination>li>.page-numbers, 
+.pagination>li>span {
+	border: 0;
+	color: #969696;
+	border-radius: 0;
+	padding: 20px 8px;
+	display: block;
+	float: none;
+	position: relative;
+	background-color: transparent;
+       font-size: 18px;
+}
+
+.pagination>li>.page-numbers:before,
+.pagination>li>.page-numbers:after {
+	position: absolute;
+	content: "";
+	left: 0;
+	width: 100%;
+	height: 2px;
+	opacity: 0;
+	background-color: #80b435;
+}
+
+.pagination>li>.page-numbers:before {
+	top: 0;
+}
+
+.pagination>li>.page-numbers:after {
+	bottom: 0;
+}
+
+.pagination>li>a:hover:before,
+.pagination>li>a:hover:after,
+.pagination>li.active>.page-numbers:before,
+.pagination>li.active>.page-numbers:after {
+	opacity: 1;
+}
+
+.pagination>.active>.page-numbers, 
+.pagination>.active>.page-numbers:focus, 
+.pagination>.active>.page-numbers:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover,
+.pagination>li>.page-numbers:focus, 
+.pagination>li>.page-numbers:hover, 
+.pagination>li>span:focus, 
+.pagination>li>span:hover {
+	color: #80b435;
+	background-color: transparent;
+}
