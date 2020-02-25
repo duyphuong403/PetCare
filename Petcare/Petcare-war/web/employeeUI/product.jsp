@@ -216,7 +216,7 @@
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>
-             <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
+             <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
               <c:forEach items="${Units}" var="unit">
                 <option value="${unit.unitId}">${unit.name}</option>
               </c:forEach>
@@ -231,7 +231,7 @@
           </div>
           <div class="form-group">
             <label for="Image" class="bmd-label-floating">Choose Image</label>
-            <input type="file" class="form-control" id="fileupload" name="file" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" multiple/>
+            <input type="file" class="form-control" id="fileupload" name="file" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" />
           </div>
           <br/>
           <br/>

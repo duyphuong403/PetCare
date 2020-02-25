@@ -38,15 +38,15 @@ import vn.aptech.sb.ProductsFacadeLocal;
 
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
-
+  
   public static final String SAVE_DIRECTORY = "uploadDir";
-
+  
   @EJB
   private ProductUnitsFacadeLocal productUnitsFacade;
-
+  
   @EJB
   private ProductsFacadeLocal productsFacade;
-
+  
   @EJB
   private CategoriesFacadeLocal categoriesFacade;
 
@@ -106,7 +106,7 @@ public class EmployeeController extends HttpServlet {
             cate.setName(request.getParameter("name"));
             cate.setDescription(request.getParameter("description"));
             cate.setDateCreated(new Date());
-
+            
             try {
               categoriesFacade.create(cate);
             } catch (Exception e) {
@@ -138,7 +138,7 @@ public class EmployeeController extends HttpServlet {
             }
             request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
             break;
-
+          
           case "product":
             if (request.getAttribute("Products") == null) {
               request.setAttribute("Products", productsFacade.findAll());
@@ -154,66 +154,61 @@ public class EmployeeController extends HttpServlet {
             request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);
             break;
           case "addProd":
-//            prod = new Products();
-//            Categories addCate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
-//            prod.setCateId(addCate);
-//            prod.setName(request.getParameter("name"));
-//            prod.setDescription(request.getParameter("description"));
-//            prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
-//            prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-//            ProductUnits prodUnit = productUnitsFacade.find(request.getParameter("unitId"));
-//            prod.setProductUnits(prodUnit);
-//            prod.setDateCreated(new Date());
-//            prod.setAccId(curAcc);
-            String description = request.getParameter("cateId");
-            System.out.println("CateId: " + description);
-
+            prod = new Products();
+            Categories addCate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
+            prod.setCateId(addCate);
+            prod.setName(request.getParameter("name"));
+            prod.setDescription(request.getParameter("description"));
+            prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
+            prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+            ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
+            prod.setProductUnits(prodUnit);
+            prod.setDateCreated(new Date());
+            prod.setAccId(curAcc);
+            
             InputStream inputStream;
             FileOutputStream fileOutputStream;
-
+            
             String uploadDir = System.getProperty("user.home") + "/ProductImages";
             File fileSaveDir = new File(uploadDir);
             if (!fileSaveDir.exists()) {
               fileSaveDir.mkdirs();
             }
             for (Part part : request.getParts()) {
-
+              
               inputStream = request.getPart(part.getName()).getInputStream();
               int i = inputStream.available();
               byte[] b = new byte[i];
               inputStream.read(b);
               String fileName = extractFileName(part);
               fileName = new File(fileName).getName();
-//              for (String temp : part.getHeader("content-disposition").split(";")) {
-//                if (temp.trim().startsWith("filename")) {
-//                  fileName = temp.substring(temp.indexOf('=') + 1).trim().replace("\"", "");
-//                }
-//              }
+              
               if (fileName != null && fileName.length() > 0) {
                 fileOutputStream = new FileOutputStream(fileSaveDir + "/" + fileName);
                 fileOutputStream.write(b);
                 fileOutputStream.close();
+                prod.setImageName(fileName);
                 System.out.println("Uploaded file " + fileSaveDir + "/" + fileName + ".");
               }
               inputStream.close();
-
+              
             }
-
-//            try {
-//              productsFacade.create(prod);
-//              request.setAttribute("Success", "Add new Product Done.");
-//            } catch (Exception e) {
-//              System.out.println(e.getMessage());
-//              request.setAttribute("Error", "Product Name already exists.");
-//            }
+            
+            try {
+              productsFacade.create(prod);
+              request.setAttribute("Success", "Add new Product Done.");
+            } catch (Exception e) {
+              System.out.println(e.getMessage());
+              request.setAttribute("Error", "Product Name already exists.");
+            }
             request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
             break;
-
+          
           case "unit":
             if (request.getAttribute("Units") == null) {
               request.setAttribute("Units", productUnitsFacade.findAll());
             }
-
+            
             request.setAttribute("title", "Product Units");
             request.setAttribute("product", "active");
             request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
@@ -260,7 +255,7 @@ public class EmployeeController extends HttpServlet {
             }
             request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
             break;
-
+          
           case "account":
             request.setAttribute("title", "Account");
             request.setAttribute("account", "active");
@@ -287,7 +282,7 @@ public class EmployeeController extends HttpServlet {
       System.out.println(e.getMessage());
     }
   }
-
+  
   private String extractFileName(Part part) {
     String contentDisp = part.getHeader("content-disposition");
     String[] items = contentDisp.split(";");
@@ -298,7 +293,7 @@ public class EmployeeController extends HttpServlet {
     }
     return "";
   }
-
+  
   public File getFolderUpload() {
     File folderUpload = new File(System.getProperty("user.home") + "/Uploads");
     if (!folderUpload.exists()) {

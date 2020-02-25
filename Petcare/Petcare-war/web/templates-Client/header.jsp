@@ -30,6 +30,16 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
+        <!-- CSS -->
+        <link rel="stylesheet" href="lib/css/animate.css">
+        <link rel="stylesheet" href="lib/css/fonts.css">
+        <link rel="stylesheet" href="lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="lib/css/magnific-popup.css">
+        <link rel="stylesheet" href="lib/css/slick.css">
+        <link rel="stylesheet" href="lib/css/structure.css">
+        <link rel="stylesheet" href="lib/css/main.css">
+        <link id="preset" rel="stylesheet" href="lib/css/preset1.css">
+        <link rel="stylesheet" href="lib/css/responsive.css">
         <!--[if IE 6]><link href="css/ie6.css" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]-->
     </head>
