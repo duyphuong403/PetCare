@@ -1,4 +1,4 @@
-/* AUTOMATICALLY GENERATED ON Tue Feb 25 21:07:39 ICT 2020*/
+/* AUTOMATICALLY GENERATED ON Wed Feb 26 21:56:41 ICT 2020*/
 /* DO NOT EDIT */
 
 grant {
@@ -22,31 +22,31 @@ grant {
   permission javax.security.jacc.EJBMethodPermission "ProductUnitsFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "ProductUnitsFacade", "Delete,Local,int";
   permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "findAll,Local,";
-  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "OrderDetailsFacade", "findAll,Local,";
   permission javax.security.jacc.EJBMethodPermission "ProductImagesFacade", "findAll,Local,";
   permission javax.security.jacc.EJBMethodPermission "OrdersFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "FeedbacksFacade", "find,Local,java.lang.Object";
-  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "remove,Local,vn.aptech.entity.Accounts";
   permission javax.security.jacc.EJBMethodPermission "PetGuidesFacade", "remove,Local,vn.aptech.entity.PetGuides";
+  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "remove,Local,vn.aptech.entity.Accounts";
   permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "create,Local,vn.aptech.entity.Accounts";
   permission javax.security.jacc.EJBMethodPermission "CategoriesFacade", "edit,Local,vn.aptech.entity.Categories";
   permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "checkLogin,Local,java.lang.String,java.lang.String";
-  permission javax.security.jacc.EJBMethodPermission "OrdersFacade", "edit,Local,vn.aptech.entity.Orders";
   permission javax.security.jacc.EJBMethodPermission "PetGuidesFacade", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "OrdersFacade", "edit,Local,vn.aptech.entity.Orders";
   permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "create,Local,vn.aptech.entity.Products";
   permission javax.security.jacc.EJBMethodPermission "ProductUnitsFacade", "FindUnitByName,Local,java.lang.String";
-  permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "ProductUnitsFacade", "findRange,Local,int[]";
-  permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "OrderDetailsFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "OrderDetailsFacade", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "findRange,Local,int[]";
   permission javax.security.jacc.EJBMethodPermission "SysdiagramsFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "SysdiagramsFacade", "findAll,Local,";
-  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "edit,Local,vn.aptech.entity.Accounts";
   permission javax.security.jacc.EJBMethodPermission "ProductsFacade", "edit,Local,vn.aptech.entity.Products";
+  permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "edit,Local,vn.aptech.entity.Accounts";
   permission javax.security.jacc.EJBMethodPermission "SysdiagramsFacade", "create,Local,vn.aptech.entity.Sysdiagrams";
   permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "ProductImagesFacade", "remove,Local,vn.aptech.entity.ProductImages";
@@ -56,8 +56,8 @@ grant {
   permission javax.security.jacc.EJBMethodPermission "PetGuidesFacade", "edit,Local,vn.aptech.entity.PetGuides";
   permission javax.security.jacc.EJBMethodPermission "PetGuidesFacade", "count,Local,";
   permission javax.security.jacc.EJBMethodPermission "CategoriesFacade", "find,Local,java.lang.Object";
-  permission javax.security.jacc.EJBMethodPermission "OrdersFacade", "create,Local,vn.aptech.entity.Orders";
   permission javax.security.jacc.EJBMethodPermission "PetGuidesFacade", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "OrdersFacade", "create,Local,vn.aptech.entity.Orders";
   permission javax.security.jacc.EJBMethodPermission "ProductUnitsFacade", "find,Local,java.lang.Object";
   permission javax.security.jacc.EJBMethodPermission "ProductImagesFacade", "create,Local,vn.aptech.entity.ProductImages";
   permission javax.security.jacc.EJBMethodPermission "AccountsFacade", "findAll,Local,";
@@ -81,8 +81,8 @@ grant      principal * * {
   permission javax.security.jacc.EJBRoleRefPermission "CategoriesFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "ProductUnitsFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "ProductsFacade", "**";
-  permission javax.security.jacc.EJBRoleRefPermission "ProductImagesFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "OrderDetailsFacade", "**";
+  permission javax.security.jacc.EJBRoleRefPermission "ProductImagesFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "AccountsFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "OrdersFacade", "**";
   permission javax.security.jacc.EJBRoleRefPermission "PetGuidesFacade", "**";

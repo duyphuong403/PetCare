@@ -10,4 +10,5 @@
         <li><a href="#"><img src="lib/images/good-food.jpg" width="300" height="90" alt=""></a></li>
         <li class="last"><a href="#"><img src="lib/images/pet-grooming.jpg" width="300" height="90" alt=""></a></li>
     </ul>
+  <br/>
 </div>

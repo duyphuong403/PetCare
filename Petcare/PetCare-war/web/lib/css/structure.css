@@ -32,7 +32,7 @@ input:focus, textarea:focus, select:focus,
 	font-size: 16px;
 	overflow: hidden;
 	margin-bottom: 30px;
-	background-color: #fff;
+	background-color: #f1f1f1;
 	padding: 25px 30px;
 	border-radius: 4px;
 }
