@@ -5,16 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <%@include file="../templates-Admin/header.jsp" %>
+<%@include file="../templates-Admin/header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="../templates-Admin/sidebar.jsp" %>   
-        <title>JSP Page</title>
-    </head>
-    <body>
-        
+        <body>        
+            
     </body>
-    <%@include file="../templates-Admin/footer.jsp" %>
-</html>
+<%@include file="../templates-Admin/footer.jsp" %>
