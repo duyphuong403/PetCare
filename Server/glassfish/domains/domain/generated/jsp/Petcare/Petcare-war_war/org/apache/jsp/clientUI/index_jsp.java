@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -12,17 +12,28 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(4);
+    _jspx_dependants = new java.util.ArrayList<String>(5);
     _jspx_dependants.add("/clientUI/../templates-Client/header.jsp");
     _jspx_dependants.add("/clientUI/../templates-Client/navbar.jsp");
     _jspx_dependants.add("/clientUI/../templates-Client/formSearch.jsp");
+    _jspx_dependants.add("/clientUI/../templates-Client/feature.jsp");
     _jspx_dependants.add("/clientUI/../templates-Client/footer.jsp");
   }
+
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
   public java.util.List<String> getDependants() {
     return _jspx_dependants;
+  }
+
+  public void _jspInit() {
+    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+  }
+
+  public void _jspDestroy() {
+    _jspx_tagPool_c_forEach_var_items.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -50,8 +61,8 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\r\n");
-      out.write("\r\n");
+      out.write('\r');
+      out.write('\n');
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
@@ -157,9 +168,33 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    }\r\n");
       out.write("</script>\r\n");
       out.write("\r\n");
-      out.write("<div id=\"body\">\r\n");
-      out.write("  <div id=\"content\">\r\n");
-      out.write("    ");
+      out.write("\r\n");
+      out.write("<div id=\"body\" class=\"container\">\r\n");
+      out.write("    <div class=\"banner\">&nbsp;</div>\r\n");
+      out.write("    <div id=\"content\" class=\"row\">\r\n");
+      out.write("        <div class=\"content col-8 col-xm-4\">\r\n");
+      out.write("            <ul>\r\n");
+      out.write("                ");
+      if (_jspx_meth_c_forEach_0(_jspx_page_context))
+        return;
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("                <li> <a href=\"#\"><img src=\"lib/images/cat.jpg\" width=\"114\" height=\"160\" alt=\"\"></a>\r\n");
+      out.write("                    <h2>Something good</h2>\r\n");
+      out.write("                    <p>Gothica, quam nun c putamus parum claram, anteposuerit litterarum formas humani tatis per seacula. <a class=\"more\" href=\"#\">View all</a></p>\r\n");
+      out.write("                </li>\r\n");
+      out.write("                <li> <a href=\"#\"><img src=\"lib/images/koi.jpg\" width=\"114\" height=\"160\" alt=\"\"></a>\r\n");
+      out.write("                    <h2>Kinds of Fish</h2>\r\n");
+      out.write("                    <p>Quam nunc putamus parum claram, antep osuerit litter arum formas humanitatis per seacula quarta. <a class=\"more\" href=\"#\">View all</a></p>\r\n");
+      out.write("                </li>\r\n");
+      out.write("                <li> <a href=\"#\"><img src=\"lib/images/bird.jpg\" width=\"114\" height=\"160\" alt=\"\"></a>\r\n");
+      out.write("                    <h2>Fun birds</h2>\r\n");
+      out.write("                    <p>Mirum est notare quam littera gothica , quam nunc putamus parum claram, anteposuerit. <a class=\"more\" href=\"#\">View all</a></p>\r\n");
+      out.write("                </li>\r\n");
+      out.write("            </ul>\r\n");
+      out.write("        </div>\r\n");
+      out.write("        <div id=\"sidebar\" class=\"col-4 col-xm-8\">\r\n");
+      out.write("            ");
       out.write("\r\n");
       out.write("<div class=\"search\">\r\n");
       out.write("    <input type=\"text\" name=\"s\" placeholder=\"Find...\">\r\n");
@@ -172,71 +207,40 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        PetMart Products</label>-->\r\n");
       out.write("</div>");
       out.write("\r\n");
-      out.write("    <div class=\"main-content popup-one\">\r\n");
-      out.write("      <div class=\"container\">\r\n");
-      out.write("        <div class=\"row\">\r\n");
-      out.write("          <div class=\"col-md-8 col-lg-9 push-md-4 push-lg-3\">\r\n");
-      out.write("            <div class=\"tr-products\">\r\n");
-      out.write("              <div class=\"row\">\r\n");
-      out.write("                <div class=\"col-md-6 col-lg-4\">\r\n");
-      out.write("                  <div class=\"product\">\r\n");
-      out.write("                    <a href=\"https://demo.themeregion.com/biotic/shop-details.html\">\r\n");
-      out.write("                      <span class=\"product-image\">\r\n");
-      out.write("                        <img src=\"lib/images/cat2.jpg\" alt=\"Image\" class=\"img-fluid\">\r\n");
-      out.write("                      </span>\r\n");
-      out.write("                      <span class=\"product-title\">Organic <span>Cabbage</span></span>\r\n");
-      out.write("                      <span class=\"price\"><del>$15.00</del>$12.00</span>\r\n");
-      out.write("                    </a>\r\n");
-      out.write("                  </div><!-- /.product -->                                    \r\n");
-      out.write("                </div>                \r\n");
-      out.write("              </div><!-- /.row -->\r\n");
-      out.write("            </div><!-- /.tr-products -->\r\n");
+      out.write("            <div class=\"section\">\r\n");
+      out.write("                <ul class=\"navigation\">\r\n");
+      out.write("                    <li class=\"active\"><a href=\"#\">Shopping Guides</a></li>\r\n");
+      out.write("                </ul>\r\n");
+      out.write("                <div class=\"aside\">\r\n");
+      out.write("                    <div>\r\n");
+      out.write("                        <div>\r\n");
+      out.write("                            <ul>\r\n");
+      out.write("                                ");
+      if (_jspx_meth_c_forEach_1(_jspx_page_context))
+        return;
       out.write("\r\n");
-      out.write("            <div class=\"tr-pagination text-center\">\r\n");
-      out.write("              <ul class=\"pagination\">\r\n");
-      out.write("                <li class=\"float-left\"><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Prev</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">1</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">2</a></li>\r\n");
-      out.write("                <li class=\"active\"><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">3</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">4</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">5</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">6</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">7</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">8</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">9</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">...</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">21</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">22</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">23</a></li>\r\n");
-      out.write("                <li><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">24</a></li>\r\n");
-      out.write("                <li class=\"float-right\"><a class=\"page-numbers\" href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Next</a></li>\r\n");
-      out.write("              </ul>       \r\n");
-      out.write("            </div><!-- /.tr-pagination -->                        \r\n");
-      out.write("          </div>\r\n");
-      out.write("          <div class=\"col-md-4 col-lg-3 pull-md-8 pull-lg-9\">\r\n");
-      out.write("            <div class=\"gb-sidebar\">\r\n");
-      out.write("              <div class=\"widget-area\">           \r\n");
-      out.write("                <div class=\"widget widget_categories\">\r\n");
-      out.write("                  <h3 class=\"widget_title\">Categories</h3>\r\n");
-      out.write("                  <ul>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">All Post</a>(2)</li>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Vegetables</a>(3)</li>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Fruits</a>(7)</li>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Dried</a>(1)</li>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Vegetables</a> (9)</li>\r\n");
-      out.write("                    <li><a href=\"https://demo.themeregion.com/biotic/shop-list.html#\">Dried Fruit </a>(10)</li>\r\n");
-      out.write("                  </ul>\r\n");
-      out.write("                </div><!-- /.widget -->              \r\n");
-      out.write("              </div><!-- /.widget-area -->    \r\n");
-      out.write("            </div><!-- /.gb-sidebar -->                        \r\n");
-      out.write("          </div>                     \r\n");
-      out.write("        </div><!-- /.row -->\r\n");
-      out.write("      </div><!-- /.container -->\r\n");
-      out.write("    </div><!-- /.main-content -->\r\n");
+      out.write("                            </ul>\r\n");
+      out.write("                        </div>\r\n");
+      out.write("                    </div>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </div>\r\n");
+      out.write("    </div>\r\n");
+      out.write("    ");
       out.write("\r\n");
-      out.write("  </div>\r\n");
+      out.write("\r\n");
+      out.write("<div class=\"featured\">\r\n");
+      out.write("    <ul>\r\n");
+      out.write("        <li><a href=\"#\"><img src=\"lib/images/organic-and-chemical-free.jpg\" width=\"300\" height=\"90\" alt=\"\"></a></li>\r\n");
+      out.write("        <li><a href=\"#\"><img src=\"lib/images/good-food.jpg\" width=\"300\" height=\"90\" alt=\"\"></a></li>\r\n");
+      out.write("        <li class=\"last\"><a href=\"#\"><img src=\"lib/images/pet-grooming.jpg\" width=\"300\" height=\"90\" alt=\"\"></a></li>\r\n");
+      out.write("    </ul>\r\n");
+      out.write("  <br/>\r\n");
       out.write("</div>\r\n");
       out.write("\r\n");
+      out.write("</div>\r\n");
+      out.write("\r\n");
+      out.write("    ");
       out.write("\r\n");
       out.write("\r\n");
       out.write("<div id=\"footer\">\r\n");
@@ -254,8 +258,6 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</div>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
-      out.write('\r');
-      out.write('\n');
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
@@ -267,5 +269,92 @@ public final class petmart_jsp extends org.apache.jasper.runtime.HttpJspBase
     } finally {
       _jspxFactory.releasePageContext(_jspx_page_context);
     }
+  }
+
+  private boolean _jspx_meth_c_forEach_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_0.setParent(null);
+    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${Articles}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_0.setVar("article");
+    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
+      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\r\n");
+          out.write("                    <li> <a href=\"#\"><img src=\"lib/images/");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${article.imageName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" width=\"114\" height=\"160\" alt=\"\"></a>\r\n");
+          out.write("                        <h2>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${article.title}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</h2>\r\n");
+          out.write("                        <p>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${article.content}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("<a class=\"more\" href=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${article.petGuideId}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\">View all</a></p>\r\n");
+          out.write("                    </li>\r\n");
+          out.write("                ");
+          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_0.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
+    }
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_1(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_1.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_1.setParent(null);
+    _jspx_th_c_forEach_1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${Categories}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_1.setVar("item");
+    int[] _jspx_push_body_count_c_forEach_1 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_1 = _jspx_th_c_forEach_1.doStartTag();
+      if (_jspx_eval_c_forEach_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\r\n");
+          out.write("                                    <li><a href=\"#\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${item.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</a></li>\r\n");
+          out.write("                                ");
+          int evalDoAfterBody = _jspx_th_c_forEach_1.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_1[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_1.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_1.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_1);
+    }
+    return false;
   }
 }
