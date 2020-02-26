@@ -8,10 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@include file="../templates-Admin/header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@include file="../templates-Admin/sidebar.jsp" %>   
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
     </body>
+    <%@include file="../templates-Admin/footer.jsp" %>
 </html>
