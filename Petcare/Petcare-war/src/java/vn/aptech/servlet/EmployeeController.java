@@ -214,9 +214,9 @@ public class EmployeeController extends HttpServlet {
             request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
             break;
           case "addUnit":
-            if (!productUnitsFacade.FindUnitByName(request.getParameter("name"))) {
-              request.setAttribute("Error", "Unit name already exists. Add new Unit failed.");
-            } else {
+//            if (productUnitsFacade.find(request.getParameter("name")) != null) {
+//              request.setAttribute("Error", "Unit name already exists. Add new Unit failed.");
+//            } else {
               ProductUnits unit = new ProductUnits();
               unit.setName(request.getParameter("name"));
               unit.setDescription(request.getParameter("description"));
@@ -228,7 +228,7 @@ public class EmployeeController extends HttpServlet {
                 System.out.println(e.getMessage());
                 request.setAttribute("Error", "Add new Unit failed.");
               }
-            }
+//            }
             request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
             break;
           case "editUnit":

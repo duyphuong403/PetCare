@@ -19,7 +19,7 @@
                 <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
                   Add new Product
                 </a> | 
-                  <a href="EmployeeController?action=unit" style="color: #fff">
+                <a href="EmployeeController?action=unit" style="color: #fff">
                   Manage Product Unit
                 </a>
               </div>
@@ -216,7 +216,7 @@
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>
-             <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
+            <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
               <c:forEach items="${Units}" var="unit">
                 <option value="${unit.unitId}">${unit.name}</option>
               </c:forEach>
