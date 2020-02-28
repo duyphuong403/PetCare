@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -214,9 +213,6 @@ public class EmployeeController extends HttpServlet {
             request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
             break;
           case "addUnit":
-//            if (productUnitsFacade.find(request.getParameter("name")) != null) {
-//              request.setAttribute("Error", "Unit name already exists. Add new Unit failed.");
-//            } else {
               ProductUnits unit = new ProductUnits();
               unit.setName(request.getParameter("name"));
               unit.setDescription(request.getParameter("description"));
@@ -226,9 +222,8 @@ public class EmployeeController extends HttpServlet {
                 request.setAttribute("Success", "Add new Unit done.");
               } catch (Exception e) {
                 System.out.println(e.getMessage());
-                request.setAttribute("Error", "Add new Unit failed.");
+                request.setAttribute("Error", "Add new Unit failed. Unit Name already exists.");
               }
-//            }
             request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
             break;
           case "editUnit":
