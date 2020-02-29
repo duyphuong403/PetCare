@@ -18,9 +18,6 @@
                 <h4 class="card-title "><b>Products</b></h4>
                 <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
                   Add new Product
-                </a> | 
-                <a href="EmployeeController?action=unit" style="color: #fff">
-                  Manage Product Unit
                 </a>
               </div>
               <div class="card-body">
@@ -35,13 +32,7 @@
                     </th>
                     <th>
                       Category
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th>
-                      Image
-                    </th>
+                    </th>                                 
                     <th>
                       Quantity
                     </th>
@@ -49,14 +40,8 @@
                       Unit
                     </th>
                     <th>
-                      Is New
-                    </th>
-                    <th>
-                      DateUpdated
-                    </th>
-                    <th>
-                      DateCreated
-                    </th>
+                      Feature
+                    </th>                   
                     <th>
                       Created by
                     </th>
@@ -65,7 +50,7 @@
                     </th>
                     </thead>
                     <tbody>
-                      <% int i = 1; %>
+                      <% int i = 1;%>
                       <c:forEach items="${Products}" var="prod">
                         <tr>
                           <td>
@@ -75,15 +60,15 @@
                           <td>
                             ${prod.name}
                           </td>
-                          <td class="show-read-more" style="white-space: nowrap; width: 5em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
+                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
                             ${prod.cateId.name}
                           </td>
-                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.description}">
-                            ${prod.description}
-                          </td>
-                          <td>                            
-                            <img src="ProductImages/${prod.imageName}" width="150px"/>
-                          </td>
+<!--                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.description}">
+                          ${prod.description}
+                        </td>-->
+                          <!--                          <td>                            
+                                                      <img src="ProductImages/${prod.imageName}" width="150px"/>
+                                                    </td>-->
                           <td>
                             ${prod.quantity}
                           </td>
@@ -92,13 +77,7 @@
                           </td>
                           <td>
                             ${prod.isNew}
-                          </td>
-                          <td>
-                            ${prod.dateUpdated}
-                          </td>
-                          <td>
-                            ${prod.dateCreated}
-                          </td>
+                          </td>                       
                           <td>
                             ${prod.accId.username}
                           </td>
@@ -147,11 +126,23 @@
                                   <input type="text" class="form-control" id="Name" name="name" required="true" value="${prod.name}" maxlength="200">
                                 </div>
                                 <div class="form-group">
+                                  <label for="Name" class="bmd-label-floating">Category</label>
+                                  <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
+                                    <c:forEach items="${Categories}" var="category">
+                                      <c:if test="${category.cateId == prod.cateId.cateId}">
+                                        <option value="${category.cateId}" selected="true">${category.name}</option>
+                                      </c:if>
+                                      
+                                    </c:forEach>
+                                  </select>
+                                </div>
+                                <div class="form-group">
                                   <label for="Description" class="bmd-label-floating">Description</label>
                                   <input type="text" class="form-control" id="Description" name="description" required="true" value="${prod.description}" maxlength="200">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="text-align: center;">
                                   <label for="Image" class="bmd-label-floating">Image</label>
+                                  <img src="ProductImages/${prod.imageName}" width="200" title="${prod.imageName}"/>
                                   <input type="text" class="form-control" id="Image" name="imageName" required="true" value="${prod.imageName}" maxlength="200">
                                 </div>
                                 <div class="form-group">
@@ -160,7 +151,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="Unit" class="bmd-label-floating">Unit</label>
-                                  <input type="text" class="form-control" id="Unit" name="unit" required="true" value="${prod.unitId}" maxlength="50">
+                                  <input type="text" class="form-control" id="Unit" name="unit" required="true" value="${prod.unitId.name}" maxlength="50">
                                 </div>
                                 <div class="form-group">
                                   <label for="IsNew" class="bmd-label-floating">Is New</label>

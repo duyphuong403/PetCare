@@ -17,10 +17,10 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav" id="nav">
-            <li class="nav-item ${dashboard}">
-                <a class="nav-link" href="EmployeeController">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+            <li class="nav-item ${order}">
+                <a class="nav-link" href="EmployeeController?action=order">
+                    <i class="material-icons">shopping_cart</i>
+                    <p>Orders</p>
                 </a>
             </li>
             <li class="nav-item ${category}">
@@ -35,16 +35,16 @@
                     <p>Products</p>
                 </a>
             </li>
+             <li class="nav-item ${unit}">
+                <a class="nav-link" href="EmployeeController?action=unit">
+                    <i class="material-icons">list_alt</i>
+                    <p>Units</p>
+                </a>
+            </li>
             <li class="nav-item ${account}">
                 <a class="nav-link" href="EmployeeController?action=account">
                     <i class="material-icons">person</i>
                     <p>Accounts</p>
-                </a>
-            </li>
-            <li class="nav-item ${order}">
-                <a class="nav-link" href="EmployeeController?action=order">
-                    <i class="material-icons">shopping_cart</i>
-                    <p>Orders</p>
                 </a>
             </li>
             <li class="nav-item ${petguide}">

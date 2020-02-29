@@ -82,9 +82,9 @@ public class EmployeeController extends HttpServlet {
           int role = curAcc.getRole();
           switch (role) {
             case 1:
-              request.setAttribute("title", "Dashboard");
-              request.setAttribute("dashboard", "active");
-              request.getRequestDispatcher("employeeUI/index.jsp").forward(request, response);
+              request.setAttribute("title", "Order");
+              request.setAttribute("order", "active");
+              request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
               break;
             case 2:
               request.setAttribute("title", "Dashboard");
@@ -230,7 +230,7 @@ public class EmployeeController extends HttpServlet {
               }
 
               request.setAttribute("title", "Product Units");
-              request.setAttribute("product", "active");
+              request.setAttribute("unit", "active");
               request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
               break;
             case "addUnit":
