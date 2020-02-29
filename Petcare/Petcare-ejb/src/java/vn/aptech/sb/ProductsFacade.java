@@ -29,4 +29,14 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
     super(Products.class);
   }
   
+   @Override
+    public boolean Delete(int prodId) {
+        try {
+            return em.createQuery("delete from Products where CateId = :prodId", Products.class).setParameter("prodId", prodId).executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+  
 }

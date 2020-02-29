@@ -28,120 +28,94 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ngodu
+ * @author Dell
  */
 @Entity
 @Table(name = "Categories")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
-    , @NamedQuery(name = "Categories.findByCateId", query = "SELECT c FROM Categories c WHERE c.cateId = :cateId")
-    , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")
-    , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")
-    , @NamedQuery(name = "Categories.findByDateUpdated", query = "SELECT c FROM Categories c WHERE c.dateUpdated = :dateUpdated")
-    , @NamedQuery(name = "Categories.findByDateCreated", query = "SELECT c FROM Categories c WHERE c.dateCreated = :dateCreated")})
+  @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
+  , @NamedQuery(name = "Categories.findByCateId", query = "SELECT c FROM Categories c WHERE c.cateId = :cateId")
+  , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")
+  , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")
+  , @NamedQuery(name = "Categories.findByDateUpdated", query = "SELECT c FROM Categories c WHERE c.dateUpdated = :dateUpdated")
+  , @NamedQuery(name = "Categories.findByDateCreated", query = "SELECT c FROM Categories c WHERE c.dateCreated = :dateCreated")})
 public class Categories implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Basic(optional = false)
+  @Column(name = "CateId")
+  private Integer cateId;
+  @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 200)
+  @Column(name = "Name")
+  private String name;
+  @Size(max = 300)
+  @Column(name = "Description")
+  private String description;
+  @Column(name = "DateUpdated")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dateUpdated;
+  @Column(name = "DateCreated")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dateCreated;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
   private Collection<Products> productsCollection;
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "CateId")
-    private Integer cateId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "Name")
-    private String name;
-    @Size(max = 300)
-    @Column(name = "Description")
-    private String description;
-    @Column(name = "DateUpdated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
-    @Column(name = "DateCreated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+  public Categories() {
+  }
 
-    public Categories() {
-    }
+  public Categories(Integer cateId) {
+    this.cateId = cateId;
+  }
 
-    public Categories(Integer cateId) {
-        this.cateId = cateId;
-    }
+  public Categories(Integer cateId, String name) {
+    this.cateId = cateId;
+    this.name = name;
+  }
 
-    public Categories(Integer cateId, String name) {
-        this.cateId = cateId;
-        this.name = name;
-    }
+  public Integer getCateId() {
+    return cateId;
+  }
 
-    public Integer getCateId() {
-        return cateId;
-    }
+  public void setCateId(Integer cateId) {
+    this.cateId = cateId;
+  }
 
-    public void setCateId(Integer cateId) {
-        this.cateId = cateId;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public Date getDateUpdated() {
+    return dateUpdated;
+  }
 
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
+  public void setDateUpdated(Date dateUpdated) {
+    this.dateUpdated = dateUpdated;
+  }
 
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
+  public Date getDateCreated() {
+    return dateCreated;
+  }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cateId != null ? cateId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categories)) {
-            return false;
-        }
-        Categories other = (Categories) object;
-        if ((this.cateId == null && other.cateId != null) || (this.cateId != null && !this.cateId.equals(other.cateId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "vn.aptech.entity.Categories[ cateId=" + cateId + " ]";
-    }
+  public void setDateCreated(Date dateCreated) {
+    this.dateCreated = dateCreated;
+  }
 
   @XmlTransient
   public Collection<Products> getProductsCollection() {
@@ -151,5 +125,30 @@ public class Categories implements Serializable {
   public void setProductsCollection(Collection<Products> productsCollection) {
     this.productsCollection = productsCollection;
   }
-    
+
+  @Override
+  public int hashCode() {
+    int hash = 0;
+    hash += (cateId != null ? cateId.hashCode() : 0);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    // TODO: Warning - this method won't work in the case the id fields are not set
+    if (!(object instanceof Categories)) {
+      return false;
+    }
+    Categories other = (Categories) object;
+    if ((this.cateId == null && other.cateId != null) || (this.cateId != null && !this.cateId.equals(other.cateId))) {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public String toString() {
+    return "vn.aptech.entity.Categories[ cateId=" + cateId + " ]";
+  }
+  
 }
