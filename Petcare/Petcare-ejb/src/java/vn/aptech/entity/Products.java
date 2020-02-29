@@ -17,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
   , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
   , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
   , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
-  , @NamedQuery(name = "Products.findByUnitId", query = "SELECT p FROM Products p WHERE p.unitId = :unitId")
   , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
   , @NamedQuery(name = "Products.findByDateUpdated", query = "SELECT p FROM Products p WHERE p.dateUpdated = :dateUpdated")
   , @NamedQuery(name = "Products.findByDateCreated", query = "SELECT p FROM Products p WHERE p.dateCreated = :dateCreated")})
@@ -68,10 +66,6 @@ public class Products implements Serializable {
   private int quantity;
   @Basic(optional = false)
   @NotNull
-  @Column(name = "UnitId")
-  private int unitId;
-  @Basic(optional = false)
-  @NotNull
   @Column(name = "IsNew")
   private boolean isNew;
   @Column(name = "DateUpdated")
@@ -88,9 +82,9 @@ public class Products implements Serializable {
   @JoinColumn(name = "CateId", referencedColumnName = "CateId")
   @ManyToOne(optional = false)
   private Categories cateId;
-  @JoinColumn(name = "ProdId", referencedColumnName = "UnitId", insertable = false, updatable = false)
-  @OneToOne(optional = false)
-  private ProductUnits productUnits;
+  @JoinColumn(name = "UnitId", referencedColumnName = "UnitId")
+  @ManyToOne(optional = false)
+  private ProductUnits unitId;
 
   public Products() {
   }
@@ -99,11 +93,10 @@ public class Products implements Serializable {
     this.prodId = prodId;
   }
 
-  public Products(Integer prodId, String name, int quantity, int unitId, boolean isNew, Date dateCreated) {
+  public Products(Integer prodId, String name, int quantity, boolean isNew, Date dateCreated) {
     this.prodId = prodId;
     this.name = name;
     this.quantity = quantity;
-    this.unitId = unitId;
     this.isNew = isNew;
     this.dateCreated = dateCreated;
   }
@@ -148,14 +141,6 @@ public class Products implements Serializable {
     this.quantity = quantity;
   }
 
-  public int getUnitId() {
-    return unitId;
-  }
-
-  public void setUnitId(int unitId) {
-    this.unitId = unitId;
-  }
-
   public boolean getIsNew() {
     return isNew;
   }
@@ -196,12 +181,12 @@ public class Products implements Serializable {
     this.cateId = cateId;
   }
 
-  public ProductUnits getProductUnits() {
-    return productUnits;
+  public ProductUnits getUnitId() {
+    return unitId;
   }
 
-  public void setProductUnits(ProductUnits productUnits) {
-    this.productUnits = productUnits;
+  public void setUnitId(ProductUnits unitId) {
+    this.unitId = unitId;
   }
 
   @Override
