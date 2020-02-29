@@ -19,7 +19,7 @@
                 <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
                   Add new Product
                 </a> | 
-                  <a href="EmployeeController?action=unit" style="color: #fff">
+                <a href="EmployeeController?action=unit" style="color: #fff">
                   Manage Product Unit
                 </a>
               </div>
@@ -28,10 +28,13 @@
                   <table class="table">
                     <thead class=" text-primary">
                     <th>
-                      ProdId
+                      No.
                     </th>
                     <th>
                       Name
+                    </th>
+                    <th>
+                      Category
                     </th>
                     <th>
                       Description
@@ -62,25 +65,30 @@
                     </th>
                     </thead>
                     <tbody>
+                      <% int i = 1; %>
                       <c:forEach items="${Products}" var="prod">
                         <tr>
                           <td>
-                            ${prod.prodId}
+                            <%= i%>
+                            <% i++; %>
                           </td>
                           <td>
                             ${prod.name}
                           </td>
-                          <td class="show-read-more" style=" display: block; white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.description}">
+                          <td class="show-read-more" style="white-space: nowrap; width: 5em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
+                            ${prod.cateId.name}
+                          </td>
+                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.description}">
                             ${prod.description}
                           </td>
-                          <td>
-                            ${prod.imageName}
+                          <td>                            
+                            <img src="ProductImages/${prod.imageName}" width="150px"/>
                           </td>
                           <td>
                             ${prod.quantity}
                           </td>
                           <td>
-                            ${prod.unit}
+                            ${prod.unitId.name}
                           </td>
                           <td>
                             ${prod.isNew}
@@ -97,12 +105,12 @@
                           <td>
                             <a href="#" data-toggle="modal" data-target="#editProd${prod.prodId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
                             <form action="EmployeeController?action=deleteProd" method="post" id="deleteProd${prod.prodId}">
-                              <input type="text" name="cateId" value="${prod.prodId}" hidden="true">
+                              <input type="text" name="prodId" value="${prod.prodId}" hidden="true">
                               <a href="#" type="submit" style="color: #333" title="Delete" id="deleteProd" onclick="deleteProd()"><i class="material-icons">delete</i></a>
                             </form>
                           </td>
                       <script>
-                        function deleteCate() {
+                        function deleteProd() {
                           swal({
                             title: "Are you sure?",
                             text: "You will not be able to recover this Product!",
@@ -152,7 +160,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="Unit" class="bmd-label-floating">Unit</label>
-                                  <input type="text" class="form-control" id="Unit" name="unit" required="true" value="${prod.unit}" maxlength="50">
+                                  <input type="text" class="form-control" id="Unit" name="unit" required="true" value="${prod.unitId}" maxlength="50">
                                 </div>
                                 <div class="form-group">
                                   <label for="IsNew" class="bmd-label-floating">Is New</label>
@@ -216,7 +224,7 @@
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>
-             <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
+            <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
               <c:forEach items="${Units}" var="unit">
                 <option value="${unit.unitId}">${unit.name}</option>
               </c:forEach>

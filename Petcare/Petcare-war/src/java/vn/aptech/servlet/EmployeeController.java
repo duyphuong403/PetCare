@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -38,15 +37,15 @@ import vn.aptech.sb.ProductsFacadeLocal;
 
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
-  
+
   public static final String SAVE_DIRECTORY = "uploadDir";
-  
+
   @EJB
   private ProductUnitsFacadeLocal productUnitsFacade;
-  
+
   @EJB
   private ProductsFacadeLocal productsFacade;
-  
+
   @EJB
   private CategoriesFacadeLocal categoriesFacade;
 
@@ -62,17 +61,24 @@ public class EmployeeController extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     try {
-//      System.out.println(System.getProperty("user.dir"));
+//      System.out.println(request.getRequestURL().toString());
+
       HttpSession session = request.getSession();
       Categories cate;
       Products prod;
+
+      String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
       String action = request.getParameter("action");
       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-      if (action == null) {
-        if (curAcc == null) {
-          request.setAttribute("Login", "active");
-          request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
+      if (curAcc == null) {
+        // Get current URL
+//      if (request.getAttribute("currentUrl") == null) {
+//        request.setAttribute("currentURL", request.getRequestURL().toString());
+//      }
+        request.setAttribute("Login", "active");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+      } else {
+        if (action == null) {
           int role = curAcc.getRole();
           switch (role) {
             case 1:
@@ -90,133 +96,144 @@ public class EmployeeController extends HttpServlet {
               request.setAttribute("dashboard", "active");
               request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
           }
-        }
-      } else {
-        switch (action) {
-          case "category":
-            if (request.getAttribute("Categories") == null) {
-              request.setAttribute("Categories", categoriesFacade.findAll());
-            }
-            request.setAttribute("title", "Category");
-            request.setAttribute("category", "active");
-            request.getRequestDispatcher("employeeUI/category.jsp").forward(request, response);
-            break;
-          case "addCate":
-            cate = new Categories();
-            cate.setName(request.getParameter("name"));
-            cate.setDescription(request.getParameter("description"));
-            cate.setDateCreated(new Date());
-            
-            try {
-              categoriesFacade.create(cate);
-            } catch (Exception e) {
-              log(e.toString());
-              request.setAttribute("Error", "Category Name already exists.");
-            }
-            request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
-            break;
-          case "editCate":
-            cate = new Categories();
-            cate.setCateId(Integer.parseInt(request.getParameter("cateId")));
-            cate.setName(request.getParameter("name"));
-            cate.setDescription(request.getParameter("description"));
-            cate.setDateUpdated(new Date());
-            try {
-              categoriesFacade.edit(cate);
-              request.setAttribute("Success", "Edit Category Done");
-            } catch (Exception e) {
-              request.setAttribute("Error", "Edit category failed. " + e.getMessage());
-            }
-            request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
-            break;
-          case "deleteCate":
-            int cateId = Integer.parseInt(request.getParameter("cateId"));
-            if (categoriesFacade.Delete(cateId)) {
-              request.setAttribute("Success", "Delete Category Successful");
-            } else {
-              request.setAttribute("Error", "Delete Category Failed");
-            }
-            request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
-            break;
-          
-          case "product":
-            if (request.getAttribute("Products") == null) {
-              request.setAttribute("Products", productsFacade.findAll());
-            }
-            if (request.getAttribute("Categories") == null) {
-              request.setAttribute("Categories", categoriesFacade.findAll());
-            }
-            if (request.getAttribute("Units") == null) {
-              request.setAttribute("Units", productUnitsFacade.findAll());
-            }
-            request.setAttribute("title", "Product");
-            request.setAttribute("product", "active");
-            request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);
-            break;
-          case "addProd":
-            prod = new Products();
-            Categories addCate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
-            prod.setCateId(addCate);
-            prod.setName(request.getParameter("name"));
-            prod.setDescription(request.getParameter("description"));
-            prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
-            prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-            ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
-            prod.setProductUnits(prodUnit);
-            prod.setDateCreated(new Date());
-            prod.setAccId(curAcc);
-            
-            InputStream inputStream;
-            FileOutputStream fileOutputStream;
-            
-            String uploadDir = System.getProperty("user.home") + "/ProductImages";
-            File fileSaveDir = new File(uploadDir);
-            if (!fileSaveDir.exists()) {
-              fileSaveDir.mkdirs();
-            }
-            for (Part part : request.getParts()) {
-              
-              inputStream = request.getPart(part.getName()).getInputStream();
-              int i = inputStream.available();
-              byte[] b = new byte[i];
-              inputStream.read(b);
-              String fileName = extractFileName(part);
-              fileName = new File(fileName).getName();
-              
-              if (fileName != null && fileName.length() > 0) {
-                fileOutputStream = new FileOutputStream(fileSaveDir + "/" + fileName);
-                fileOutputStream.write(b);
-                fileOutputStream.close();
-                prod.setImageName(fileName);
-                System.out.println("Uploaded file " + fileSaveDir + "/" + fileName + ".");
+        } else {
+          switch (action) {
+            case "category":
+              if (request.getAttribute("Categories") == null) {
+                request.setAttribute("Categories", categoriesFacade.findAll());
               }
-              inputStream.close();
-              
-            }
-            
-            try {
-              productsFacade.create(prod);
-              request.setAttribute("Success", "Add new Product Done.");
-            } catch (Exception e) {
-              System.out.println(e.getMessage());
-              request.setAttribute("Error", "Product Name already exists.");
-            }
-            request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
-            break;
-          
-          case "unit":
-            if (request.getAttribute("Units") == null) {
-              request.setAttribute("Units", productUnitsFacade.findAll());
-            }
-            
-            request.setAttribute("title", "Product Units");
-            request.setAttribute("product", "active");
-            request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
-            break;
-          case "addUnit":
-            if (!productUnitsFacade.FindUnitByName(request.getParameter("name"))) {
-              request.setAttribute("Error", "Unit name already exists. Add new Unit failed.");
-            } else {
+              request.setAttribute("title", "Category");
+              request.setAttribute("category", "active");
+              request.getRequestDispatcher("employeeUI/category.jsp").forward(request, response);
+              break;
+            case "addCate":
+              cate = new Categories();
+              cate.setName(request.getParameter("name"));
+              cate.setDescription(request.getParameter("description"));
+              cate.setDateCreated(new Date());
+
+              try {
+                categoriesFacade.create(cate);
+              } catch (Exception e) {
+                log(e.toString());
+                request.setAttribute("Error", "Category Name already exists.");
+              }
+              request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
+              break;
+            case "editCate":
+              cate = new Categories();
+              cate.setCateId(Integer.parseInt(request.getParameter("cateId")));
+              cate.setName(request.getParameter("name"));
+              cate.setDescription(request.getParameter("description"));
+              cate.setDateUpdated(new Date());
+              try {
+                categoriesFacade.edit(cate);
+                request.setAttribute("Success", "Edit Category Done");
+              } catch (Exception e) {
+                request.setAttribute("Error", "Edit category failed. " + e.getMessage());
+              }
+              request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
+              break;
+            case "deleteCate":
+              int cateId = Integer.parseInt(request.getParameter("cateId"));
+              if (categoriesFacade.Delete(cateId)) {
+                request.setAttribute("Success", "Delete Category Successful");
+              } else {
+                request.setAttribute("Error", "Delete Category Failed");
+              }
+              request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
+              break;
+
+            case "product":
+              if (request.getAttribute("Products") == null) {
+                request.setAttribute("Products", productsFacade.findAll());
+              }
+              if (request.getAttribute("Categories") == null) {
+                request.setAttribute("Categories", categoriesFacade.findAll());
+              }
+              if (request.getAttribute("Units") == null) {
+                request.setAttribute("Units", productUnitsFacade.findAll());
+              }
+              request.setAttribute("title", "Product");
+              request.setAttribute("product", "active");
+              request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);
+              break;
+            case "addProd":
+              prod = new Products();
+              Categories addCate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
+              prod.setCateId(addCate);
+              prod.setName(request.getParameter("name"));
+              prod.setDescription(request.getParameter("description"));
+              prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
+              prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+              ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
+              prod.setUnitId(prodUnit);
+              prod.setDateCreated(new Date());
+              prod.setAccId(curAcc);
+
+              InputStream inputStream;
+              FileOutputStream fileOutputStream;
+
+              File fileSaveDir = new File(uploadDir);
+              if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdirs();
+              }
+              for (Part part : request.getParts()) {
+
+                inputStream = request.getPart(part.getName()).getInputStream();
+                int i = inputStream.available();
+                byte[] b = new byte[i];
+                inputStream.read(b);
+                String fileName = extractFileName(part);
+                fileName = new File(fileName).getName();
+
+                if (fileName != null && fileName.length() > 0) {
+                  fileOutputStream = new FileOutputStream(fileSaveDir + "/" + fileName);
+                  fileOutputStream.write(b);
+                  fileOutputStream.close();
+                  prod.setImageName(fileName);
+                  System.out.println("Uploaded file " + fileSaveDir + "\\" + fileName + ".");
+                }
+                inputStream.close();
+
+              }
+
+              try {
+                productsFacade.create(prod);
+                request.setAttribute("Success", "Add new Product Done.");
+              } catch (Exception e) {
+                System.out.println(e.getMessage());
+                request.setAttribute("Error", "Product Name already exists.");
+              }
+              request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
+              break;
+
+            case "deleteProd":
+              int prodId = Integer.parseInt(request.getParameter("prodId"));
+              Products prodDel = productsFacade.find(prodId);
+              if (productsFacade.Delete(prodId)) {
+                File file = new File(uploadDir + "\\" + prodDel.getImageName());
+                if (file.delete()) {
+                  request.setAttribute("Success", "Delete Product Successful");
+                } else {
+                  request.setAttribute("Error", "Delete Product Failed");
+                }
+              } else {
+                request.setAttribute("Error", "Delete Product Failed");
+              }
+              request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
+              break;
+
+            case "unit":
+              if (request.getAttribute("Units") == null) {
+                request.setAttribute("Units", productUnitsFacade.findAll());
+              }
+
+              request.setAttribute("title", "Product Units");
+              request.setAttribute("product", "active");
+              request.getRequestDispatcher("employeeUI/unit.jsp").forward(request, response);
+              break;
+            case "addUnit":
               ProductUnits unit = new ProductUnits();
               unit.setName(request.getParameter("name"));
               unit.setDescription(request.getParameter("description"));
@@ -226,63 +243,63 @@ public class EmployeeController extends HttpServlet {
                 request.setAttribute("Success", "Add new Unit done.");
               } catch (Exception e) {
                 System.out.println(e.getMessage());
-                request.setAttribute("Error", "Add new Unit failed.");
+                request.setAttribute("Error", "Add new Unit failed. Unit Name already exists.");
               }
-            }
-            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
-            break;
-          case "editUnit":
-            ProductUnits editUnit = new ProductUnits();
-            editUnit.setUnitId(Integer.parseInt(request.getParameter("unitId")));
-            editUnit.setName(request.getParameter("name"));
-            editUnit.setDescription(request.getParameter("description"));
-            editUnit.setDateUpdated(new Date());
-            try {
-              productUnitsFacade.edit(editUnit);
-              request.setAttribute("Success", "Edit Unit Done");
-            } catch (Exception e) {
-              System.out.println(e.getMessage());
-              request.setAttribute("Error", "Edit Unit failed.");
-            }
-            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
-            break;
-          case "deleteUnit":
-            int unitId = Integer.parseInt(request.getParameter("unitId"));
-            if (productUnitsFacade.Delete(unitId)) {
-              request.setAttribute("Success", "Delete Unit Successful");
-            } else {
-              request.setAttribute("Error", "Delete Unit Failed");
-            }
-            request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
-            break;
-          
-          case "account":
-            request.setAttribute("title", "Account");
-            request.setAttribute("account", "active");
-            break;
-          case "petguide":
-            request.setAttribute("title", "PetGuide");
-            request.setAttribute("petguide", "active");
-            break;
-          case "profile":
-            request.setAttribute("title", "Profile-");
-            request.setAttribute("profile", "active");
-            break;
-          case "logout":
-            session.removeAttribute("curAcc");
-            response.sendRedirect("login.jsp");
-            break;
-          default:
-            request.setAttribute("title", "Dashboard");
-            request.setAttribute("dashboard", "active");
-            request.getRequestDispatcher("employeUI/index.jsp").forward(request, response);
+              request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
+              break;
+            case "editUnit":
+              ProductUnits editUnit = new ProductUnits();
+              editUnit.setUnitId(Integer.parseInt(request.getParameter("unitId")));
+              editUnit.setName(request.getParameter("name"));
+              editUnit.setDescription(request.getParameter("description"));
+              editUnit.setDateUpdated(new Date());
+              try {
+                productUnitsFacade.edit(editUnit);
+                request.setAttribute("Success", "Edit Unit Done");
+              } catch (Exception e) {
+                System.out.println(e.getMessage());
+                request.setAttribute("Error", "Edit Unit failed.");
+              }
+              request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
+              break;
+            case "deleteUnit":
+              int unitId = Integer.parseInt(request.getParameter("unitId"));
+              if (productUnitsFacade.Delete(unitId)) {
+                request.setAttribute("Success", "Delete Unit Successful");
+              } else {
+                request.setAttribute("Error", "Delete Unit Failed");
+              }
+              request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
+              break;
+
+            case "account":
+              request.setAttribute("title", "Account");
+              request.setAttribute("account", "active");
+              break;
+            case "petguide":
+              request.setAttribute("title", "PetGuide");
+              request.setAttribute("petguide", "active");
+              break;
+            case "profile":
+              request.setAttribute("title", "Profile-");
+              request.setAttribute("profile", "active");
+              break;
+            case "logout":
+              session.removeAttribute("curAcc");
+              response.sendRedirect("login.jsp");
+              break;
+            default:
+              request.setAttribute("title", "Dashboard");
+              request.setAttribute("dashboard", "active");
+              request.getRequestDispatcher("employeUI/index.jsp").forward(request, response);
+          }
         }
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
   }
-  
+
   private String extractFileName(Part part) {
     String contentDisp = part.getHeader("content-disposition");
     String[] items = contentDisp.split(";");
@@ -293,7 +310,7 @@ public class EmployeeController extends HttpServlet {
     }
     return "";
   }
-  
+
   public File getFolderUpload() {
     File folderUpload = new File(System.getProperty("user.home") + "/Uploads");
     if (!folderUpload.exists()) {

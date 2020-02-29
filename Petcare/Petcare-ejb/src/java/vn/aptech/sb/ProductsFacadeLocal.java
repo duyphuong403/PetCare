@@ -30,4 +30,5 @@ public interface ProductsFacadeLocal {
 
   int count();
   
+  boolean Delete(int prodId);
 }
