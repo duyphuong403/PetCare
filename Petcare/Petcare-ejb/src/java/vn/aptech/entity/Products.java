@@ -72,7 +72,6 @@ public class Products implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateUpdated;
   @Basic(optional = false)
-  @NotNull
   @Column(name = "DateCreated")
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateCreated;

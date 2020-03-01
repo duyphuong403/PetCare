@@ -4,11 +4,13 @@
     Author     : ngodu
 --%>
 
+<%@page import="vn.aptech.entity.ProductUnits"%>
 <%@include file="../templates-Employee/header.jsp" %>
 
 <div class="wrapper ">
   <%@include file="../templates-Employee/sidebar.jsp" %>    
   <div class="main-panel">
+    <%@include file="../templates-Employee/status-bar.jsp" %>
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -63,12 +65,6 @@
                           <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
                             ${prod.cateId.name}
                           </td>
-<!--                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.description}">
-                          ${prod.description}
-                        </td>-->
-                          <!--                          <td>                            
-                                                      <img src="ProductImages/${prod.imageName}" width="150px"/>
-                                                    </td>-->
                           <td>
                             ${prod.quantity}
                           </td>
@@ -98,12 +94,12 @@
                               'No, cancel it!',
                               'Yes, I am sure!'
                             ],
-                            dangerMode: true,
+                            dangerMode: true
                           }).then(function (isConfirm) {
                             if (isConfirm) {
                               $("#deleteProd${prod.prodId}").submit();
                             }
-                          })
+                          });
                         }
 
                       </script>
@@ -112,8 +108,8 @@
                            aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
-                            <form autocomplete="off" action="EmployeeController?action=editProd" method="post">
-                              <input type="text" name="cateId" hidden="true" value="${prod.prodId}"/>
+                            <form autocomplete="off" action="EmployeeController?action=editProd" method="post" enctype="multipart/form-data">
+                              <input type="text" name="prodId" hidden="true" value="${prod.prodId}"/>
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -128,11 +124,8 @@
                                 <div class="form-group">
                                   <label for="Name" class="bmd-label-floating">Category</label>
                                   <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
-                                    <c:forEach items="${Categories}" var="category">
-                                      <c:if test="${category.cateId == prod.cateId.cateId}">
-                                        <option value="${category.cateId}" selected="true">${category.name}</option>
-                                      </c:if>
-                                      
+                                    <c:forEach items="${Categories}" var="category">                                    
+                                      <option value="${category.cateId}" <c:if test="${category.cateId == prod.cateId.cateId}"> selected </c:if>>${category.name}</option>  
                                     </c:forEach>
                                   </select>
                                 </div>
@@ -141,9 +134,11 @@
                                   <input type="text" class="form-control" id="Description" name="description" required="true" value="${prod.description}" maxlength="200">
                                 </div>
                                 <div class="form-group" style="text-align: center;">
-                                  <label for="Image" class="bmd-label-floating">Image</label>
-                                  <img src="ProductImages/${prod.imageName}" width="200" title="${prod.imageName}"/>
-                                  <input type="text" class="form-control" id="Image" name="imageName" required="true" value="${prod.imageName}" maxlength="200">
+                                  <!--<label for="Image" class="bmd-label-floating">Image</label>-->
+                                  <img src="ProductImages/${prod.imageName}" id="currentImage" width="200" title="${prod.imageName}"/>
+                                  <img src="#" id="imageChange" width="200" title=""/>
+                                  <input type="text" name="imageName" value="${prod.imageName}" hidden="true"/>
+                                  <input type="file" name="imageChange" id="imageChange" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
                                 </div>
                                 <div class="form-group">
                                   <label for="Quantity" class="bmd-label-floating">Quantity</label>
@@ -151,23 +146,30 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="Unit" class="bmd-label-floating">Unit</label>
-                                  <input type="text" class="form-control" id="Unit" name="unit" required="true" value="${prod.unitId.name}" maxlength="50">
+                                  <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
+                                    <c:forEach items="${Units}" var="unit">                                    
+                                      <option value="${unit.unitId}" <c:if test="${unit.unitId == prod.unitId.unitId}"> selected </c:if>>${unit.name}</option>  
+                                    </c:forEach>              
+                                  </select>
                                 </div>
                                 <div class="form-group">
-                                  <label for="IsNew" class="bmd-label-floating">Is New</label>
-                                  <input type="text" class="form-control" id="IsNew" name="isNew" required="true" value="${prod.isNew}">
+                                  <p for="IsNew" class="bmd-label-floating">Is New</p>
+                                  <input type="radio" class="" id="IsNew" name="isNew" required="true" value="true" <c:if test="${prod.isNew}"> checked="true"</c:if>>
+                                    <label for="yes">Yes</label>
+                                    <input type="radio" class="" id="IsNew" name="isNew" required="true" value="false" <c:if test="${!prod.isNew}"> checked="true"</c:if>>
+                                    <label for="no">No</label>
+                                  </div>
+                                  <br/>
                                 </div>
-                                <br/>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </form>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      </tr>
+                        </tr>
                     </c:forEach>
                     </tbody>
                   </table>
@@ -289,6 +291,53 @@
         alert("This browser does not support HTML5 FileReader.");
       }
     }
+    
+    var imageChange = document.getElementById("imageChange");
+    imageChange.onchange = function () {
+      if (typeof (FileReader) != "undefined") {
+        var dvPreview = document.getElementById("currentImage");
+        dvPreview.innerHTML = "";
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+        for (var i = 0; i < fileUpload.files.length; i++) {
+          var file = fileUpload.files[i];
+          if (regex.test(file.name.toLowerCase())) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var img = document.createElement("IMG");
+              img.height = "110";
+              img.width = "110";
+              img.src = e.target.result;
+              dvPreview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+          } else {
+            alert(file.name + " is not a valid image file.");
+            dvPreview.innerHTML = "";
+            return false;
+          }
+        }
+      } else {
+        alert("This browser does not support HTML5 FileReader.");
+      }
   };
+</script>
+
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#currentImage').remove();
+
+        $('#imageChange')
+                .attr('src', e.target.result)
+                .width(150)
+                .height(200);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 </script>
 <%@include file="../templates-Employee/footer.jsp" %>

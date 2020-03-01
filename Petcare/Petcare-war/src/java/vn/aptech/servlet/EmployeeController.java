@@ -64,6 +64,7 @@ public class EmployeeController extends HttpServlet {
 //      System.out.println(request.getRequestURL().toString());
 
       HttpSession session = request.getSession();
+      session.setMaxInactiveInterval(24 * 60 * 60);
       Categories cate;
       Products prod;
 
@@ -115,7 +116,7 @@ public class EmployeeController extends HttpServlet {
               try {
                 categoriesFacade.create(cate);
               } catch (Exception e) {
-                log(e.toString());
+                System.out.println(e);
                 request.setAttribute("Error", "Category Name already exists.");
               }
               request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
@@ -128,8 +129,9 @@ public class EmployeeController extends HttpServlet {
               cate.setDateUpdated(new Date());
               try {
                 categoriesFacade.edit(cate);
-                request.setAttribute("Success", "Edit Category Done");
+//                request.setAttribute("Success", "Edit Category Done");
               } catch (Exception e) {
+                System.out.println(e);
                 request.setAttribute("Error", "Edit category failed. " + e.getMessage());
               }
               request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
@@ -137,7 +139,7 @@ public class EmployeeController extends HttpServlet {
             case "deleteCate":
               int cateId = Integer.parseInt(request.getParameter("cateId"));
               if (categoriesFacade.Delete(cateId)) {
-                request.setAttribute("Success", "Delete Category Successful");
+//                request.setAttribute("Success", "Delete Category Successful");
               } else {
                 request.setAttribute("Error", "Delete Category Failed");
               }
@@ -195,15 +197,75 @@ public class EmployeeController extends HttpServlet {
                   System.out.println("Uploaded file " + fileSaveDir + "\\" + fileName + ".");
                 }
                 inputStream.close();
-
               }
-
               try {
                 productsFacade.create(prod);
-                request.setAttribute("Success", "Add new Product Done.");
               } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(e);
                 request.setAttribute("Error", "Product Name already exists.");
+              }
+              request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
+              break;
+
+            case "editProd":
+              prod = new Products();
+              prod.setProdId(Integer.parseInt(request.getParameter("prodId")));
+              prod.setName(request.getParameter("name"));
+              prod.setCateId(categoriesFacade.find(Integer.parseInt(request.getParameter("cateId"))));
+              prod.setDescription(request.getParameter("description"));
+
+              InputStream isEdit;
+              FileOutputStream fosEdit;
+
+              File fileEdit = new File(uploadDir);
+              if (!fileEdit.exists()) {
+                fileEdit.mkdirs();
+              }
+              for (Part part : request.getParts()) {
+                if (part.getName().equals("imageChange") && !part.getSubmittedFileName().equals("")) {
+                  isEdit = request.getPart(part.getName()).getInputStream();
+                  int i = isEdit.available();
+                  byte[] b = new byte[i];
+                  isEdit.read(b);
+                  String fileName = extractFileName(part);
+                  fileName = new File(fileName).getName();
+
+                  if (fileName != null && fileName.length() > 0) {
+                    fosEdit = new FileOutputStream(fileEdit + "/" + fileName);
+                    fosEdit.write(b);
+                    fosEdit.close();
+                    prod.setImageName(fileName);
+                    System.out.println("Uploaded file " + fileEdit + "\\" + fileName + ".");
+                  }
+                  isEdit.close();
+                  // Remove current Image
+                  Products curProd = productsFacade.find(prod.getProdId());
+                  try {
+                    File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
+                    if (f.delete()) //returns Boolean value  
+                    {
+                      System.out.println(f.getName() + " deleted");   //getting and printing the file name  
+                    } else {
+                      System.out.println("failed");
+                    }
+                  } catch (Exception e) {
+                    System.out.println(e);
+                  }
+                } else {
+                  prod.setImageName(request.getParameter("imageName"));
+                }
+              }
+              prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+              prod.setUnitId(productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId"))));
+              prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
+              prod.setAccId(curAcc);
+              prod.setDateUpdated(new Date());
+              try {
+                productsFacade.edit(prod);
+//                request.setAttribute("Success", "Edit Product Done");
+              } catch (Exception e) {
+                System.out.println(e);
+                request.setAttribute("Error", "Edit Product failed. ");
               }
               request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
               break;
@@ -213,9 +275,7 @@ public class EmployeeController extends HttpServlet {
               Products prodDel = productsFacade.find(prodId);
               if (productsFacade.Delete(prodId)) {
                 File file = new File(uploadDir + "\\" + prodDel.getImageName());
-                if (file.delete()) {
-                  request.setAttribute("Success", "Delete Product Successful");
-                } else {
+                if (!file.delete()) {
                   request.setAttribute("Error", "Delete Product Failed");
                 }
               } else {
@@ -240,9 +300,9 @@ public class EmployeeController extends HttpServlet {
               unit.setDateCreated(new Date());
               try {
                 productUnitsFacade.create(unit);
-                request.setAttribute("Success", "Add new Unit done.");
+//                request.setAttribute("Success", "Add new Unit done.");
               } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(e);
                 request.setAttribute("Error", "Add new Unit failed. Unit Name already exists.");
               }
               request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
@@ -255,7 +315,7 @@ public class EmployeeController extends HttpServlet {
               editUnit.setDateUpdated(new Date());
               try {
                 productUnitsFacade.edit(editUnit);
-                request.setAttribute("Success", "Edit Unit Done");
+//                request.setAttribute("Success", "Edit Unit Done");
               } catch (Exception e) {
                 System.out.println(e.getMessage());
                 request.setAttribute("Error", "Edit Unit failed.");
@@ -265,7 +325,7 @@ public class EmployeeController extends HttpServlet {
             case "deleteUnit":
               int unitId = Integer.parseInt(request.getParameter("unitId"));
               if (productUnitsFacade.Delete(unitId)) {
-                request.setAttribute("Success", "Delete Unit Successful");
+//                request.setAttribute("Success", "Delete Unit Successful");
               } else {
                 request.setAttribute("Error", "Delete Unit Failed");
               }
@@ -296,7 +356,7 @@ public class EmployeeController extends HttpServlet {
         }
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      System.out.println(e);
     }
   }
 
