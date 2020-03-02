@@ -208,64 +208,66 @@ public class EmployeeController extends HttpServlet {
               break;
 
             case "editProd":
-              prod = new Products();
-              prod.setProdId(Integer.parseInt(request.getParameter("prodId")));
-              prod.setName(request.getParameter("name"));
-              prod.setCateId(categoriesFacade.find(Integer.parseInt(request.getParameter("cateId"))));
-              prod.setDescription(request.getParameter("description"));
+              if (request.getParameter("prodId") == null || request.getParameter("cateId") == null) {
+                request.setAttribute("Error", "Product Id or Category Id was null");
+              } else {
+                prod = new Products();
+                prod.setProdId(Integer.parseInt(request.getParameter("prodId")));
+                prod.setName(request.getParameter("name"));
+                prod.setCateId(categoriesFacade.find(Integer.parseInt(request.getParameter("cateId"))));
+                prod.setDescription(request.getParameter("description"));
+                prod.setImageName(request.getParameter("imageName"));
 
-              InputStream isEdit;
-              FileOutputStream fosEdit;
+                InputStream isEdit;
+                FileOutputStream fosEdit;
 
-              File fileEdit = new File(uploadDir);
-              if (!fileEdit.exists()) {
-                fileEdit.mkdirs();
-              }
-              for (Part part : request.getParts()) {
-                if (part.getName().equals("imageChange") && !part.getSubmittedFileName().equals("")) {
-                  isEdit = request.getPart(part.getName()).getInputStream();
-                  int i = isEdit.available();
-                  byte[] b = new byte[i];
-                  isEdit.read(b);
-                  String fileName = extractFileName(part);
-                  fileName = new File(fileName).getName();
-
-                  if (fileName != null && fileName.length() > 0) {
-                    fosEdit = new FileOutputStream(fileEdit + "/" + fileName);
-                    fosEdit.write(b);
-                    fosEdit.close();
-                    prod.setImageName(fileName);
-                    System.out.println("Uploaded file " + fileEdit + "\\" + fileName + ".");
-                  }
-                  isEdit.close();
-                  // Remove current Image
-                  Products curProd = productsFacade.find(prod.getProdId());
-                  try {
-                    File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
-                    if (f.delete()) //returns Boolean value  
-                    {
-                      System.out.println(f.getName() + " deleted");   //getting and printing the file name  
-                    } else {
-                      System.out.println("failed");
-                    }
-                  } catch (Exception e) {
-                    System.out.println(e);
-                  }
-                } else {
-                  prod.setImageName(request.getParameter("imageName"));
+                File fileEdit = new File(uploadDir);
+                if (!fileEdit.exists()) {
+                  fileEdit.mkdirs();
                 }
-              }
-              prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-              prod.setUnitId(productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId"))));
-              prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
-              prod.setAccId(curAcc);
-              prod.setDateUpdated(new Date());
-              try {
-                productsFacade.edit(prod);
-//                request.setAttribute("Success", "Edit Product Done");
-              } catch (Exception e) {
-                System.out.println(e);
-                request.setAttribute("Error", "Edit Product failed. ");
+                for (Part part : request.getParts()) {
+                  if (part.getName().equals("imageChange") && !part.getSubmittedFileName().equals("")) {
+                    isEdit = request.getPart(part.getName()).getInputStream();
+                    int i = isEdit.available();
+                    byte[] b = new byte[i];
+                    isEdit.read(b);
+                    String fileName = extractFileName(part);
+                    fileName = new File(fileName).getName();
+
+                    if (fileName != null && fileName.length() > 0) {
+                      fosEdit = new FileOutputStream(fileEdit + "/" + fileName);
+                      fosEdit.write(b);
+                      fosEdit.close();
+                      prod.setImageName(fileName);
+                      System.out.println("Uploaded file " + fileEdit + "\\" + fileName + ".");
+                    }
+                    isEdit.close();
+                    // Remove current Image
+                    Products curProd = productsFacade.find(prod.getProdId());
+                    try {
+                      File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
+                      if (f.delete()) //returns Boolean value  
+                      {
+                        System.out.println(f.getName() + " deleted");   //getting and printing the file name  
+                      } else {
+                        System.out.println("Delete current Image failed.");
+                      }
+                    } catch (Exception e) {
+                      System.out.println(e);
+                    }
+                  }
+                }
+                prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                prod.setUnitId(productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId"))));
+                prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
+                prod.setAccId(curAcc);
+                prod.setDateUpdated(new Date());
+                try {
+                  productsFacade.edit(prod);
+                } catch (Exception e) {
+                  System.out.println(e);
+                  request.setAttribute("Error", "Edit Product failed.");
+                }
               }
               request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
               break;

@@ -8894,7 +8894,7 @@ a.text-dark:focus {
 .btn.btn-secondary.focus,
 .btn.btn-secondary:hover {
   color: #333333;
-  background-color: #4f8893;
+  background-color: #fff;
   border-color: #adadad;
 }
 
