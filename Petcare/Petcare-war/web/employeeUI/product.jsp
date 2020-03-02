@@ -329,7 +329,6 @@
 
       reader.onload = function (e) {
         $('#currentImage').remove();
-
         $('#imageChange')
                 .attr('src', e.target.result)
                 .width(150)
