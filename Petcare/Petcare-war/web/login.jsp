@@ -83,7 +83,7 @@
                                 Don't have an account?
                             </span>
 
-                            <a class="txt2" href="AdminController?action=register">
+                            <a class="txt2" href="UserController?action=register">
                                 Sign Up
                             </a>
                             <a href="UserController" class="txt2" >

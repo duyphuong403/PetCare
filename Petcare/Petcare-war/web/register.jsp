@@ -1,0 +1,90 @@
+<%-- 
+    Document   : header
+    Created on : Dec 13, 2019, 10:00:48 AM
+    Author     : Dell
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <%
+            if (request.getAttribute("title") == null) {
+                request.setAttribute("title", "Home");
+            }
+        %>
+        <title>PetShop | ${title}</title>
+        <meta charset="iso-8859-1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="lib/css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="lib/js/jquery-3.4.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
+        
+        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="lib/css/animate.css">
+        <link rel="stylesheet" href="lib/css/fonts.css">
+        <link rel="stylesheet" href="lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="lib/css/magnific-popup.css">
+        <link rel="stylesheet" href="lib/css/slick.css">
+        <link rel="stylesheet" href="lib/css/structure.css">
+        <link rel="stylesheet" href="lib/css/main.css">
+        <link id="preset" rel="stylesheet" href="lib/css/preset1.css">
+        <link rel="stylesheet" href="lib/css/responsive.css">
+        <!--[if IE 6]><link href="css/ie6.css" rel="stylesheet" type="text/css"><![endif]-->
+        <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]-->
+    </head>
+    <body class="container">
+<!--<h:form>
+                <h1><h:outputText value="Create"/></h1>
+                <h:panelGrid columns="2" class="form-group">
+                    <h:outputLabel value="Username: " for="accountId" />
+                    <h:inputText class="form-control" id="accountId" value="#" title="AccountId" required="true" requiredMessage="The AccountId field is required."/>
+                    <h:outputLabel value="Email:" for="email" />
+                    <h:inputText class="form-control" id="email" value="#" title="Email" required="true" requiredMessage="The Email field is required."/>
+                    <h:outputLabel value="Password:" for="password" />
+                    <h:inputText class="form-control" id="password" value="#" title="Password" required="true" requiredMessage="The Password field is required."/>
+                    <h:outputLabel value="Retype Password:" for="password" />
+                    <h:inputText class="form-control" id="password" value="#" title="Password" required="true" requiredMessage="The Password field is required."/>
+                    <h:outputLabel value="Full name:" for="fullname" />
+                    <h:inputText class="form-control" id="fullname" value="" title="Fullname" required="true" requiredMessage="The Fullname field is required."/>
+                    <h:outputLabel value="Phone number:" for="fullname" />
+                    <h:inputText class="form-control" id="fullname" type="number" value="" title="Fullname" required="true" requiredMessage="The Fullname field is required."/>
+                    <h:outputLabel value="Address:" for="fullname" />
+                    <h:inputText class="form-control" id="fullname" value="" title="Fullname" required="true" requiredMessage="The Fullname field is required."/>
+                    
+                </h:panelGrid>
+                <h:commandButton value="Register" action="" class="btn btn-success"/>
+                <h:commandButton value="Reset" action="" class="btn btn-warning"/>
+                <h:commandButton value="Not now" action="" class="btn btn-brown"/>
+            </h:form>-->
+<%-- 
+    Document   : footer
+    Created on : Dec 13, 2019, 10:08:00 AM
+    Author     : Dell
+--%>
+
+<div id="footer">
+    <div id="footnote">
+        <div class="section">
+            Copyright &copy; 2019 - 2020 <a href="UserController?action=login"><b>Petcare</b></a> 
+            All rights reserved
+        </div>
+    </div>
+    <script src="lib/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+    <script src="lib/js/core/jquery.min.js"></script>
+    <script src="lib/js/core/popper.min.js"></script>
+    <script src="lib/js/core/bootstrap-material-design.min.js"></script>
+    <script src="lib/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+</div>
+</body>
+</html>
