@@ -3,7 +3,19 @@
     Created on : Jan 17, 2020, 9:03:49 PM
     Author     : ngodu
 --%>
-
+<% if (request.getAttribute("Error") != null) { %>
+<script>
+  swal("Error", "${Error}", "error");
+</script>
+<%};
+  request.removeAttribute("Error");
+  if (request.getAttribute("Success") != null) { %>
+<script>
+  swal("Success", "${Success}", "success");
+</script>
+<%};
+  request.removeAttribute("Success");
+%>
 <!--   Core JS Files   -->
 <script src="lib/js/core/jquery.min.js"></script>
 <script src="lib/js/core/popper.min.js"></script>

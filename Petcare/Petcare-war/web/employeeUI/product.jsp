@@ -18,6 +18,15 @@
             <div class="card">
               <div class="card-header card-header-primary">
                 <h4 class="card-title "><b>Products</b></h4>
+                <form class="navbar-form pull-right">
+                  <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search...">
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                      <i class="material-icons">search</i>
+                      <div class="ripple-container"></div>
+                    </button>
+                  </div>
+                </form>
                 <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
                   Add new Product
                 </a>
@@ -57,7 +66,8 @@
                         <tr>
                           <td>
                             <%= i%>
-                            <% i++; %>
+                            <% i++;
+                             %>
                           </td>
                           <td>
                             ${prod.name}
@@ -78,7 +88,7 @@
                             ${prod.accId.username}
                           </td>
                           <td>
-                            <a href="#" data-toggle="modal" data-target="#editProd${prod.prodId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
+                            <a href="EmployeeController?action=viewEditProd&prodId=${prod.prodId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
                             <form action="EmployeeController?action=deleteProd" method="post" id="deleteProd${prod.prodId}">
                               <input type="text" name="prodId" value="${prod.prodId}" hidden="true">
                               <a href="#" type="submit" style="color: #333" title="Delete" id="deleteProd" onclick="deleteProd()"><i class="material-icons">delete</i></a>
@@ -103,73 +113,8 @@
                         }
 
                       </script>
-                      <!-- Modal Edit Product -->
-                      <div class="modal fade" id="editProd${prod.prodId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
-                           aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <form autocomplete="off" action="EmployeeController?action=editProd" method="post" enctype="multipart/form-data">
-                              <input type="text" name="prodId" hidden="true" value="${prod.prodId}"/>
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="form-group">
-                                  <label for="Name" class="bmd-label-floating">Name</label>
-                                  <input type="text" class="form-control" id="Name" name="name" required="true" value="${prod.name}" maxlength="200">
-                                </div>
-                                <div class="form-group">
-                                  <label for="Name" class="bmd-label-floating">Category</label>
-                                  <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
-                                    <c:forEach items="${Categories}" var="category">                                    
-                                      <option value="${category.cateId}" <c:if test="${category.cateId == prod.cateId.cateId}"> selected </c:if>>${category.name}</option>  
-                                    </c:forEach>
-                                  </select>
-                                </div>
-                                <div class="form-group">
-                                  <label for="Description" class="bmd-label-floating">Description</label>
-                                  <input type="text" class="form-control" id="Description" name="description" required="true" value="${prod.description}" maxlength="200">
-                                </div>
-                                <div class="form-group" style="text-align: center;">
-                                  <!--<label for="Image" class="bmd-label-floating">Image</label>-->
-                                  <img src="ProductImages/${prod.imageName}" id="currentImage" width="200" title="${prod.imageName}"/>
-                                  <img src="#" id="imageChange" width="200" title=""/>
-                                  <input type="text" name="imageName" value="${prod.imageName}" hidden="true"/>
-                                  <input type="file" name="imageChange" id="imageChange" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
-                                </div>
-                                <div class="form-group">
-                                  <label for="Quantity" class="bmd-label-floating">Quantity</label>
-                                  <input type="number" class="form-control" id="Quantity" name="quantity" required="true" value="${prod.quantity}">
-                                </div>
-                                <div class="form-group">
-                                  <label for="Unit" class="bmd-label-floating">Unit</label>
-                                  <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
-                                    <c:forEach items="${Units}" var="unit">                                    
-                                      <option value="${unit.unitId}" <c:if test="${unit.unitId == prod.unitId.unitId}"> selected </c:if>>${unit.name}</option>  
-                                    </c:forEach>              
-                                  </select>
-                                </div>
-                                <div class="form-group">
-                                  <p for="IsNew" class="bmd-label-floating">Is New</p>
-                                  <input type="radio" class="" id="IsNew" name="isNew" required="true" value="true" <c:if test="${prod.isNew}"> checked="true"</c:if>>
-                                    <label for="yes">Yes</label>
-                                    <input type="radio" class="" id="IsNew" name="isNew" required="true" value="false" <c:if test="${!prod.isNew}"> checked="true"</c:if>>
-                                    <label for="no">No</label>
-                                  </div>
-                                  <br/>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        </tr>
+
+                      </tr>
                     </c:forEach>
                     </tbody>
                   </table>
@@ -230,13 +175,13 @@
             <input type="radio" id="no" name="isNew" value="false">
             <label for="no">No</label><br>
           </div>
-          <div class="form-group">
-            <label for="Image" class="bmd-label-floating">Choose Image</label>
+          <div class="form-group" style="text-align: center">
+            <label for="Image" class="bmd-label-floating" style="float: left;">Choose Image</label>
+            <img src="#" id="imageChange" height="200" style="max-width: 500px"/>
             <input type="file" class="form-control" id="fileupload" name="file" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" />
           </div>
           <br/>
           <br/>
-          <div id='dvPreview'></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -247,92 +192,16 @@
   </div>
 </div>
 
-<% if (request.getAttribute("Error") != null) { %>
-<script>
-  swal("Error", "${Error}", "error");
-</script>
-<%};
-  request.removeAttribute("Error");
-  if (request.getAttribute("Success") != null) { %>
-<script>
-  swal("Success", "${Success}", "success");
-</script>
-<%};
-  request.removeAttribute("Success");
-%>
-<!-- View Images after select file -->
-<script language="javascript" type="text/javascript">
-  window.onload = function () {
-    var fileUpload = document.getElementById("fileupload");
-    fileUpload.onchange = function () {
-      if (typeof (FileReader) != "undefined") {
-        var dvPreview = document.getElementById("dvPreview");
-        dvPreview.innerHTML = "";
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-        for (var i = 0; i < fileUpload.files.length; i++) {
-          var file = fileUpload.files[i];
-          if (regex.test(file.name.toLowerCase())) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var img = document.createElement("IMG");
-              img.height = "110";
-              img.width = "110";
-              img.src = e.target.result;
-              dvPreview.appendChild(img);
-            }
-            reader.readAsDataURL(file);
-          } else {
-            alert(file.name + " is not a valid image file.");
-            dvPreview.innerHTML = "";
-            return false;
-          }
-        }
-      } else {
-        alert("This browser does not support HTML5 FileReader.");
-      }
-    }
-    
-    var imageChange = document.getElementById("imageChange");
-    imageChange.onchange = function () {
-      if (typeof (FileReader) != "undefined") {
-        var dvPreview = document.getElementById("currentImage");
-        dvPreview.innerHTML = "";
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-        for (var i = 0; i < fileUpload.files.length; i++) {
-          var file = fileUpload.files[i];
-          if (regex.test(file.name.toLowerCase())) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var img = document.createElement("IMG");
-              img.height = "110";
-              img.width = "110";
-              img.src = e.target.result;
-              dvPreview.appendChild(img);
-            }
-            reader.readAsDataURL(file);
-          } else {
-            alert(file.name + " is not a valid image file.");
-            dvPreview.innerHTML = "";
-            return false;
-          }
-        }
-      } else {
-        alert("This browser does not support HTML5 FileReader.");
-      }
-  };
-</script>
 
+<!-- View Images after select file -->
 <script>
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        $('#currentImage').remove();
         $('#imageChange')
                 .attr('src', e.target.result)
-                .width(150)
-                .height(200);
       };
 
       reader.readAsDataURL(input.files[0]);

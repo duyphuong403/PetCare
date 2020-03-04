@@ -18,7 +18,7 @@
     <div class="sidebar-wrapper">
         <ul class="nav" id="nav">
             <li class="nav-item ${order}">
-                <a class="nav-link" href="EmployeeController?action=order">
+                <a class="nav-link" href="EmployeeController">
                     <i class="material-icons">shopping_cart</i>
                     <p>Orders</p>
                 </a>

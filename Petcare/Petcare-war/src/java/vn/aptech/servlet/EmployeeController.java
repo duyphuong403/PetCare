@@ -206,7 +206,22 @@ public class EmployeeController extends HttpServlet {
               }
               request.getRequestDispatcher("EmployeeController?action=product").forward(request, response);
               break;
-
+            case "viewEditProd":
+              if (request.getAttribute("Categories") == null) {
+                request.setAttribute("Categories", categoriesFacade.findAll());
+              }
+              if (request.getAttribute("Units") == null) {
+                request.setAttribute("Units", productUnitsFacade.findAll());
+              }
+              request.setAttribute("title", "Edit Product");
+              request.setAttribute("product", "active");
+              if (request.getParameter("prodId") != null) {
+                request.setAttribute("editProd", productsFacade.find(Integer.parseInt(request.getParameter("prodId"))));
+              } else {
+                request.setAttribute("Error", "Prod Id was null");
+              }
+              request.getRequestDispatcher("employeeUI/editProd.jsp").forward(request, response);
+              break;
             case "editProd":
               if (request.getParameter("prodId") == null || request.getParameter("cateId") == null) {
                 request.setAttribute("Error", "Product Id or Category Id was null");
@@ -243,18 +258,18 @@ public class EmployeeController extends HttpServlet {
                     }
                     isEdit.close();
                     // Remove current Image
-                    Products curProd = productsFacade.find(prod.getProdId());
-                    try {
-                      File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
-                      if (f.delete()) //returns Boolean value  
-                      {
-                        System.out.println(f.getName() + " deleted");   //getting and printing the file name  
-                      } else {
-                        System.out.println("Delete current Image failed.");
-                      }
-                    } catch (Exception e) {
-                      System.out.println(e);
-                    }
+//                    Products curProd = productsFacade.find(prod.getProdId());
+//                    try {
+//                      File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
+//                      if (f.delete()) //returns Boolean value  
+//                      {
+//                        System.out.println(f.getName() + " deleted");   //getting and printing the file name  
+//                      } else {
+//                        System.out.println("Delete current Image failed.");
+//                      }
+//                    } catch (Exception e) {
+//                      System.out.println(e);
+//                    }
                   }
                 }
                 prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
