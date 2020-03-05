@@ -31,4 +31,10 @@ public interface ProductsFacadeLocal {
   int count();
   
   boolean Delete(int prodId);
+  
+  List<Products> getProductPagination(int currentPage, int recordsPerPage);
+  
+  List<Products> findByName(String txtSearch);
+  
+  List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage);
 }

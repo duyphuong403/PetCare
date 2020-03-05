@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -129,7 +130,6 @@ public class EmployeeController extends HttpServlet {
               cate.setDateUpdated(new Date());
               try {
                 categoriesFacade.edit(cate);
-//                request.setAttribute("Success", "Edit Category Done");
               } catch (Exception e) {
                 System.out.println(e);
                 request.setAttribute("Error", "Edit category failed. " + e.getMessage());
@@ -138,24 +138,50 @@ public class EmployeeController extends HttpServlet {
               break;
             case "deleteCate":
               int cateId = Integer.parseInt(request.getParameter("cateId"));
-              if (categoriesFacade.Delete(cateId)) {
-//                request.setAttribute("Success", "Delete Category Successful");
-              } else {
+              if (!categoriesFacade.Delete(cateId)) {
                 request.setAttribute("Error", "Delete Category Failed");
               }
               request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
               break;
 
             case "product":
-              if (request.getAttribute("Products") == null) {
-                request.setAttribute("Products", productsFacade.findAll());
+              request.removeAttribute("Products");
+              if (request.getAttribute("countProd") == null) {
+                request.setAttribute("countProd", productsFacade.count());
               }
+              int currentPage = 1;
+              if (request.getParameter("currentPage") != null) {
+                currentPage = Integer.parseInt(request.getParameter("currentPage"));
+              }
+              request.setAttribute("currentPage", currentPage);
+
+              int pageSize = 10;
+              if (request.getParameter("pageSize") != null) {
+                pageSize = Integer.parseInt(request.getParameter("pageSize"));
+              }
+              request.setAttribute("pageSize", pageSize);
+              
+              int nOfPages = productsFacade.count() / pageSize;
+              if (productsFacade.count() % pageSize > 0) {
+                nOfPages++;
+              }
+              request.setAttribute("noOfPages", nOfPages);
+
+              if (request.getParameter("txtSearch") != null) {
+                request.setAttribute("Products", productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+                request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+              } else {
+                request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
+              }
+
               if (request.getAttribute("Categories") == null) {
                 request.setAttribute("Categories", categoriesFacade.findAll());
               }
+
               if (request.getAttribute("Units") == null) {
                 request.setAttribute("Units", productUnitsFacade.findAll());
               }
+
               request.setAttribute("title", "Product");
               request.setAttribute("product", "active");
               request.getRequestDispatcher("employeeUI/product.jsp").forward(request, response);

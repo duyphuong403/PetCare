@@ -17,19 +17,36 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title "><b>Products</b></h4>
-                <form class="navbar-form pull-right">
-                  <div class="input-group no-border">
-                    <input type="text" value="${txtSearch}" class="form-control search" placeholder="Search...">
-                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                      <i class="material-icons">search</i>
-                      <div class="ripple-container"></div>
-                    </button>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4 class="card-title "><b>Products</b></h4>
+                    <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
+                      Add new Product
+                    </a>
                   </div>
-                </form>
-                <a href="#" data-toggle="modal" data-target="#addProd" style="color: #fff">
-                  Add new Product
-                </a>
+                  <div class="col-md-4">
+                    <form class="navbar-form " action="EmployeeController?action=product" method="post">
+                      <div class="input-group no-border">
+                        <label class="bmd-label-floating">Search</label>
+                        <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-4 form-group">
+                    <label class="bmd-label-floating" style="color: #fff">Number of Product per page</label>
+                    <form action="EmployeeController?action=product" method="post" id="changePageSize">
+                      <select name="pageSize" id="pageSize" class="browser-default custom-select" onchange="this.form.submit()">
+                        <option value="2" <c:if test="${pageSize == 2}"> selected="true" </c:if >>2</option>
+                        <option value="4" <c:if test="${pageSize == 4}"> selected="true" </c:if>>4</option>
+                        <option value="100" <c:if test="${pageSize == 100}"> selected="true" </c:if>>100</option>
+                        </select>
+                    </form>
+                  </div>
+                </div>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -67,7 +84,7 @@
                           <td>
                             <%= i%>
                             <% i++;
-                             %>
+                            %>
                           </td>
                           <td>
                             ${prod.name}
@@ -120,6 +137,42 @@
                   </table>
                 </div>
               </div>
+            </div>
+            <div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination pg-blue justify-content-center">
+                  <c:if test="${currentPage != 1}">
+                    <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
+                    </li>
+                  </c:if>
+
+                  <c:forEach begin="1" end="${noOfPages}" var="i">
+                    <c:choose>
+                      <c:when test="${currentPage eq i}">
+                        <li class="page-item active"><a class="page-link">
+                            ${i} <span class="sr-only">(current)</span></a>
+                        </li>
+                      </c:when>
+                      <c:otherwise>
+                        <li class="page-item"><a class="page-link" 
+                                                 href="EmployeeController?product&pageSize=${pageSize}&currentPage=${i}">${i}</a>
+                        </li>
+                      </c:otherwise>
+                    </c:choose>
+                  </c:forEach>
+
+                  <c:if test="${currentPage lt noOfPages}">
+                    <li class="page-item"><a class="page-link" 
+                                             href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
+                    </li>
+                  </c:if>    
+<!--                  <li class="page-item"><a class="page-link">Previous</a></li>
+                  <li class="page-item"><a class="page-link">1</a></li>
+                  <li class="page-item"><a class="page-link">2</a></li>
+                  <li class="page-item"><a class="page-link">3</a></li>
+                  <li class="page-item"><a class="page-link">Next</a></li>-->
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

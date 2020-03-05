@@ -18821,13 +18821,15 @@ Copyright (c) 2015 Daniel Eden
   }
 }
 
-.form-control, .search {
+.search {
 	background-image: linear-gradient(to top, #ffffff 2px, rgba(156, 39, 176, 0) 2px) !important, linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 	color: #fff;
 }
 .search:focus{
 	color: #fff;
 }
+::placeholder {
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
