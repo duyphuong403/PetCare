@@ -23,6 +23,7 @@ public class AdminController extends HttpServlet {
 
     @EJB
     private AccountsFacadeLocal accountsFacade;
+    Accounts acc;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
