@@ -17,7 +17,7 @@
             <li class="${Cart}"><a href="UserController?action=cart" style="padding-top: 5px;background: none"><i class="material-icons">shopping_cart</i></a></li>
         <%}else {%>        
             <li class="${Cart}"><a href="UserController?action=cart" style="padding-top: 5px;"><i class="material-icons">shopping_cart</i></a></li>
-            <li class="" style="width: 20%"><a href="AdminController?action=profile&id=${curAcc.accId}" style="background: none">Hi <i>${curAcc.fullname}</i></li>
+            <li class="" style="width: 20%"><a href="UserController?action=profile&id=${curAcc.accId}" style="background: none">Hi <i>${curAcc.fullname}</i></li>
         <%}%>
     </ul>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">

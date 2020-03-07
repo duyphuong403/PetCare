@@ -8,6 +8,7 @@ package vn.aptech.sb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import vn.aptech.entity.ProductUnits;
 
 /**
@@ -28,24 +29,28 @@ public class ProductUnitsFacade extends AbstractFacade<ProductUnits> implements 
   public ProductUnitsFacade() {
     super(ProductUnits.class);
   }
-  
-   @Override
-    public boolean Delete(int unitId) {
-        try {
-            return em.createQuery("delete from ProductUnits where UnitId = :unitId", ProductUnits.class).setParameter("unitId", unitId).executeUpdate() > 0;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+
+  @Override
+  public boolean Delete(int unitId) {
+    try {
+      return em.createQuery("delete from ProductUnits where UnitId = :unitId", ProductUnits.class).setParameter("unitId", unitId).executeUpdate() > 0;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
     }
-    
-    @Override
-    public boolean FindUnitByName(String name){
-      try{
-        return em.createQuery("select * from PruductUnits where Name = :name", ProductUnits.class).setParameter("name", name).getSingleResult() != null;
-      } catch (Exception e){
-        return false;
-      }
+  }
+
+  @Override
+  public boolean FindUnitByName(String name) {
+    try {
+      TypedQuery query = em.createQuery("SELECT * FROM PruductUnits WHERE Name = :name", ProductUnits.class);
+      query.setParameter("name", name);
+      System.out.println(query.getResultList().size());
+      return query.getResultList().size() > 0;
+    } catch (Exception e) {
+      System.out.println(e);
+      return false;
     }
-  
+  }
+
 }

@@ -17,10 +17,10 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav" id="nav">
-            <li class="nav-item ${dashboard}">
+            <li class="nav-item ${order}">
                 <a class="nav-link" href="EmployeeController">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+                    <i class="material-icons">shopping_cart</i>
+                    <p>Orders</p>
                 </a>
             </li>
             <li class="nav-item ${category}">
@@ -35,16 +35,16 @@
                     <p>Products</p>
                 </a>
             </li>
+             <li class="nav-item ${unit}">
+                <a class="nav-link" href="EmployeeController?action=unit">
+                    <i class="material-icons">list_alt</i>
+                    <p>Units</p>
+                </a>
+            </li>
             <li class="nav-item ${account}">
                 <a class="nav-link" href="EmployeeController?action=account">
                     <i class="material-icons">person</i>
                     <p>Accounts</p>
-                </a>
-            </li>
-            <li class="nav-item ${order}">
-                <a class="nav-link" href="EmployeeController?action=order">
-                    <i class="material-icons">shopping_cart</i>
-                    <p>Orders</p>
                 </a>
             </li>
             <li class="nav-item ${petguide}">
@@ -59,7 +59,7 @@
                     <p>Welcome, <b>${curAcc.fullname}</b></p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item ${profile}" href="AdminController?action=profile">Profile</a>
+                    <a class="dropdown-item ${profile}" href="UserController?action=profile">Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
                 </div>

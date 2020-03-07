@@ -103,6 +103,9 @@ public class UserController extends HttpServlet {
                         response.sendRedirect("login.jsp");
                     }
                     break;
+                case "register":
+                    response.sendRedirect("register.jsp");
+                    break;
                 default:
                     request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
                     break;

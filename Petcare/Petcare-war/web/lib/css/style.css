@@ -959,7 +959,7 @@ body {
 #body .featured {
     background-color:#f8f3e9;
     height:90px;
-    padding: 20px 0;
+    /*padding: 20px 0;*/
     background-image:none;
     overflow:hidden;
 }
@@ -988,7 +988,8 @@ body {
 }
 /**--------------- Start of footer style ------------------**/
 #footer {
-    background-color:#310000;
+    /*background-color:#310000;*/
+    padding-top: 20px;
     background-image:none;
 }
 #footer .section {

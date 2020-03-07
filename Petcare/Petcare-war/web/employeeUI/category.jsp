@@ -9,6 +9,7 @@
 <div class="wrapper ">
   <%@include file="../templates-Employee/sidebar.jsp" %>    
   <div class="main-panel">
+    <%@include file="../templates-Employee/status-bar.jsp" %>
     <div class="content">
       <div class="container-fluid">
         <div class="row">

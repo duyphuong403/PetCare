@@ -2164,7 +2164,7 @@ pre code {
 }
 
 .form-control:focus {
-  color: #495057;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0);
   border-color: #9acffa;
   outline: 0;
@@ -8894,7 +8894,7 @@ a.text-dark:focus {
 .btn.btn-secondary.focus,
 .btn.btn-secondary:hover {
   color: #333333;
-  background-color: #4f8893;
+  background-color: #fff;
   border-color: #adadad;
 }
 
@@ -11360,11 +11360,11 @@ fieldset[disabled] .is-focused .switch label:focus {
 
 .form-control,
 .is-focused .form-control {
-  background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  background-image: linear-gradient(to top, #00e2ff 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 }
 
 .form-control:invalid {
-  background-image: linear-gradient(to top, #f44336 2px, rgba(244, 67, 54, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  background-image: linear-gradient(to top, #00d6f2 2px, rgba(244, 67, 54, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 }
 
 .form-control:read-only {
@@ -18819,6 +18819,17 @@ Copyright (c) 2015 Daniel Eden
   .sidebar .navbar-form {
     display: none !important;
   }
+}
+
+.search {
+	background-image: linear-gradient(to top, #ffffff 2px, rgba(156, 39, 176, 0) 2px) !important, linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+	color: #fff;
+}
+.search:focus{
+	color: #fff;
+}
+::placeholder {
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
