@@ -24,6 +24,11 @@
                       <span class="product-title">Organic <span>Cabbage</span></span>
                       <span class="price"><del>$15.00</del>$12.00</span>
                     </a>
+                    <div class="product-icon">
+                      <ul class="global-list">
+                        <li><a href="https://demo.themeregion.com/biotic/shop-list.html#"><i class="material-icons">add_shopping_cart</i></a></li>
+                      </ul>
+                    </div
                   </div><!-- /.product -->                                    
                 </div>                
               </div><!-- /.row -->

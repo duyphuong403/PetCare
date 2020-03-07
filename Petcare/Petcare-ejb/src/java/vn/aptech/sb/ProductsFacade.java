@@ -63,7 +63,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
   @Override
   public List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Products e where e.name = :txtSearch", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Products e where e.name like :txtSearch", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;

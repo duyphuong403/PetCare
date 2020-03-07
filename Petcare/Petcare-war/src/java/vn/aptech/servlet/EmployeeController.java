@@ -25,6 +25,7 @@ import vn.aptech.entity.Categories;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
 
@@ -39,6 +40,9 @@ import vn.aptech.sb.ProductsFacadeLocal;
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
 
+  @EJB
+  private PetGuidesFacadeLocal petGuidesFacade;
+
   public static final String SAVE_DIRECTORY = "uploadDir";
 
   @EJB
@@ -49,6 +53,8 @@ public class EmployeeController extends HttpServlet {
 
   @EJB
   private CategoriesFacadeLocal categoriesFacade;
+  
+  
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -70,6 +76,7 @@ public class EmployeeController extends HttpServlet {
       Products prod;
 
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
+      String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
       String action = request.getParameter("action");
       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
       if (curAcc == null) {
@@ -160,7 +167,7 @@ public class EmployeeController extends HttpServlet {
                 pageSize = Integer.parseInt(request.getParameter("pageSize"));
               }
               request.setAttribute("pageSize", pageSize);
-              
+
               int nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
                 nOfPages++;
@@ -224,6 +231,7 @@ public class EmployeeController extends HttpServlet {
                 }
                 inputStream.close();
               }
+              
               try {
                 productsFacade.create(prod);
               } catch (Exception e) {
@@ -382,6 +390,11 @@ public class EmployeeController extends HttpServlet {
             case "petguide":
               request.setAttribute("title", "PetGuide");
               request.setAttribute("petguide", "active");
+              if (request.getAttribute("Petguides") == null) {
+                request.setAttribute("Petguides", petGuidesFacade.findAll());
+              }
+              
+              request.getRequestDispatcher("employeeUI/petguide.jsp").forward(request, response);
               break;
             case "profile":
               request.setAttribute("title", "Profile-");
