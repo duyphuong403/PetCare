@@ -15,12 +15,12 @@
           <div class="col-md-8 col-lg-9 push-md-4 push-lg-3">
             <div class="tr-products">
               <div class="row">
-                <c:forEach items="${Product}" var="prod">
+                <c:forEach items="${Products}" var="prod">
                   <div class="col-md-6 col-lg-4">
                     <div class="product">
                       <a href="https://demo.themeregion.com/biotic/shop-details.html">
                         <span class="product-image">
-                          <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid">
+                          <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
                         </span>
                         <span class="product-title">${prod.name}</span>
                         <span class="price">$${prod.price}</span>
@@ -38,22 +38,29 @@
 
             <div class="tr-pagination text-center">
               <ul class="pagination">
-                <li class="float-left"><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">Prev</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">1</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">2</a></li>
-                <li class="active"><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">3</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">4</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">5</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">6</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">7</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">8</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">9</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">...</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">21</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">22</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">23</a></li>
-                <li><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">24</a></li>
-                <li class="float-right"><a class="page-numbers" href="https://demo.themeregion.com/biotic/shop-list.html#">Next</a></li>
+                <c:if test="${currentPage != 1}">
+                  <li class="float-left"><a class="page-numbers" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
+                  </li>
+                </c:if>
+
+                <c:forEach begin="1" end="${noOfPages}" var="i">
+                  <c:choose>
+                    <c:when test="${currentPage eq i}">
+                      <li><a class="page-numbers">
+                          ${i}</a>
+                      </li>
+                    </c:when>
+                    <c:otherwise>
+                      <li class="float-right"><a class="page-numbers" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${i}">${i}</a>
+                      </li>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+
+                <c:if test="${currentPage lt noOfPages}">
+                  <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
+                  </li>
+                </c:if>                
               </ul>       
             </div><!-- /.tr-pagination -->                        
           </div>

@@ -34,11 +34,8 @@
       </a>
     </li>
   </ul>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
 </div>
-<script>
+<!--<script>
   function myFunction() {
     var x = document.getElementById("header");
     if (x.className === "topnav") {
@@ -47,4 +44,4 @@
       x.className = "topnav";
     }
   }
-</script>
+</script>-->

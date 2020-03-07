@@ -64,6 +64,9 @@
                       <th>
                         Quantity
                       </th>
+                       <th>
+                        Price
+                      </th>
                       <th>
                         Unit
                       </th>
@@ -94,6 +97,9 @@
                           </td>
                           <td>
                             ${prod.quantity}
+                          </td>
+                          <td>
+                            ${prod.price}
                           </td>
                           <td>
                             ${prod.unitId.name}
@@ -164,11 +170,6 @@
                     <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
                     </li>
                   </c:if>    
-                  <!--                  <li class="page-item"><a class="page-link">Previous</a></li>
-                                    <li class="page-item"><a class="page-link">1</a></li>
-                                    <li class="page-item"><a class="page-link">2</a></li>
-                                    <li class="page-item"><a class="page-link">3</a></li>
-                                    <li class="page-item"><a class="page-link">Next</a></li>-->
                 </ul>
               </nav>
             </div>
@@ -210,6 +211,10 @@
           <div class="form-group">
             <label for="Quantiy" class="bmd-label-floating">Quantiy</label>
             <input type="number" class="form-control" id="Quantiy" name="quantity" required="true" min="0" max="99999">
+          </div>
+          <div class="form-group">
+            <label for="Price" class="bmd-label-floating">Price</label>
+            <input type="number" class="form-control" id="Price" name="price" required="true" min="0" max="99999">
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>

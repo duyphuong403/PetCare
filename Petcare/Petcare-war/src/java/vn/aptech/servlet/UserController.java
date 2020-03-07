@@ -69,7 +69,7 @@ public class UserController extends HttpServlet {
           }
           request.setAttribute("currentPage", currentPage);
 
-          int pageSize = 10;
+          int pageSize = 12;
           if (request.getParameter("pageSize") != null) {
             pageSize = Integer.parseInt(request.getParameter("pageSize"));
           }

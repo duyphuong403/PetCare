@@ -60,15 +60,10 @@ body {
         text-align: left;
     }
      .topnav.responsive li a:hover {
-       color: orange !important
+       color: #fff !important
     }
 }
 
-#page {
-}
-#header {
-
-}
 #header a#logo {
     position:relative;
     z-index:100;

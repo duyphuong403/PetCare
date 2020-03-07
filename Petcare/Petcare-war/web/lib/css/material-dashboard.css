@@ -2164,7 +2164,7 @@ pre code {
 }
 
 .form-control:focus {
-  color: #fff;
+  color: #000000;
   background-color: rgba(0, 0, 0, 0);
   border-color: #9acffa;
   outline: 0;

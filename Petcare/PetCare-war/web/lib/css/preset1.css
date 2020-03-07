@@ -37,7 +37,7 @@ a:focus,
 .comment-box .comment-meta a:hover,
 .user-account .btn.btn-primary:hover,
 .navbar-toggler-icon::before{
-    color: #ffffff;
+    color: #000000;
 }
 
 .topbar-two path {

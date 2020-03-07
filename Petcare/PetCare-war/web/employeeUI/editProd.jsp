@@ -31,12 +31,18 @@
                             <input type="text" class="form-control" id="Name" name="name" required="true" value="${prod.name}" maxlength="200">
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                           <div class="form-group">
                             <label for="Quantity" class="bmd-label-floating">Quantity</label>
                             <input type="number" class="form-control" id="Quantity" name="quantity" required="true" value="${prod.quantity}" min="0" max="99999">
                           </div>
-                        </div>                      
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="Price" class="bmd-label-floating">Price</label>
+                            <input type="number" class="form-control" id="Price" name="price" required="true" value="${prod.price}" min="0" max="99999">
+                          </div>
+                        </div>    
                       </div>
                       <div class="row">
                         <div class="col-md-12">

@@ -200,6 +200,7 @@ public class EmployeeController extends HttpServlet {
               prod.setDescription(request.getParameter("description"));
               prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
               prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+              prod.setPrice(Integer.parseInt(request.getParameter("price")));              
               ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
               prod.setUnitId(prodUnit);
               prod.setDateCreated(new Date());
@@ -306,6 +307,7 @@ public class EmployeeController extends HttpServlet {
                   }
                 }
                 prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                prod.setPrice(Integer.parseInt(request.getParameter("price")));
                 prod.setUnitId(productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId"))));
                 prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
                 prod.setAccId(curAcc);
