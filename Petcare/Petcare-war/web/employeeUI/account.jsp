@@ -44,7 +44,7 @@
                                             Role
                                         </th>
                                         <th>
-                                            Is Inactive
+                                            Status
                                         </th>
                                         <th>
                                             Date Created
