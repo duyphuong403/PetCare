@@ -124,7 +124,7 @@ public class UserController extends HttpServlet {
             Accounts curAcc = (Accounts) session.getAttribute("curAcc");
             switch (curAcc.getRole()) {
               case 2:
-                response.sendRedirect("AdminController");
+                response.sendRedirect("AdminController?action=account");
                 break;
               case 1:
                 response.sendRedirect("EmployeeController");
