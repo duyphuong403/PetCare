@@ -4,11 +4,12 @@
     Author     : ngodu
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../templates-Admin/header.jsp" %>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="../templates-Admin/sidebar.jsp" %>   
-        <body>        
-            
-    </body>
+<div class="wrapper ">
+    <%@include file="../templates-Admin/sidebar.jsp" %>    
+    <div class="main-panel">
+        <!-- content body -->
+    </div>
+</div>
+
 <%@include file="../templates-Admin/footer.jsp" %>

@@ -23,6 +23,7 @@ public class AdminController extends HttpServlet {
 
     @EJB
     private AccountsFacadeLocal accountsFacade;
+    Accounts acc;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,7 +52,7 @@ public class AdminController extends HttpServlet {
                         break;
                     case 2:
                         request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                        request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
                         break;
                     default:
                         request.setAttribute("title", "Dashboard");
@@ -89,8 +90,10 @@ public class AdminController extends HttpServlet {
                         }
                     }
                     break;
-                case "accounts":
-                    response.sendRedirect("login.jsp");
+                case "account":
+                    request.setAttribute("title", "Account");
+                    request.setAttribute("Account", "active");
+                    response.sendRedirect("adminUI/account.jsp");
                     break;
                 case "orders":
                     response.sendRedirect("login.jsp");
