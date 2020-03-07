@@ -15,22 +15,24 @@
           <div class="col-md-8 col-lg-9 push-md-4 push-lg-3">
             <div class="tr-products">
               <div class="row">
-                <div class="col-md-6 col-lg-4">
-                  <div class="product">
-                    <a href="https://demo.themeregion.com/biotic/shop-details.html">
-                      <span class="product-image">
-                        <img src="lib/images/cat2.jpg" alt="Image" class="img-fluid">
-                      </span>
-                      <span class="product-title">Organic <span>Cabbage</span></span>
-                      <span class="price"><del>$15.00</del>$12.00</span>
-                    </a>
-                    <div class="product-icon">
-                      <ul class="global-list">
-                        <li><a href="https://demo.themeregion.com/biotic/shop-list.html#"><i class="material-icons">add_shopping_cart</i></a></li>
-                      </ul>
-                    </div
-                  </div><!-- /.product -->                                    
-                </div>                
+                <c:forEach items="${Product}" var="prod">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="product">
+                      <a href="https://demo.themeregion.com/biotic/shop-details.html">
+                        <span class="product-image">
+                          <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid">
+                        </span>
+                        <span class="product-title">${prod.name}</span>
+                        <span class="price">$${prod.price}</span>
+                      </a>
+                      <div class="product-icon">
+                        <ul class="global-list">
+                          <li><a href="https://demo.themeregion.com/biotic/shop-list.html#"><i class="material-icons">add_shopping_cart</i></a></li>
+                        </ul>
+                      </div>
+                    </div><!-- /.product -->                                    
+                  </div>                
+                </c:forEach>
               </div><!-- /.row -->
             </div><!-- /.tr-products -->
 

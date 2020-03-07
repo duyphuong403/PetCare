@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.ProductUnitsFacadeLocal;
+import vn.aptech.sb.ProductsFacadeLocal;
 
 /**
  *
@@ -22,134 +24,166 @@ import vn.aptech.sb.CategoriesFacadeLocal;
  */
 public class UserController extends HttpServlet {
 
-    @EJB
-    private PetGuidesFacadeLocal articlesFacade;
+  @EJB
+  private ProductUnitsFacadeLocal productUnitsFacade;
 
-    @EJB
-    private CategoriesFacadeLocal categoriesFacade;
+  @EJB
+  private ProductsFacadeLocal productsFacade;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        HttpSession session = request.getSession();
-        if (action == null) {
-            request.setAttribute("Home", "active");
+  @EJB
+  private PetGuidesFacadeLocal articlesFacade;
+
+  @EJB
+  private CategoriesFacadeLocal categoriesFacade;
+
+  /**
+   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+   * methods.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    String action = request.getParameter("action");
+    HttpSession session = request.getSession();
+    if (action == null) {
+      request.setAttribute("Home", "active");
+      request.setAttribute("Categories", categoriesFacade.findAll());
+      request.setAttribute("Articles", articlesFacade.findAll());
+      request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+    } else {
+      switch (action) {
+        case "petmart":
+          request.setAttribute("title", "Petmart");
+          request.setAttribute("PetMart", "active");
+
+          if (request.getAttribute("countProd") == null) {
+            request.setAttribute("countProd", productsFacade.count());
+          }
+          int currentPage = 1;
+          if (request.getParameter("currentPage") != null) {
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+          }
+          request.setAttribute("currentPage", currentPage);
+
+          int pageSize = 10;
+          if (request.getParameter("pageSize") != null) {
+            pageSize = Integer.parseInt(request.getParameter("pageSize"));
+          }
+          request.setAttribute("pageSize", pageSize);
+
+          int nOfPages = productsFacade.count() / pageSize;
+          if (productsFacade.count() % pageSize > 0) {
+            nOfPages++;
+          }
+          request.setAttribute("noOfPages", nOfPages);
+
+          if (request.getParameter("txtSearch") != null) {
+            request.setAttribute("Products", productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+          } else {
+            request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
+          }
+
+          if (request.getAttribute("Categories") == null) {
             request.setAttribute("Categories", categoriesFacade.findAll());
-            request.setAttribute("Articles", articlesFacade.findAll());
-            request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
-        } else {
-            switch (action) {
-                case "petmart":
-                    request.setAttribute("title", "Petmart");
-                    request.setAttribute("PetMart", "active");
-                    request.getRequestDispatcher("clientUI/petmart.jsp").forward(request, response);
-                    break;
-                case "aboutus":
-                    request.setAttribute("title", "About Us");
-                    request.setAttribute("AboutUs", "active");
-                    request.getRequestDispatcher("clientUI/aboutus.jsp").forward(request, response);
-                    break;
-                case "petguide":
-                    request.setAttribute("title", "Pet Guide");
-                    request.setAttribute("PetGuide", "active"); // Phuc
-                    request.setAttribute("Articles", articlesFacade.findAll());
-                    request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
-                    break;
-                case "contactus":
-                    request.setAttribute("title", "Contact Us");
-                    request.setAttribute("ContactUs", "active");
-                    request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
-                    break;
-                case "cart":
-                    request.setAttribute("title", "Cart");
-                    request.setAttribute("Cart", "active");
-                    request.getRequestDispatcher("clientUI/cart.jsp").forward(request, response);
-                    break;
-                case "login":
-                    if (session.getAttribute("curAcc") != null) {
-                        Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-//                        switch (curAcc.getRole()) {
-//                            case 1:
-//                                response.sendRedirect("EmployeeController");
-//                                break;
-//                            case 2:
-//                                response.sendRedirect("AdminController");
-//                                break;
-//                            default:
-//                                response.sendRedirect("UserController");
-//                                break;
-//                        }
-                        switch (curAcc.getRole()) {
-                            case 2:
-                                response.sendRedirect("AdminController");
-                                break;
-                            case 1:
-                                response.sendRedirect("EmployeeController");
-                                break;
-                            default:
-                                response.sendRedirect("UserController");
-                                break;
-                        }
-                    } else {
-                        response.sendRedirect("login.jsp");
-                    }
-                    break;
-                case "register":
-                    response.sendRedirect("register.jsp");
-                    break;
-                default:
-                    request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
-                    break;
+          }
+
+          if (request.getAttribute("Units") == null) {
+            request.setAttribute("Units", productUnitsFacade.findAll());
+          }
+
+          request.getRequestDispatcher("clientUI/petmart.jsp").forward(request, response);
+          break;
+        case "aboutus":
+          request.setAttribute("title", "About Us");
+          request.setAttribute("AboutUs", "active");
+          request.getRequestDispatcher("clientUI/aboutus.jsp").forward(request, response);
+          break;
+        case "petguide":
+          request.setAttribute("title", "Pet Guide");
+          request.setAttribute("PetGuide", "active"); // Phuc
+          request.setAttribute("Articles", articlesFacade.findAll());
+          request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
+          break;
+        case "contactus":
+          request.setAttribute("title", "Contact Us");
+          request.setAttribute("ContactUs", "active");
+          request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
+          break;
+        case "cart":
+          request.setAttribute("title", "Cart");
+          request.setAttribute("Cart", "active");
+          request.getRequestDispatcher("clientUI/cart.jsp").forward(request, response);
+          break;
+        case "login":
+          if (session.getAttribute("curAcc") != null) {
+            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+            switch (curAcc.getRole()) {
+              case 2:
+                response.sendRedirect("AdminController");
+                break;
+              case 1:
+                response.sendRedirect("EmployeeController");
+                break;
+              default:
+                response.sendRedirect("UserController");
+                break;
             }
-        }
+          } else {
+            response.sendRedirect("login.jsp");
+          }
+          break;
+        case "register":
+          response.sendRedirect("register.jsp");
+          break;
+        default:
+          request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+          break;
+      }
     }
+  }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+  /**
+   * Handles the HTTP <code>GET</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    processRequest(request, response);
+  }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  /**
+   * Handles the HTTP <code>POST</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    processRequest(request, response);
+  }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+  /**
+   * Returns a short description of the servlet.
+   *
+   * @return a String containing servlet description
+   */
+  @Override
+  public String getServletInfo() {
+    return "Short description";
+  }// </editor-fold>
 
 }
