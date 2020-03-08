@@ -3,7 +3,17 @@
     Created on : Dec 13, 2019, 10:12:35 AM
     Author     : Dell
 --%>
-
+<%@page import="vn.aptech.entity.Accounts"%>
+<style>
+  .container {
+    background-color: #fff;
+    min-height: 100%;
+  }
+  a:hover, a:focus {
+    color: #fff !important;
+    text-decoration: none;
+  }
+</style>
 <div id="header" class="topnav"> 
   <div class="topbar-content">
     <div class="float-left">
@@ -14,10 +24,35 @@
         <i class="far fa-user"></i>
         <% if (session.getAttribute("curAcc") == null) { %>
         <a href="login.jsp" style="color: #000000">Login</a>  /  <a href="register.jsp" style="color: #000000">Signup</a>
-        <%} else {%>
-        <a href="UserController?action=profile&id=${curAcc.accId}" style="background: none">Hi <i>${curAcc.fullname}</i>
-        <% } %>
+        <%} else { Accounts curAcc = (Accounts)session.getAttribute("curAcc"); %>
+        <a href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: none">Hi <i>${curAcc.fullname}</i>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+            <% if (curAcc.getRole() == 1) { %> 
+            <a class="dropdown-item" href="EmployeeController">Dashboard</a>
+            <% } else if (curAcc.getRole() == 2) {%>
+            <a class="dropdown-item" href="AdminController">Dashboard</a>
+            <% } %>
+            <a class="dropdown-item" href="#">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
+          </div>
+          <% }%>
       </div>
+
+<!--      <li class="nav-item dropdown">
+        <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="material-icons">person</i>
+          <p class="d-lg-none d-md-block">
+            Account
+          </p>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Settings</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Log out</a>
+        </div>
+      </li>-->
     </div>
   </div>
   <a href="#" id="logo"><img src="lib/images/logo.gif" width="310" height="114" alt=""/></a>
@@ -28,9 +63,17 @@
     <li class="${AboutUs}"><a href="UserController?action=aboutus">About us</a></li>
     <li class="${ContactUS}"><a href="UserController?action=contactus">Contact us</a></li>
     <li class="${Cart}">
-      <a href="UserController?action=cart" style="padding-top: 5px;background: none">
+      <a href="UserController?action=showCart" style="padding-top: 5px;background: none">
         <i class="material-icons">shopping_cart</i>
-        <span class="cart-number">3</span>
+        <jsp:useBean id="cart" scope="session" class="vn.aptech.classes.CartBean" />
+        <span class="cart-number">
+          <c:if test="${cart.lineItemCount != 0}">
+            ${cart.lineItemCount}
+          </c:if>
+          <c:if test="${cart.lineItemCount == 0}">
+            0
+          </c:if>
+        </span>
       </a>
     </li>
   </ul>

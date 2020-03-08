@@ -21,138 +21,138 @@ import vn.aptech.sb.AccountsFacadeLocal;
  */
 public class AdminController extends HttpServlet {
 
-    @EJB
-    private AccountsFacadeLocal accountsFacade;
-    Accounts acc;
+  @EJB
+  private AccountsFacadeLocal accountsFacade;
+  Accounts acc;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("action");
-        if (action == null) {
-            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-            if (curAcc == null) {
-                request.setAttribute("Login", "active");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else {
-                int role = curAcc.getRole();
-                switch (role) {
-                    case 1:
-                        request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("/EmployeeController").forward(request, response);
-                        break;
-                    case 2:
-                        request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-                        break;
-                    default:
-                        request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
-                }
-            }
-        } else {
-            switch (action) {
-                case "login":
-                    String email = request.getParameter("username");
-                    String pwd = request.getParameter("password");
-                    if (email == null || email.equals("") || pwd == null || pwd.equals("")) {
-                        request.setAttribute("message", "Please enter username and password");
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                    } else {
-                        Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
-                        session.setAttribute("curAcc", curAcc);
-                        if (curAcc != null) {
-                            switch (curAcc.getRole()) {
-                                case 1:
-                                    request.setAttribute("title", "Dashboard");
-                                    response.sendRedirect("EmployeeController");
-                                    break;
-                                case 2:
-                                    response.sendRedirect("AdminController?action=account");
-                                    break;
-                                default:
-                                    response.sendRedirect("UserController");
-                                    break;
-                            }
-                        } else {
-                            request.setAttribute("message", "Username or password invalid.");
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
-                        }
-                    }
-                    break;
-                case "account":
-                    request.setAttribute("title", "Account");
-                    request.setAttribute("Account", "active");
-                    request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
-                    break;
-                case "orders":
-                    response.sendRedirect("login.jsp");
-                    break;
-                case "petguides":
-                    request.setAttribute("title", "PetGuides");
-                    request.setAttribute("petguide", "active");
-                    request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
-                    break;
-                case "aboutus":
-                    response.sendRedirect("login.jsp");
-                    break;
-                case "profile":
-                    response.sendRedirect("login.jsp");
-                    break;
-                case "logout":
-                    session.removeAttribute("curAcc");
-                    response.sendRedirect("login.jsp");
-                    break;
-            }
+  /**
+   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+   * methods.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    String action = request.getParameter("action");
+    if (action == null) {
+      Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+      if (curAcc == null) {
+        request.setAttribute("Login", "active");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+      } else {
+        int role = curAcc.getRole();
+        switch (role) {
+          case 1:
+            request.setAttribute("title", "Dashboard");
+            request.getRequestDispatcher("/EmployeeController").forward(request, response);
+            break;
+          case 2:
+            request.setAttribute("title", "Dashboard");
+            request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+            break;
+          default:
+            request.setAttribute("title", "Dashboard");
+            request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
         }
+      }
+    } else {
+      switch (action) {
+        case "login":
+          String email = request.getParameter("username");
+          String pwd = request.getParameter("password");
+          if (email == null || email.equals("") || pwd == null || pwd.equals("")) {
+            request.setAttribute("message", "Please enter username and password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+          } else {
+            Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
+            session.setAttribute("curAcc", curAcc);
+            if (curAcc != null) {
+              switch (curAcc.getRole()) {
+                case 1:
+                  request.setAttribute("title", "Dashboard");
+                  response.sendRedirect("EmployeeController");
+                  break;
+                case 2:
+                  response.sendRedirect("AdminController?action=account");
+                  break;
+                default:
+                  response.sendRedirect(request.getHeader("referer"));
+                  break;
+              }
+            } else {
+              request.setAttribute("message", "Username or password invalid.");
+              request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+          }
+          break;
+        case "account":
+          request.setAttribute("title", "Account");
+          request.setAttribute("Account", "active");
+          request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
+          break;
+        case "orders":
+          response.sendRedirect("login.jsp");
+          break;
+        case "petguides":
+          request.setAttribute("title", "PetGuides");
+          request.setAttribute("petguide", "active");
+          request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
+          break;
+        case "aboutus":
+          response.sendRedirect("login.jsp");
+          break;
+        case "profile":
+          response.sendRedirect("login.jsp");
+          break;
+        case "logout":
+          session.removeAttribute("curAcc");
+          response.sendRedirect("login.jsp");
+          break;
+      }
     }
+  }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  /**
+   * Handles the HTTP <code>GET</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    processRequest(request, response);
+  }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  /**
+   * Handles the HTTP <code>POST</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    processRequest(request, response);
+  }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+  /**
+   * Returns a short description of the servlet.
+   *
+   * @return a String containing servlet description
+   */
+  @Override
+  public String getServletInfo() {
+    return "Short description";
+  }// </editor-fold>
 
 }

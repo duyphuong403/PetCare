@@ -15,21 +15,28 @@
           <div class="col-md-8 col-lg-9 push-md-4 push-lg-3">
             <div class="tr-products">
               <div class="row">
-                <c:forEach items="${Products}" var="prod">
+                <c:forEach items="${Products}" var="prod" varStatus="counter">
                   <div class="col-md-6 col-lg-4">
                     <div class="product">
-                      <a href="https://demo.themeregion.com/biotic/shop-details.html">
-                        <span class="product-image">
-                          <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
-                        </span>
-                        <span class="product-title">${prod.name}</span>
-                        <span class="price">$${prod.price}</span>
-                      </a>
-                      <div class="product-icon">
-                        <ul class="global-list">
-                          <li><a href="https://demo.themeregion.com/biotic/shop-list.html#"><i class="material-icons">add_shopping_cart</i></a></li>
-                        </ul>
-                      </div>
+                      <form method="POST" action="CartController?action=addToCart">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="price" value="${prod.price}">
+                        <input type="hidden" name="imageName" value="${prod.imageName}">
+                        <input type="hidden" name="name" value="${prod.name}">                   
+                        <a href="#">
+                          <span class="product-image">
+                            <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
+                          </span>
+                          <span class="product-title">${prod.name}</span>
+                          <span class="price">$${prod.price}</span>
+                        </a>
+                        <div class="product-icon">
+                          <ul class="global-list">
+                            <li><button type="submit"><i class="material-icons">add_shopping_cart</i></button></li>
+                          </ul>
+                        </div>
+                      </form>
                     </div><!-- /.product -->                                    
                   </div>                
                 </c:forEach>
@@ -39,26 +46,26 @@
             <div class="tr-pagination text-center">
               <ul class="pagination">
                 <c:if test="${currentPage != 1}">
-                  <li class="float-left"><a class="page-numbers" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
+                  <li class="float-left"><a class="page-numbers" href="UserController?action=petmart&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
                   </li>
                 </c:if>
 
                 <c:forEach begin="1" end="${noOfPages}" var="i">
                   <c:choose>
                     <c:when test="${currentPage eq i}">
-                      <li><a class="page-numbers">
+                      <li <c:if test="${currentPage == i}"> class="active" </c:if>><a class="page-numbers">
                           ${i}</a>
                       </li>
                     </c:when>
                     <c:otherwise>
-                      <li class="float-right"><a class="page-numbers" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${i}">${i}</a>
+                      <li><a class="page-numbers" href="UserController?action=petmart&pageSize=${pageSize}&currentPage=${i}">${i}</a>
                       </li>
                     </c:otherwise>
                   </c:choose>
                 </c:forEach>
 
                 <c:if test="${currentPage lt noOfPages}">
-                  <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
+                  <li class="float-right"><a class="page-numbers" href="UserController?action=petmart&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
                   </li>
                 </c:if>                
               </ul>       

@@ -136,7 +136,6 @@
                         }
 
                       </script>
-
                       </tr>
                     </c:forEach>
                     </tbody>
