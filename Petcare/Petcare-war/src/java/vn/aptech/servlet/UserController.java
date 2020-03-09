@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
+import vn.aptech.entity.OrderDetails;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
@@ -49,6 +50,7 @@ public class UserController extends HttpServlet {
           throws ServletException, IOException {
     String action = request.getParameter("action");
     HttpSession session = request.getSession();
+
     if (action == null) {
       request.setAttribute("Home", "active");
       request.setAttribute("Categories", categoriesFacade.findAll());
@@ -56,6 +58,11 @@ public class UserController extends HttpServlet {
       request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
     } else {
       switch (action) {
+        case "showCart":
+          request.setAttribute("title", "Cart");
+          request.setAttribute("Cart", "active");
+          request.getRequestDispatcher("clientUI/showCart.jsp").forward(request, response);
+          break;
         case "petmart":
           request.setAttribute("title", "Petmart");
           request.setAttribute("PetMart", "active");
@@ -114,31 +121,15 @@ public class UserController extends HttpServlet {
           request.setAttribute("ContactUs", "active");
           request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
           break;
-        case "cart":
-          request.setAttribute("title", "Cart");
-          request.setAttribute("Cart", "active");
-          request.getRequestDispatcher("clientUI/cart.jsp").forward(request, response);
-          break;
-        case "login":
-          if (session.getAttribute("curAcc") != null) {
-            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-            switch (curAcc.getRole()) {
-              case 2:
-                response.sendRedirect("AdminController?action=account");
-                break;
-              case 1:
-                response.sendRedirect("EmployeeController");
-                break;
-              default:
-                response.sendRedirect("UserController");
-                break;
-            }
-          } else {
+        case "addOrder":
+          if (session.getAttribute("curAcc") == null) {
             response.sendRedirect("login.jsp");
+          } else {
+            if (session.getAttribute("cart") != null) {
+
+            }
           }
-          break;
-        case "register":
-          response.sendRedirect("register.jsp");
+          OrderDetails ordl = new OrderDetails();
           break;
         default:
           request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
