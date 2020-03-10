@@ -5,8 +5,10 @@
  */
 package vn.aptech.sb;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
+import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Orders;
 
 /**
@@ -29,5 +31,7 @@ public interface OrdersFacadeLocal {
     List<Orders> findRange(int[] range);
 
     int count();
+    
+    Orders getOrderLastest(Accounts accId);
     
 }

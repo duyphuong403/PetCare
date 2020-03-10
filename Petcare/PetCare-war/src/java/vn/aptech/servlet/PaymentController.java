@@ -37,18 +37,19 @@ public class PaymentController extends HttpServlet {
     if (session.getAttribute("curAcc") == null) {
       request.setAttribute("Error", "Please sign in to continue buy product.");
       request.getRequestDispatcher("login.jsp").forward(request, response);
-    }
-    if (session.getAttribute("cart") != null) {
-      CartBean cartB = (CartBean) session.getAttribute("cart");
-      if (cartB.getLineItemCount() <= 0) {
-        session.setAttribute("Error", "Sorry, your cart is empty.");
-        response.sendRedirect("UserController?action=petmart");
-      } else {
-        request.getRequestDispatcher("clientUI/payment.jsp").forward(request, response);
-      }
     } else {
-      request.setAttribute("Error", "Sorry your cart is empty.");
-      request.getRequestDispatcher("UserController?action=petmart").forward(request, response);
+      if (session.getAttribute("cart") != null) {
+        CartBean cartB = (CartBean) session.getAttribute("cart");
+        if (cartB.getLineItemCount() <= 0) {
+          session.setAttribute("Error", "Sorry, your cart is empty.");
+          response.sendRedirect("UserController?action=petmart");
+        } else {
+          request.getRequestDispatcher("clientUI/payment.jsp").forward(request, response);
+        }
+      } else {
+        request.setAttribute("Error", "Sorry your cart is empty.");
+        request.getRequestDispatcher("UserController?action=petmart").forward(request, response);
+      }
     }
 
   }

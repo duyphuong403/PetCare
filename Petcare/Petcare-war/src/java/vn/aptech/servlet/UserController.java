@@ -6,16 +6,22 @@
 package vn.aptech.servlet;
 
 import java.io.IOException;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import vn.aptech.classes.CartBean;
+import vn.aptech.classes.CartItemBean;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.OrderDetails;
+import vn.aptech.entity.Orders;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.OrderDetailsFacadeLocal;
+import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
 
@@ -24,6 +30,12 @@ import vn.aptech.sb.ProductsFacadeLocal;
  * @author Dell
  */
 public class UserController extends HttpServlet {
+
+  @EJB
+  private OrderDetailsFacadeLocal orderDetailsFacade;
+
+  @EJB
+  private OrdersFacadeLocal ordersFacade;
 
   @EJB
   private ProductUnitsFacadeLocal productUnitsFacade;
@@ -37,6 +49,7 @@ public class UserController extends HttpServlet {
   @EJB
   private CategoriesFacadeLocal categoriesFacade;
 
+  
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
    * methods.
@@ -126,10 +139,45 @@ public class UserController extends HttpServlet {
             response.sendRedirect("login.jsp");
           } else {
             if (session.getAttribute("cart") != null) {
-
+              Orders order = new Orders();
+              Date curDate = new Date();
+              Accounts curAcc = (Accounts)session.getAttribute("curAcc");
+              order.setAccId(curAcc);
+              order.setDateCreated(curDate);
+              try {
+                ordersFacade.create(order);
+              }catch(Exception e){
+                System.out.println("Error create order: " + e);
+              }
+              Orders curOrd = ordersFacade.getOrderLastest(curAcc);
+              CartBean cb = (CartBean) session.getAttribute("cart");
+              OrderDetails ordl;
+              boolean isFailed = false;
+              for (int i = 0; i < cb.list.size(); i++) {
+                CartItemBean cib = (CartItemBean)cb.list.get(i);
+                ordl = new OrderDetails();
+                ordl.setOrderId(curOrd);
+                ordl.setName(cib.getName());
+                ordl.setPrice(cib.getPrice());
+                ordl.setQuantity(cib.getQuantity());
+                try {
+                  orderDetailsFacade.create(ordl);
+                } catch (Exception e) {
+                  System.out.println("Error create order detail: " +e);
+                  isFailed = true;
+                  break;
+                }
+              }
+              if (isFailed) {
+                request.setAttribute("Error", "Order failed.");
+                request.getRequestDispatcher("UserController?action=showCart").forward(request, response);
+              }else{
+                request.setAttribute("Success", "Order success. Employee will contact to you to verify. Thank you.");
+                session.removeAttribute("cart");
+                request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
+              }
             }
           }
-          OrderDetails ordl = new OrderDetails();
           break;
         default:
           request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
