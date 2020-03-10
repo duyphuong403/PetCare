@@ -29,6 +29,10 @@
         <servlet-name>PaymentController</servlet-name>
         <servlet-class>vn.aptech.servlet.PaymentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountController</servlet-name>
+        <servlet-class>vn.aptech.servlet.AccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -52,6 +56,10 @@
     <servlet-mapping>
         <servlet-name>PaymentController</servlet-name>
         <url-pattern>/PaymentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountController</servlet-name>
+        <url-pattern>/AccountController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

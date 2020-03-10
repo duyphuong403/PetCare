@@ -36,6 +36,6 @@
         <link href="lib/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="lib/css/demo/demo.css" rel="stylesheet" />
-        
+        <script src="lib/js/sweetalert.js"></script>
         <script src="lib/js/jquery.min.js"></script>
     </head>

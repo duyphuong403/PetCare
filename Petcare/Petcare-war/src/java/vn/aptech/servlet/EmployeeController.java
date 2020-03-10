@@ -81,10 +81,6 @@ public class EmployeeController extends HttpServlet {
       String action = request.getParameter("action");
       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
       if (curAcc == null) {
-        // Get current URL
-//      if (request.getAttribute("currentUrl") == null) {
-//        request.setAttribute("currentURL", request.getRequestURL().toString());
-//      }
         request.setAttribute("Login", "active");
         request.getRequestDispatcher("login.jsp").forward(request, response);
       } else {
@@ -153,7 +149,7 @@ public class EmployeeController extends HttpServlet {
               break;
 
             case "product":
-              request.removeAttribute("Products");
+//              request.removeAttribute("Products");
               if (request.getAttribute("countProd") == null) {
                 request.setAttribute("countProd", productsFacade.count());
               }
