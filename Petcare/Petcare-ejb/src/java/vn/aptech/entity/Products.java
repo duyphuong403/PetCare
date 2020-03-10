@@ -66,6 +66,10 @@ public class Products implements Serializable {
   private int quantity;
   @Basic(optional = false)
   @NotNull
+  @Column(name = "Price")
+  private int price;
+  @Basic(optional = false)
+  @NotNull
   @Column(name = "IsNew")
   private boolean isNew;
   @Column(name = "DateUpdated")
@@ -140,6 +144,14 @@ public class Products implements Serializable {
     this.quantity = quantity;
   }
 
+  public int getPrice() {
+    return price;
+  }
+
+  public void setPrice(int price) {
+    this.price = price;
+  }
+
   public boolean getIsNew() {
     return isNew;
   }
@@ -212,5 +224,5 @@ public class Products implements Serializable {
   public String toString() {
     return "vn.aptech.entity.Products[ prodId=" + prodId + " ]";
   }
-  
+
 }

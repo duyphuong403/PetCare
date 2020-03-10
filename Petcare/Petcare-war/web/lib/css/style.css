@@ -60,15 +60,10 @@ body {
         text-align: left;
     }
      .topnav.responsive li a:hover {
-       color: orange !important
+       color: #fff !important
     }
 }
 
-#page {
-}
-#header {
-
-}
 #header a#logo {
     position:relative;
     z-index:100;
@@ -80,7 +75,7 @@ body {
 #header ul.navigation {
     list-style-type:none;
     margin-top: -82px;
-    margin-left: 300px;
+    margin-left: 465px;
     margin-right: 0;
     margin-bottom: 0;
     padding:0;

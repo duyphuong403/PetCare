@@ -17,14 +17,8 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="AdminController">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="AdminController?action=accounts">
+            <li class="nav-item ${Account}">
+                <a class="nav-link" href="AdminController?action=account">
                     <i class="material-icons">person</i>
                     <p>Accounts</p>
                 </a>

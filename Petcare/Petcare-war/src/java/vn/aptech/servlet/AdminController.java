@@ -6,6 +6,8 @@
 package vn.aptech.servlet;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +37,7 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         if (action == null) {
@@ -51,7 +54,7 @@ public class AdminController extends HttpServlet {
                         break;
                     case 2:
                         request.setAttribute("title", "Dashboard");
-                        request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                         break;
                     default:
                         request.setAttribute("title", "Dashboard");
@@ -60,7 +63,7 @@ public class AdminController extends HttpServlet {
             }
         } else {
             switch (action) {
-                case "login":
+                case "login":                   
                     String email = request.getParameter("username");
                     String pwd = request.getParameter("password");
                     if (email == null || email.equals("") || pwd == null || pwd.equals("")) {
@@ -76,11 +79,10 @@ public class AdminController extends HttpServlet {
                                     response.sendRedirect("EmployeeController");
                                     break;
                                 case 2:
-                                    request.setAttribute("title", "Dashboard");
-                                    response.sendRedirect("AdminController");
+                                    response.sendRedirect("AdminController?action=account");
                                     break;
                                 default:
-                                    response.sendRedirect("UserController");
+                                    response.sendRedirect(request.getHeader("referer"));
                                     break;
                             }
                         } else {
@@ -89,8 +91,102 @@ public class AdminController extends HttpServlet {
                         }
                     }
                     break;
-                case "accounts":
-                    response.sendRedirect("login.jsp");
+                case "account":
+                    List<Accounts> accounts = accountsFacade.findAll();
+                    request.setAttribute("title", "Accounts");
+                    request.setAttribute("account", "active");
+                    request.setAttribute("accounts", accounts);
+                    request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
+                    if (request.getParameter("txtSearch") != null) {
+                        request.setAttribute("Accounts", accountsFacade.find(request.getParameter("txtSearch")));
+                        request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+                    } else {
+                         System.out.println();
+                        request.setAttribute("Error", "Account is already exist!");
+                    }
+                    break;
+                case "change-state":
+
+                    int accId = Integer.parseInt(request.getParameter("accId"));
+                    boolean value = Boolean.parseBoolean(request.getParameter("value"));
+
+                    Accounts acc = accountsFacade.find(accId);
+                    acc.setIsInactive(value);
+
+                    accountsFacade.edit(acc);
+
+                    response.getWriter().print(value ? "InActive" : "Active");
+
+                    break;
+                case "addAccount":
+                    acc = new Accounts();
+//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
+                    acc.setUsername(request.getParameter("username"));
+                    acc.setPassword(request.getParameter("password"));
+                    acc.setFullname(request.getParameter("fullname"));
+                    acc.setEmail(request.getParameter("email"));
+                    acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                    acc.setAddress(request.getParameter("address"));
+                    acc.setRole(Short.parseShort(request.getParameter("role")));
+                    acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+                    acc.setDateCreated(new Date());
+                    acc.setReasonBanned(request.getParameter("reasonBanned"));
+
+                    try {
+                        accountsFacade.create(acc);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        request.setAttribute("Error", "Account is already exist!");
+                    }
+                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                    break;
+                case "viewEditAccount":
+                    if (request.getAttribute("Accounts") == null) {
+                        request.setAttribute("Accounts", accountsFacade.findAll());
+                    }
+                    request.setAttribute("title", "Edit Account");
+                    request.setAttribute("account", "active");
+                    if (request.getParameter("accId") != null) {
+                        request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
+                    } else {
+                        request.setAttribute("Error", "Account ID was null!");
+                    }
+                    request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+                    break;
+                case "editAccount":
+                    if (request.getParameter("accId") == null) {
+                        request.setAttribute("Error", "Cannot find this account!");
+                    } else {
+                        acc = new Accounts();
+                        acc.setUsername(request.getParameter("username"));
+                        acc.setPassword(request.getParameter("password"));
+                        acc.setFullname(request.getParameter("fullname"));
+                        acc.setEmail(request.getParameter("email"));
+                        acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                        acc.setAddress(request.getParameter("address"));
+                        acc.setRole(Short.parseShort(request.getParameter("role")));
+                        acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+//                    acc.setDateCreated(new Date());
+                        acc.setReasonBanned(request.getParameter("reasonBanned"));
+
+                        try {
+                            accountsFacade.edit(acc);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                            request.setAttribute("Error", "Edit Account failed.");
+                        }
+                    }
+                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                    break;
+
+                case "deleteAccount":
+                    accId = Integer.parseInt(request.getParameter("accId"));
+                    try {
+                        accountsFacade.remove(accountsFacade.find(accId));
+                    } catch (Exception e) {
+                        request.setAttribute("Error", "Delete Account Failed");
+                    }
+                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "orders":
                     response.sendRedirect("login.jsp");

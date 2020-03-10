@@ -25,9 +25,9 @@
                     </a>
                   </div>
                   <div class="col-md-4">
-                    <form class="navbar-form " action="EmployeeController?action=product" method="post">
+                    <form class="navbar-form " action="EmployeeController?action=product" method="post" style="padding-top: 2%;">
                       <div class="input-group no-border">
-                        <label class="bmd-label-floating">Search</label>
+                        <label class="bmd-label-floating" style="color:#fff">Search</label>
                         <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                           <i class="material-icons">search</i>
@@ -40,44 +40,47 @@
                     <label class="bmd-label-floating" style="color: #fff">Number of Product per page</label>
                     <form action="EmployeeController?action=product" method="post" id="changePageSize">
                       <select name="pageSize" id="pageSize" class="browser-default custom-select" onchange="this.form.submit()">
-                        <option value="2" <c:if test="${pageSize == 2}"> selected="true" </c:if >>2</option>
-                        <option value="4" <c:if test="${pageSize == 4}"> selected="true" </c:if>>4</option>
+                        <option value="10" <c:if test="${pageSize == 2}"> selected="true" </c:if >>10</option>
+                        <option value="50" <c:if test="${pageSize == 4}"> selected="true" </c:if>>50</option>
                         <option value="100" <c:if test="${pageSize == 100}"> selected="true" </c:if>>100</option>
                         </select>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                    <th>
-                      No.
-                    </th>
-                    <th>
-                      Name
-                    </th>
-                    <th>
-                      Category
-                    </th>                                 
-                    <th>
-                      Quantity
-                    </th>
-                    <th>
-                      Unit
-                    </th>
-                    <th>
-                      Feature
-                    </th>                   
-                    <th>
-                      Created by
-                    </th>
-                    <th>
-                      Action
-                    </th>
-                    </thead>
-                    <tbody>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                      <th>
+                        No.
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Category
+                      </th>                                 
+                      <th>
+                        Quantity
+                      </th>
+                       <th>
+                        Price
+                      </th>
+                      <th>
+                        Unit
+                      </th>
+                      <th>
+                        Feature
+                      </th>                   
+                      <th>
+                        Created by
+                      </th>
+                      <th>
+                        Action
+                      </th>
+                      </thead>
+                      <tbody>
                       <% int i = 1;%>
                       <c:forEach items="${Products}" var="prod">
                         <tr>
@@ -94,6 +97,9 @@
                           </td>
                           <td>
                             ${prod.quantity}
+                          </td>
+                          <td>
+                            ${prod.price}
                           </td>
                           <td>
                             ${prod.unitId.name}
@@ -130,7 +136,6 @@
                         }
 
                       </script>
-
                       </tr>
                     </c:forEach>
                     </tbody>
@@ -142,7 +147,7 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination pg-blue justify-content-center">
                   <c:if test="${currentPage != 1}">
-                    <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
+                    <li class="page-item"><a class="page-link" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${currentPage-1}">Previous</a>
                     </li>
                   </c:if>
 
@@ -154,23 +159,16 @@
                         </li>
                       </c:when>
                       <c:otherwise>
-                        <li class="page-item"><a class="page-link" 
-                                                 href="EmployeeController?product&pageSize=${pageSize}&currentPage=${i}">${i}</a>
+                        <li class="page-item"><a class="page-link" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${i}">${i}</a>
                         </li>
                       </c:otherwise>
                     </c:choose>
                   </c:forEach>
 
                   <c:if test="${currentPage lt noOfPages}">
-                    <li class="page-item"><a class="page-link" 
-                                             href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
+                    <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
                     </li>
                   </c:if>    
-<!--                  <li class="page-item"><a class="page-link">Previous</a></li>
-                  <li class="page-item"><a class="page-link">1</a></li>
-                  <li class="page-item"><a class="page-link">2</a></li>
-                  <li class="page-item"><a class="page-link">3</a></li>
-                  <li class="page-item"><a class="page-link">Next</a></li>-->
                 </ul>
               </nav>
             </div>
@@ -212,6 +210,10 @@
           <div class="form-group">
             <label for="Quantiy" class="bmd-label-floating">Quantiy</label>
             <input type="number" class="form-control" id="Quantiy" name="quantity" required="true" min="0" max="99999">
+          </div>
+          <div class="form-group">
+            <label for="Price" class="bmd-label-floating">Price</label>
+            <input type="number" class="form-control" id="Price" name="price" required="true" min="0" max="99999">
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>

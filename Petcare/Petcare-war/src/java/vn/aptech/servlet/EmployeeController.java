@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -24,7 +23,9 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
+import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
 
@@ -38,6 +39,12 @@ import vn.aptech.sb.ProductsFacadeLocal;
 
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
+
+  @EJB
+  private AccountsFacadeLocal accountsFacade;
+
+  @EJB
+  private PetGuidesFacadeLocal petGuidesFacade;
 
   public static final String SAVE_DIRECTORY = "uploadDir";
 
@@ -70,13 +77,10 @@ public class EmployeeController extends HttpServlet {
       Products prod;
 
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
+      String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
       String action = request.getParameter("action");
       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
       if (curAcc == null) {
-        // Get current URL
-//      if (request.getAttribute("currentUrl") == null) {
-//        request.setAttribute("currentURL", request.getRequestURL().toString());
-//      }
         request.setAttribute("Login", "active");
         request.getRequestDispatcher("login.jsp").forward(request, response);
       } else {
@@ -145,7 +149,7 @@ public class EmployeeController extends HttpServlet {
               break;
 
             case "product":
-              request.removeAttribute("Products");
+//              request.removeAttribute("Products");
               if (request.getAttribute("countProd") == null) {
                 request.setAttribute("countProd", productsFacade.count());
               }
@@ -160,7 +164,7 @@ public class EmployeeController extends HttpServlet {
                 pageSize = Integer.parseInt(request.getParameter("pageSize"));
               }
               request.setAttribute("pageSize", pageSize);
-              
+
               int nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
                 nOfPages++;
@@ -224,6 +228,7 @@ public class EmployeeController extends HttpServlet {
                 }
                 inputStream.close();
               }
+
               try {
                 productsFacade.create(prod);
               } catch (Exception e) {
@@ -283,22 +288,10 @@ public class EmployeeController extends HttpServlet {
                       System.out.println("Uploaded file " + fileEdit + "\\" + fileName + ".");
                     }
                     isEdit.close();
-                    // Remove current Image
-//                    Products curProd = productsFacade.find(prod.getProdId());
-//                    try {
-//                      File f = new File(uploadDir + curProd.getImageName());           //file to be delete  
-//                      if (f.delete()) //returns Boolean value  
-//                      {
-//                        System.out.println(f.getName() + " deleted");   //getting and printing the file name  
-//                      } else {
-//                        System.out.println("Delete current Image failed.");
-//                      }
-//                    } catch (Exception e) {
-//                      System.out.println(e);
-//                    }
                   }
                 }
                 prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                prod.setPrice(Integer.parseInt(request.getParameter("price")));
                 prod.setUnitId(productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId"))));
                 prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
                 prod.setAccId(curAcc);
@@ -376,12 +369,35 @@ public class EmployeeController extends HttpServlet {
               break;
 
             case "account":
+
               request.setAttribute("title", "Account");
               request.setAttribute("account", "active");
+              request.setAttribute("accounts", accountsFacade.findAll());
+              request.getRequestDispatcher("employeeUI/account.jsp").forward(request, response);
+
+              break;
+
+            case "change-state":
+
+              int accId = Integer.parseInt(request.getParameter("accId"));
+              boolean value = Boolean.parseBoolean(request.getParameter("value"));
+
+              Accounts acc = accountsFacade.find(accId);
+              acc.setIsInactive(value);
+
+              accountsFacade.edit(acc);
+
+              response.getWriter().print(value ? "InActive" : "Active");
+
               break;
             case "petguide":
               request.setAttribute("title", "PetGuide");
               request.setAttribute("petguide", "active");
+              if (request.getAttribute("Petguides") == null) {
+                request.setAttribute("Petguides", petGuidesFacade.findAll());
+              }
+
+              request.getRequestDispatcher("employeeUI/petguide.jsp").forward(request, response);
               break;
             case "profile":
               request.setAttribute("title", "Profile-");
