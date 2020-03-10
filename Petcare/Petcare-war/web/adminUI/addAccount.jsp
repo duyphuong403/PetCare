@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        Nên dùng template nào nhỉ :v
     </body>
 </html>
