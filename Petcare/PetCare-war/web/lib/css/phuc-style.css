@@ -1,0 +1,46 @@
+.info-box {
+    background-color: #fff;
+    margin-bottom: 60px;
+}
+
+.info-boxx {
+    width: 100%; 
+    height: 250px; 
+    overflow: hidden
+}
+
+.info-box_img {
+    height: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    transition: transform 0.7s ease-in-out;
+}
+
+.info-box_img:hover {
+    transform: scale(1.1);
+}
+
+/* ======== pagination =========== */
+.pagination {
+    display: inline-block;
+}
+
+.pagination .active {
+    border-bottom: 2px solid #000000;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #e0e0e0;
+    /* transition: transform 1s ease-in-out; */
+}
+
+.pagination a:hover {
+    border-bottom: 2px solid #000000;
+    transition: 0.1s;
+}

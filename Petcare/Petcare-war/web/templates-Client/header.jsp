@@ -40,6 +40,7 @@
         <link rel="stylesheet" href="lib/css/main.css">
         <link id="preset" rel="stylesheet" href="lib/css/preset1.css">
         <link rel="stylesheet" href="lib/css/responsive.css">
+        <link rel="stylesheet" href="lib/css/phuc-style.css">
         <!--[if IE 6]><link href="css/ie6.css" rel="stylesheet" type="text/css"><![endif]-->
         <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]-->
     </head>
