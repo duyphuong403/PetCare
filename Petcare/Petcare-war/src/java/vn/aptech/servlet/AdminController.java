@@ -63,7 +63,7 @@ public class AdminController extends HttpServlet {
             }
         } else {
             switch (action) {
-                case "login":
+                case "login":                   
                     String email = request.getParameter("username");
                     String pwd = request.getParameter("password");
                     if (email == null || email.equals("") || pwd == null || pwd.equals("")) {
@@ -120,7 +120,7 @@ public class AdminController extends HttpServlet {
                     break;
                 case "addAccount":
                     acc = new Accounts();
-                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
+//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
                     acc.setUsername(request.getParameter("username"));
                     acc.setPassword(request.getParameter("password"));
                     acc.setFullname(request.getParameter("fullname"));
@@ -133,7 +133,7 @@ public class AdminController extends HttpServlet {
                     acc.setReasonBanned(request.getParameter("reasonBanned"));
 
                     try {
-                        accountsFacade.create(addAccount);
+                        accountsFacade.create(acc);
                     } catch (Exception e) {
                         System.out.println(e);
                         request.setAttribute("Error", "Account is already exist!");
@@ -151,7 +151,7 @@ public class AdminController extends HttpServlet {
                     } else {
                         request.setAttribute("Error", "Account ID was null!");
                     }
-                    request.getRequestDispatcher("AdminUI/editAccount.jsp").forward(request, response);
+                    request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
                     break;
                 case "editAccount":
                     if (request.getParameter("accId") == null) {

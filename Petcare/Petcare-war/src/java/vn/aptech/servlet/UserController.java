@@ -135,7 +135,6 @@ public class UserController extends HttpServlet {
                     acc.setEmail(request.getParameter("email"));
                     acc.setPhone(Integer.parseInt(request.getParameter("phone")));
                     acc.setAddress(request.getParameter("address"));
-                    acc.setRole(Short.parseShort(request.getParameter("role")));
                     acc.setDateCreated(new Date());
 
                     try {
