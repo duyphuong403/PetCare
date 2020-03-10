@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CartBean {
 
-  private ArrayList list = new ArrayList();
+  public ArrayList list = new ArrayList();
   private double total;
 
   public ArrayList getList() {
@@ -51,7 +51,7 @@ public class CartBean {
   public void updateCart(String stt, String quantity) {
     int iSTT = Integer.parseInt(stt);
     CartItemBean cartItem = (CartItemBean) list.get(iSTT - 1);
-    double iPrice = cartItem.getPrice();
+    int iPrice = cartItem.getPrice();
     int iQuantity = Integer.parseInt(quantity);
     try {
       if (iQuantity > 0) {

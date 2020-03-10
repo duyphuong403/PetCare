@@ -5,9 +5,12 @@
  */
 package vn.aptech.sb;
 
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Orders;
 
 /**
@@ -17,16 +20,26 @@ import vn.aptech.entity.Orders;
 @Stateless
 public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacadeLocal {
 
-    @PersistenceContext(unitName = "Petcare-ejbPU")
-    private EntityManager em;
+  @PersistenceContext(unitName = "Petcare-ejbPU")
+  private EntityManager em;
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+  @Override
+  protected EntityManager getEntityManager() {
+    return em;
+  }
 
-    public OrdersFacade() {
-        super(Orders.class);
+  public OrdersFacade() {
+    super(Orders.class);
+  }
+
+  @Override
+  public Orders getOrderLastest(Accounts curAcc) {
+    try {
+      return em.createQuery("select a from Orders a where a.accId = :id order by a.dateCreated desc", Orders.class).setParameter("id", curAcc).setMaxResults(1).getSingleResult();
+    } catch (NoResultException nre) {
+      System.out.println(nre);
+      return null;
     }
-    
+  }
+
 }

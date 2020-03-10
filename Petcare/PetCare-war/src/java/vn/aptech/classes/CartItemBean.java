@@ -15,7 +15,7 @@ public class CartItemBean {
   private String name;
   private int price;
   private int quantity;
-  private double TotalCost;
+  private int TotalCost;
 
   public String getImageName() {
     return imageName;
@@ -33,7 +33,7 @@ public class CartItemBean {
     this.name = name;
   }
 
-  public double getPrice() {
+  public int getPrice() {
     return price;
   }
 
@@ -53,7 +53,7 @@ public class CartItemBean {
     return TotalCost;
   }
 
-  public void setTotalCost(double TotalCost) {
+  public void setTotalCost(int TotalCost) {
     this.TotalCost = TotalCost;
   }
 
