@@ -92,7 +92,9 @@
                                                             ${acc.address}
                                                         </td>
                                                         <td>
-                                                            ${acc.role}
+                                                            <c:if test="${acc.role == 0}" >User</c:if>
+                                                            <c:if test="${acc.role == 1}" >Employee</c:if>
+                                                            <c:if test="${acc.role == 2}" >Administrator</c:if>
                                                         </td>
                                                         <td>
                                                             <div class="custom-control custom-switch">
