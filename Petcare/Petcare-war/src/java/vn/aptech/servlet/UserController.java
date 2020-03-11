@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 import vn.aptech.classes.CartBean;
 import vn.aptech.classes.CartItemBean;
 import vn.aptech.entity.Accounts;
+import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.FeedbacksFacadeLocal;
 import vn.aptech.sb.OrderDetailsFacadeLocal;
 import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
@@ -53,6 +55,8 @@ public class UserController extends HttpServlet {
     @EJB
     private CategoriesFacadeLocal categoriesFacade;
 
+    @EJB
+    private FeedbacksFacadeLocal feedbacksFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -155,6 +159,24 @@ public class UserController extends HttpServlet {
                     request.setAttribute("title", "Contact Us");
                     request.setAttribute("ContactUs", "active");
                     request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
+                    Feedbacks feed = new Feedbacks();
+                    feed.setFullname(request.getParameter("fullname"));
+                    feed.setEmail(request.getParameter("email"));
+                    feed.setPhone(Integer.parseInt(request.getParameter("phone")));
+                    feed.setEmail(request.getParameter("email"));
+                    feed.setContent(request.getParameter("content"));
+//                    feed.setIsRead(Boolean.parseBoolean(request.getParameter("isRead")));
+                    feed.setDateCreated(new Date());
+                    
+
+                    try {
+                        feedbacksFacade.create(feed);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        request.setAttribute("Error", "Cannot Create Feedback!");
+                    }
+                    
+                    request.getRequestDispatcher("UserController?action=contactus").forward(request, response);
                     break;
                 case "addOrder":
                     if (session.getAttribute("curAcc") == null) {
@@ -248,3 +270,4 @@ public class UserController extends HttpServlet {
     }// </editor-fold>
 
 }
+
