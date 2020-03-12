@@ -47,49 +47,52 @@ public class AccountController extends HttpServlet {
             if (action == null) {
                 response.sendRedirect("profile.jsp");
             } else {
-                viewEditAccount:
 
-                if (request.getAttribute("Accounts") == null) {
-                    request.setAttribute("Accounts", accountsFacade.findAll());
-                }
-                request.setAttribute("title", "Edit Account");
-                request.setAttribute("account", "active");
-                if (request.getParameter("accId") != null) {
-                    request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
-                } else {
-                    request.setAttribute("Error", "Account ID was null!");
-                }
-                request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+                switch (action) {
+                    case "viewEditAccount":
 
-                editAccount:
-                if (request.getParameter("accId") == null) {
-                    request.setAttribute("Error", "Cannot find this account!");
-                } else {
-                    Accounts acc = new Accounts();
-                    acc.setUsername(request.getParameter("username"));
-                    acc.setPassword(request.getParameter("password"));
-                    acc.setFullname(request.getParameter("fullname"));
-                    acc.setEmail(request.getParameter("email"));
-                    acc.setPhone(Integer.parseInt(request.getParameter("phone")));
-                    acc.setAddress(request.getParameter("address"));
-                    acc.setRole(Short.parseShort(request.getParameter("role")));
-                    acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+                        if (request.getAttribute("Accounts") == null) {
+                            request.setAttribute("Accounts", accountsFacade.findAll());
+                        }
+                        request.setAttribute("title", "Edit Account");
+                        request.setAttribute("account", "active");
+                        if (request.getParameter("accId") != null) {
+                            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
+                        } else {
+                            request.setAttribute("Error", "Account ID was null!");
+                        }
+                        request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+
+                    case "editAccount":
+                        if (request.getParameter("accId") == null) {
+                            request.setAttribute("Error", "Cannot find this account!");
+                        } else {
+                            Accounts acc = new Accounts();
+                            acc.setUsername(request.getParameter("username"));
+                            acc.setPassword(request.getParameter("password"));
+                            acc.setFullname(request.getParameter("fullname"));
+                            acc.setEmail(request.getParameter("email"));
+                            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                            acc.setAddress(request.getParameter("address"));
+                            acc.setRole(Short.parseShort(request.getParameter("role")));
+                            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
 //                    acc.setDateCreated(new Date());
-                    acc.setReasonBanned(request.getParameter("reasonBanned"));
+                            acc.setReasonBanned(request.getParameter("reasonBanned"));
 
-                    try {
-                        accountsFacade.edit(acc);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                        request.setAttribute("Error", "Edit Account failed.");
-                    }
+                            try {
+                                accountsFacade.edit(acc);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                                request.setAttribute("Error", "Edit Account failed.");
+                            }
+                        }
+                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                 }
-                request.getRequestDispatcher("AdminController?action=account").forward(request, response);
             }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -103,7 +106,7 @@ public class AccountController extends HttpServlet {
             HttpServletResponse response
     )
             throws ServletException,
-             IOException {
+            IOException {
         processRequest(request, response);
     }
 
@@ -120,7 +123,7 @@ public class AccountController extends HttpServlet {
             HttpServletResponse response
     )
             throws ServletException,
-             IOException {
+            IOException {
         processRequest(request, response);
     }
 
