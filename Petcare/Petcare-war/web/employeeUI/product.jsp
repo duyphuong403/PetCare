@@ -166,7 +166,7 @@
                   </c:forEach>
 
                   <c:if test="${currentPage lt noOfPages}">
-                    <li class="page-item"><a class="page-link" href="EmployeeController?product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
+                    <li class="page-item"><a class="page-link" href="EmployeeController?action=product&pageSize=${pageSize}&currentPage=${currentPage+1}">Next</a>
                     </li>
                   </c:if>    
                 </ul>

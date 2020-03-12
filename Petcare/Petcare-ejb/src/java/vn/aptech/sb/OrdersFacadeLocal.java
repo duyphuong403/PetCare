@@ -5,7 +5,6 @@
  */
 package vn.aptech.sb;
 
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import vn.aptech.entity.Accounts;
@@ -34,4 +33,7 @@ public interface OrdersFacadeLocal {
     
     Orders getOrderLastest(Accounts accId);
     
+    List<Orders> getRecordsPagination(int currentPage, int recordsPerPage);
+            
+    List<Orders> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage);
 }

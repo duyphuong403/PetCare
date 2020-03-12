@@ -9,7 +9,7 @@
     <%@include file="../templates-Admin/sidebar.jsp" %>    
     <div class="main-panel">
         <div class="wrapper ">
-            <%@include file="../templates-Employee/sidebar.jsp" %>    
+            <%@include file="../templates-Admin/sidebar.jsp" %>    
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
