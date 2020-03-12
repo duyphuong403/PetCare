@@ -50,9 +50,9 @@
                                         <div class="form-group">
                                            
 <!--                                            <input type="text" class="form-control" id="Role" name="address" required="true" value="${acc.role}">-->
-                                            <label for="Role" class="bmd-label-floating">Role</label>
-                                            <INPUT TYPE="radio" name="role" value="0"/>Customer 
-                                            <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee 
+                                            <label for="Role" class="bmd-label-floating">Role</label>&emsp;
+                                            <INPUT TYPE="radio" name="role" value="0"/>Customer &emsp;
+                                            <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee &emsp;
                                             <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
                                         </div>
                                 </div>  
