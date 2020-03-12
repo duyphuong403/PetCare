@@ -57,6 +57,7 @@ public class UserController extends HttpServlet {
 
     @EJB
     private FeedbacksFacadeLocal feedbacksFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -159,24 +160,24 @@ public class UserController extends HttpServlet {
                     request.setAttribute("title", "Contact Us");
                     request.setAttribute("ContactUs", "active");
                     request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
+                    break;
+                case "addFeedback":
                     Feedbacks feed = new Feedbacks();
                     feed.setFullname(request.getParameter("fullname"));
                     feed.setEmail(request.getParameter("email"));
                     feed.setPhone(Integer.parseInt(request.getParameter("phone")));
-                    feed.setEmail(request.getParameter("email"));
                     feed.setContent(request.getParameter("content"));
-//                    feed.setIsRead(Boolean.parseBoolean(request.getParameter("isRead")));
+                    feed.setIsRead(false);
                     feed.setDateCreated(new Date());
-                    
 
                     try {
                         feedbacksFacade.create(feed);
+                        request.setAttribute("Success", "Thank you for your feedback.");
                     } catch (Exception e) {
                         System.out.println(e);
                         request.setAttribute("Error", "Cannot Create Feedback!");
                     }
-                    
-                    request.getRequestDispatcher("UserController?action=contactus").forward(request, response);
+                    request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
                     break;
                 case "addOrder":
                     if (session.getAttribute("curAcc") == null) {
@@ -270,4 +271,3 @@ public class UserController extends HttpServlet {
     }// </editor-fold>
 
 }
-

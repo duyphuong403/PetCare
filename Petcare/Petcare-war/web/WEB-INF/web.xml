@@ -69,4 +69,10 @@
     <welcome-file-list>
         <welcome-file>UserController</welcome-file>
     </welcome-file-list>
+    <ejb-local-ref>
+        <ejb-ref-name>FeedbacksFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>vn.aptech.sb.FeedbacksFacadeLocal</local>
+        <ejb-link>Petcare-ejb.jar#FeedbacksFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>
