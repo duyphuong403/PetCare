@@ -188,10 +188,10 @@
                             <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee 
                             <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
                         </div>
-                        <div class="custom-control custom-switch">
+<!--                        <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
                             <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
-                        </div>
+                        </div>-->
                         <br/>
                     </div>
                     <div class="modal-footer">
@@ -216,19 +216,19 @@
     <%};
         request.removeAttribute("Success");
     %>
-
-    <script>
-        $('.cbx-active').change(function () {
-            var checkBox = $(this);
-            var accId = checkBox.attr('accId');
-            var value = this.checked;
-            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
-                accId: accId,
-                value: value
-            }, function (resp) {
-                checkBox.next().html(resp);
-            });
-        });
-    </script>
+//
+//    <script>
+//        $('.cbx-active').change(function () {
+//            var checkBox = $(this);
+//            var accId = checkBox.attr('accId');
+//            var value = this.checked;
+//            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
+//                accId: accId,
+//                value: value
+//            }, function (resp) {
+//                checkBox.next().html(resp);
+//            });
+//        });
+//    </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
