@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
+import vn.aptech.entity.Feedbacks;
 import vn.aptech.sb.AccountsFacadeLocal;
+import vn.aptech.sb.FeedbacksFacadeLocal;
 
 /**
  *
@@ -25,6 +27,9 @@ public class AdminController extends HttpServlet {
 
   @EJB
   private AccountsFacadeLocal accountsFacade;
+  
+  @EJB
+  private FeedbacksFacadeLocal feedbacksFacade;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -207,7 +212,25 @@ public class AdminController extends HttpServlet {
           session.removeAttribute("cart");
           response.sendRedirect(request.getHeader("referer"));
           break;
+          
+        case "feedbacks":
+          List<Feedbacks> feedbacks = feedbacksFacade.findAll();
+          request.setAttribute("title", "Contact Us");
+          request.setAttribute("ContactUs", "active");
+          request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
+          if (request.getParameter("txtSearch") != null) {
+            request.setAttribute("Feedbacks", feedbacksFacade.find(request.getParameter("txtSearch")));
+            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+          } else {
+            System.out.println();
+            request.setAttribute("Error", "Feedbacks is already exist!");
+          }
+          break;
+          
+        
       }
+      
+    
     }
   }
 
