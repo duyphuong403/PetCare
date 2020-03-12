@@ -23,12 +23,12 @@
                                     </a> &emsp; &emsp; &emsp; &emsp; 
                                     <form class="navbar-form " action="AdminController?action=account" method="post" style="padding-top: 2%;">
                                         <div class="input-group no-border">
-                                            <label class="bmd-label-floating" style="color:#fff">Search</label>
+<!--                                            <label class="bmd-label-floating" style="color:#fff">Search</label>
                                             <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
                                             <button type="submit" class="btn btn-white btn-round btn-just-icon">
                                                 <i class="material-icons">search</i>
                                                 <div class="ripple-container"></div>
-                                            </button>
+                                            </button>-->
                                         </div>
                                     </form>
                                 </div>
@@ -188,10 +188,10 @@
                             <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee 
                             <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
                         </div>
-                        <div class="custom-control custom-switch">
+<!--                        <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
                             <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
-                        </div>
+                        </div>-->
                         <br/>
                     </div>
                     <div class="modal-footer">
@@ -216,19 +216,19 @@
     <%};
         request.removeAttribute("Success");
     %>
-
-    <script>
-        $('.cbx-active').change(function () {
-            var checkBox = $(this);
-            var accId = checkBox.attr('accId');
-            var value = this.checked;
-            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
-                accId: accId,
-                value: value
-            }, function (resp) {
-                checkBox.next().html(resp);
-            });
-        });
-    </script>
+//
+//    <script>
+//        $('.cbx-active').change(function () {
+//            var checkBox = $(this);
+//            var accId = checkBox.attr('accId');
+//            var value = this.checked;
+//            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
+//                accId: accId,
+//                value: value
+//            }, function (resp) {
+//                checkBox.next().html(resp);
+//            });
+//        });
+//    </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
