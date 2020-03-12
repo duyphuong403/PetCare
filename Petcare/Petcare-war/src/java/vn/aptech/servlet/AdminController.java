@@ -76,7 +76,7 @@ public class AdminController extends HttpServlet {
               switch (curAcc.getRole()) {
                 case 1:
                   request.setAttribute("title", "Dashboard");
-                  response.sendRedirect("EmployeeController");
+                  response.sendRedirect("EmployeeController?action=order");
                   break;
                 case 2:
                   response.sendRedirect("AdminController?action=account");

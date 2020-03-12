@@ -21,10 +21,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.Orders;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
@@ -39,6 +41,9 @@ import vn.aptech.sb.ProductsFacadeLocal;
 
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
+
+  @EJB
+  private OrdersFacadeLocal ordersFacade;
 
   @EJB
   private AccountsFacadeLocal accountsFacade;
@@ -76,6 +81,10 @@ public class EmployeeController extends HttpServlet {
       Categories cate;
       Products prod;
 
+      int nOfPages = 0;
+      int pageSize = 10;
+      int currentPage = 1;
+
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
       String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
       String action = request.getParameter("action");
@@ -104,6 +113,50 @@ public class EmployeeController extends HttpServlet {
           }
         } else {
           switch (action) {
+            case "order":
+              if (request.getAttribute("countProd") == null) {
+                request.setAttribute("countProd", ordersFacade.count());
+              }
+              currentPage = 1;
+              if (request.getParameter("currentPage") != null) {
+                currentPage = Integer.parseInt(request.getParameter("currentPage"));
+              }
+              request.setAttribute("currentPage", currentPage);
+
+              pageSize = 10;
+              if (request.getParameter("pageSize") != null) {
+                pageSize = Integer.parseInt(request.getParameter("pageSize"));
+              }
+              request.setAttribute("pageSize", pageSize);
+
+              nOfPages = ordersFacade.count() / pageSize;
+              if (ordersFacade.count() % pageSize > 0) {
+                nOfPages++;
+              }
+              request.setAttribute("noOfPages", nOfPages);
+
+              if (request.getParameter("txtSearch") != null) {
+                request.setAttribute("Orders", ordersFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+                request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+              } else {
+                request.setAttribute("Orders", ordersFacade.getRecordsPagination(currentPage, pageSize));
+              }
+
+              request.setAttribute("title", "Orders");
+              request.setAttribute("order", "active");
+              request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
+              break;
+            case "updateVerify":
+              Orders ord = new Orders();
+              ord.setIsVerified(Boolean.parseBoolean(request.getParameter("isVerify")));
+              try{
+                ordersFacade.edit(ord);
+              }catch(Exception e){
+                request.setAttribute("Error","Change Verify status failed.");
+                System.out.println("Error Update Verify status: " +e);
+              }
+              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
+              break;
             case "category":
               if (request.getAttribute("Categories") == null) {
                 request.setAttribute("Categories", categoriesFacade.findAll());
@@ -149,23 +202,22 @@ public class EmployeeController extends HttpServlet {
               break;
 
             case "product":
-//              request.removeAttribute("Products");
               if (request.getAttribute("countProd") == null) {
                 request.setAttribute("countProd", productsFacade.count());
               }
-              int currentPage = 1;
+              currentPage = 1;
               if (request.getParameter("currentPage") != null) {
                 currentPage = Integer.parseInt(request.getParameter("currentPage"));
               }
               request.setAttribute("currentPage", currentPage);
 
-              int pageSize = 10;
+              pageSize = 10;
               if (request.getParameter("pageSize") != null) {
                 pageSize = Integer.parseInt(request.getParameter("pageSize"));
               }
               request.setAttribute("pageSize", pageSize);
 
-              int nOfPages = productsFacade.count() / pageSize;
+              nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
                 nOfPages++;
               }
