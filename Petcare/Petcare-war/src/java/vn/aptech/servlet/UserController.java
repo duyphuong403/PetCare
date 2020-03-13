@@ -132,26 +132,41 @@ public class UserController extends HttpServlet {
                     request.getRequestDispatcher("clientUI/aboutus.jsp").forward(request, response);
                     break;
                 case "register":
-                    Accounts acc = new Accounts();
-//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
-                    acc.setUsername(request.getParameter("username"));
-                    acc.setPassword(request.getParameter("password"));
-                    acc.setFullname(request.getParameter("fullname"));
-                    acc.setEmail(request.getParameter("email"));
-                    acc.setPhone(Integer.parseInt(request.getParameter("phone")));
-                    acc.setAddress(request.getParameter("address"));
-                    acc.setRole(Short.parseShort(request.getParameter("role")));
-                    acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
-                    acc.setDateCreated(new Date());
-                    acc.setReasonBanned(request.getParameter("reasonBanned"));
+                    if (session.getAttribute("curAcc") != null) {
+                        response.sendRedirect("UserController");
+                    } else {
+                        Accounts acc = new Accounts();
+                        acc.setPassword(request.getParameter("password"));
+                        if (request.getParameter("re-password").compareTo(request.getParameter("password")) != 0) {
+                            request.setAttribute("Error", "Retype password doesn't match!");
+                            request.getRequestDispatcher("register.jsp").forward(request, response);
+                        } else {
+                            acc.setUsername(request.getParameter("username"));
+                            if (request.getParameter("email") != null) {
+                                acc.setEmail(request.getParameter("email"));
+                            }
+                            if (request.getParameter("fullname") != null) {
+                                acc.setFullname(request.getParameter("fullname"));
+                            }
+                            if (request.getParameter("address") != null) {
+                                acc.setAddress(request.getParameter("address"));
+                            }
+                            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                            acc.setRole(Short.parseShort("0"));
+                            acc.setDateCreated(new Date());
 
-                    try {
-                        accountsFacade.create(acc);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                        request.setAttribute("Error", "Account is already exist!");
+                            try {
+                                accountsFacade.create(acc);
+                                // cho no dang nhap thanh cong luon
+                                session.setAttribute("curAcc", acc);
+                                request.getRequestDispatcher("UserController").forward(request, response);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                                request.setAttribute("Error", "Account is already exist!");
+                                request.getRequestDispatcher("register.jsp").forward(request, response);
+                            }
+                        }
                     }
-                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "petguide":
                     request.setAttribute("title", "Pet Guide");

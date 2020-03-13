@@ -45,27 +45,22 @@ public class AccountController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             if (action == null) {
-                response.sendRedirect("profile.jsp");
+                request.getRequestDispatcher("AccountController?action=viewEditAccount").forward(request, response);
             } else {
-
                 switch (action) {
                     case "viewEditAccount":
 
-                        if (request.getAttribute("Accounts") == null) {
-                            request.setAttribute("Accounts", accountsFacade.findAll());
-                        }
                         request.setAttribute("title", "Edit Account");
                         request.setAttribute("account", "active");
-                        if (request.getParameter("accId") != null) {
-                            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
-                        } else {
-                            request.setAttribute("Error", "Account ID was null!");
-                        }
-                        request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+                        request.getRequestDispatcher("profile.jsp").forward(request, response);
 
                     case "editAccount":
                         if (request.getParameter("accountId") == null) {
                             request.setAttribute("Error", "Cannot find this account!");
+                        }
+                        if (request.getParameter("re-password").compareTo(request.getParameter("password")) != 0) {
+                            request.setAttribute("Error", "Retype password doesn't match!");
+                            request.getRequestDispatcher("register.jsp").forward(request, response);
                         } else {
                             Accounts acc = accountsFacade.find(Integer.parseInt(request.getParameter("accountId")));
 //                            acc.setAccId(Integer.parseInt(request.getParameter("accountId")));
@@ -81,6 +76,9 @@ public class AccountController extends HttpServlet {
                             try {
                                 accountsFacade.edit(acc);
                                 request.setAttribute("Success", "Changed information already done!");
+                                // nap lai session moi. 
+                                session.removeAttribute("curAcc");
+                                session.setAttribute("curAcc", accountsFacade.find(curAcc.getAccId()));
                             } catch (Exception e) {
                                 System.out.println(e);
                                 request.setAttribute("Error", "Edit Account failed!");

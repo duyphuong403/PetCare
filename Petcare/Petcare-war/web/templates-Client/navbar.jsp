@@ -36,7 +36,7 @@
             <% } else if (curAcc.getRole() == 2) {%>
             <a class="dropdown-item" href="AdminController?action=account">Dashboard</a>
             <% } %>
-            <a class="dropdown-item" href="profile.jsp">Profile</a>
+            <a class="dropdown-item" href="AccountController?action=viewEditAccount">Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
           </div>
