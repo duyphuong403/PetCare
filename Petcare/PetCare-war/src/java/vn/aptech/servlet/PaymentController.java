@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.classes.CartBean;
+import vn.aptech.entity.Accounts;
 
 /**
  *
@@ -32,22 +33,27 @@ public class PaymentController extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     HttpSession session = request.getSession();
-
-    if (session.getAttribute("curAcc") == null) {
+    Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+    if (curAcc == null) {
       request.setAttribute("Error", "Please sign in to continue buy product.");
       request.getRequestDispatcher("login.jsp").forward(request, response);
     } else {
-      if (session.getAttribute("cart") != null) {
-        CartBean cartB = (CartBean) session.getAttribute("cart");
-        if (cartB.getLineItemCount() <= 0) {
-          session.setAttribute("Error", "Sorry, your cart is empty.");
-          response.sendRedirect("UserController?action=petmart");
-        } else {
-          request.getRequestDispatcher("clientUI/payment.jsp").forward(request, response);
-        }
+      if (curAcc.getIsInactive()) {
+        request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+        request.getRequestDispatcher("UserController").forward(request, response);
       } else {
-        request.setAttribute("Error", "Sorry your cart is empty.");
-        request.getRequestDispatcher("UserController?action=petmart").forward(request, response);
+        if (session.getAttribute("cart") != null) {
+          CartBean cartB = (CartBean) session.getAttribute("cart");
+          if (cartB.getLineItemCount() <= 0) {
+            session.setAttribute("Error", "Sorry, your cart is empty.");
+            response.sendRedirect("UserController?action=petmart");
+          } else {
+            request.getRequestDispatcher("clientUI/payment.jsp").forward(request, response);
+          }
+        } else {
+          request.setAttribute("Error", "Sorry your cart is empty.");
+          request.getRequestDispatcher("UserController?action=petmart").forward(request, response);
+        }
       }
     }
 

@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import vn.aptech.classes.CartBean;
-import vn.aptech.classes.CartItemBean;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
 import vn.aptech.entity.OrderDetails;
@@ -105,21 +102,23 @@ public class EmployeeController extends HttpServlet {
       } else {
         if (action == null) {
           int role = curAcc.getRole();
-          switch (role) {
-            case 1:
-              request.setAttribute("title", "Order");
-              request.setAttribute("order", "active");
-              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
-              break;
-            case 2:
-              request.setAttribute("title", "Dashboard");
-              request.setAttribute("dashboard", "active");
-              request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-              break;
-            default:
-              request.setAttribute("title", "Profile");
-              request.setAttribute("profile", "active");
-              request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+          if (curAcc.getIsInactive()) {
+            request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+            request.getRequestDispatcher("UserController").forward(request, response);
+          } else {
+            switch (role) {
+              case 1:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("/EmployeeController").forward(request, response);
+                break;
+              case 2:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                break;
+              default:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+            }
           }
         } else {
           switch (action) {
