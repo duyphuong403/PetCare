@@ -34,10 +34,12 @@
 
                     <div class="modal-body">
                         <c:set var="acc" scope="session" value="${curAcc}"/>  
-                        <form action="AccountController?action=editAccount" method="post" enctype="multipart/form-data" style="width:100%">
+                        <form action="AccountController?action=editAccount" method="post" style="width:100%">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Username</label>
-                                <input type="text" name="accId" value="${acc.accId}" hidden="true"/>
+                                <input type="text" name="accountId" value="${acc.accId}" hidden="true"/>
+                                <input type="text" name="dateCreated" value="${acc.dateCreated}" hidden="true"/>
+                                
                                 <input type="text" class="form-control" id="Username" name="username" required="true" value="${acc.username}" maxlength="200">
                             </div>
                             <div class="form-group">
@@ -62,11 +64,11 @@
                             </div>
                             <div class="form-group">
 
-<!--                                            <input type="text" class="form-control" id="Role" name="address" required="true" value="${acc.role}">-->
-                                <label for="Role" class="bmd-label-floating">Role</label>&emsp;
+<!--                                            <input type="text" class="form-control" id="Role" name="role" required="true" value="${acc.role}">-->
+<!--                                <label for="Role" class="bmd-label-floating">Role</label>&emsp;
                                 <INPUT TYPE="radio" name="role" value="0"/>Customer &emsp;
                                 <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee &emsp;
-                                <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
+                                <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator -->
                             </div>
                     </div>  
                 </div>

@@ -133,22 +133,25 @@ public class UserController extends HttpServlet {
                     break;
                 case "register":
                     Accounts acc = new Accounts();
-                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
+//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
                     acc.setUsername(request.getParameter("username"));
                     acc.setPassword(request.getParameter("password"));
                     acc.setFullname(request.getParameter("fullname"));
                     acc.setEmail(request.getParameter("email"));
                     acc.setPhone(Integer.parseInt(request.getParameter("phone")));
                     acc.setAddress(request.getParameter("address"));
+                    acc.setRole(Short.parseShort(request.getParameter("role")));
+                    acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
                     acc.setDateCreated(new Date());
+                    acc.setReasonBanned(request.getParameter("reasonBanned"));
 
                     try {
-                        accountsFacade.create(addAccount);
+                        accountsFacade.create(acc);
                     } catch (Exception e) {
                         System.out.println(e);
                         request.setAttribute("Error", "Account is already exist!");
                     }
-                    request.getRequestDispatcher("UserController?action=register").forward(request, response);
+                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "petguide":
                     request.setAttribute("title", "Pet Guide");
