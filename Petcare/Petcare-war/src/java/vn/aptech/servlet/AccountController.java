@@ -64,29 +64,29 @@ public class AccountController extends HttpServlet {
                         request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
 
                     case "editAccount":
-                        if (request.getParameter("accId") == null) {
+                        if (request.getParameter("accountId") == null) {
                             request.setAttribute("Error", "Cannot find this account!");
                         } else {
-                            Accounts acc = new Accounts();
-                            acc.setUsername(request.getParameter("username"));
+                            Accounts acc = accountsFacade.find(Integer.parseInt(request.getParameter("accountId")));
+//                            acc.setAccId(Integer.parseInt(request.getParameter("accountId")));
+//                            acc.setUsername(request.getParameter("username"));
                             acc.setPassword(request.getParameter("password"));
                             acc.setFullname(request.getParameter("fullname"));
                             acc.setEmail(request.getParameter("email"));
                             acc.setPhone(Integer.parseInt(request.getParameter("phone")));
                             acc.setAddress(request.getParameter("address"));
-                            acc.setRole(Short.parseShort(request.getParameter("role")));
-                            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
-//                    acc.setDateCreated(new Date());
-                            acc.setReasonBanned(request.getParameter("reasonBanned"));
+//                            acc.setRole(Short.parseShort(request.getParameter("role")));
+//                            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
 
                             try {
                                 accountsFacade.edit(acc);
+                                request.setAttribute("Success", "Changed information already done!");
                             } catch (Exception e) {
                                 System.out.println(e);
-                                request.setAttribute("Error", "Edit Account failed.");
+                                request.setAttribute("Error", "Edit Account failed!");
                             }
                         }
-                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                        request.getRequestDispatcher("UserController").forward(request, response);
                 }
             }
         }
