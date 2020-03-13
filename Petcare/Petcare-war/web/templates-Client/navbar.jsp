@@ -13,6 +13,10 @@
     color: #fff !important;
     text-decoration: none;
   }
+  .dropdown-item.active, .dropdown-item:active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #ff9800;
 </style>
 <div id="header" class="topnav"> 
   <div class="topbar-content">
@@ -28,31 +32,16 @@
         <a href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: none">Hi <i>${curAcc.fullname}</i>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
             <% if (curAcc.getRole() == 1) { %> 
-            <a class="dropdown-item" href="EmployeeController">Dashboard</a>
+            <a class="dropdown-item" href="EmployeeController?action=order">Dashboard</a>
             <% } else if (curAcc.getRole() == 2) {%>
-            <a class="dropdown-item" href="AdminController">Dashboard</a>
+            <a class="dropdown-item" href="AdminController?action=account">Dashboard</a>
             <% } %>
-            <a class="dropdown-item" href="AccountController">Profile</a>
+            <a class="dropdown-item" href="profile.jsp">Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="AdminController?action=logout">Log out</a>
           </div>
           <% }%>
       </div>
-
-<!--      <li class="nav-item dropdown">
-        <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="material-icons">person</i>
-          <p class="d-lg-none d-md-block">
-            Account
-          </p>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Settings</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Log out</a>
-        </div>
-      </li>-->
     </div>
   </div>
   <a href="#" id="logo"><img src="lib/images/logo.gif" width="310" height="114" alt=""/></a>

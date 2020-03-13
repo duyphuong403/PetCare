@@ -20,7 +20,7 @@
                     <div class="product">
                       <form method="POST" action="CartController?action=addToCart">
                         <input type="hidden" name="quantity" value="1">
-                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="unit" value="${prod.unitId.name}">
                         <input type="hidden" name="price" value="${prod.price}">
                         <input type="hidden" name="imageName" value="${prod.imageName}">
                         <input type="hidden" name="name" value="${prod.name}">                   

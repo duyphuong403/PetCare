@@ -6,7 +6,6 @@
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
 <style>
-
   #content {
     padding-top: 50px;
   }

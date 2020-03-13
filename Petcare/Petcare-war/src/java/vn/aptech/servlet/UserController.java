@@ -202,6 +202,7 @@ public class UserController extends HttpServlet {
                                 ordl = new OrderDetails();
                                 ordl.setOrderId(curOrd);
                                 ordl.setName(cib.getName());
+                                ordl.setUnit(cib.getUnit());
                                 ordl.setPrice(cib.getPrice());
                                 ordl.setQuantity(cib.getQuantity());
                                 try {

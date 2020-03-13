@@ -8,6 +8,7 @@ package vn.aptech.sb;
 import java.util.List;
 import javax.ejb.Local;
 import vn.aptech.entity.OrderDetails;
+import vn.aptech.entity.Orders;
 
 /**
  *
@@ -29,5 +30,7 @@ public interface OrderDetailsFacadeLocal {
     List<OrderDetails> findRange(int[] range);
 
     int count();
+    
+    List<OrderDetails> getListOrder(Orders id);
     
 }

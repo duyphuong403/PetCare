@@ -5,10 +5,12 @@
  */
 package vn.aptech.sb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import vn.aptech.entity.OrderDetails;
+import vn.aptech.entity.Orders;
 
 /**
  *
@@ -27,6 +29,16 @@ public class OrderDetailsFacade extends AbstractFacade<OrderDetails> implements 
 
     public OrderDetailsFacade() {
         super(OrderDetails.class);
+    }
+    
+    @Override
+    public List<OrderDetails> getListOrder(Orders id){
+      try {
+        return em.createQuery("select a from OrderDetails a where a.orderId = :id", OrderDetails.class).setParameter("id", id).getResultList();
+      } catch (Exception e) {
+        System.out.println("Error when get list Oreder: " +e);
+        return null;
+      }
     }
     
 }

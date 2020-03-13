@@ -44,14 +44,10 @@ public class OrderDetails implements Serializable {
   @NotNull
   @Column(name = "Name")
   private String name;
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  @Basic(optional = false)
+  @NotNull
+  @Column(name = "Unit")
+  private String unit;
   @Basic(optional = false)
   @NotNull
   @Column(name = "Quantity")
@@ -74,12 +70,30 @@ public class OrderDetails implements Serializable {
     this.odId = odId;
   }
 
-  public OrderDetails(Integer odId, int quantity, int price) {
+  public OrderDetails(Integer odId, int quantity, int price, String name, String unit) {
     this.odId = odId;
     this.quantity = quantity;
     this.price = price;
+    this.name = name;
+    this.unit = unit;
   }
 
+  public String getUnit() {
+    return unit;
+  }
+
+  public void setUnit(String unit) {
+    this.unit = unit;
+  }
+  
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+  
   public Integer getOdId() {
     return odId;
   }

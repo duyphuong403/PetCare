@@ -26,6 +26,7 @@ import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
+import vn.aptech.sb.OrderDetailsFacadeLocal;
 import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
@@ -41,6 +42,9 @@ import vn.aptech.sb.ProductsFacadeLocal;
 
 @WebServlet(name = "EmployeeController", urlPatterns = {"/EmployeeController"})
 public class EmployeeController extends HttpServlet {
+
+  @EJB
+  private OrderDetailsFacadeLocal orderDetailsFacade;
 
   @EJB
   private OrdersFacadeLocal ordersFacade;
@@ -80,6 +84,7 @@ public class EmployeeController extends HttpServlet {
       session.setMaxInactiveInterval(24 * 60 * 60);
       Categories cate;
       Products prod;
+      Orders ord;
 
       int nOfPages = 0;
       int pageSize = 10;
@@ -99,16 +104,16 @@ public class EmployeeController extends HttpServlet {
             case 1:
               request.setAttribute("title", "Order");
               request.setAttribute("order", "active");
-              request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
+              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
               break;
             case 2:
               request.setAttribute("title", "Dashboard");
               request.setAttribute("dashboard", "active");
-              request.getRequestDispatcher("adminUI/index.jsp").forward(request, response);
+              request.getRequestDispatcher("AdminController?action=account").forward(request, response);
               break;
             default:
-              request.setAttribute("title", "Dashboard");
-              request.setAttribute("dashboard", "active");
+              request.setAttribute("title", "Profile");
+              request.setAttribute("profile", "active");
               request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
           }
         } else {
@@ -147,15 +152,34 @@ public class EmployeeController extends HttpServlet {
               request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
               break;
             case "updateVerify":
-              Orders ord = new Orders();
-              ord.setIsVerified(Boolean.parseBoolean(request.getParameter("isVerify")));
-              try{
+              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              boolean isVerified = Boolean.parseBoolean(request.getParameter("isVerify"));
+              ord.setIsVerified(isVerified);
+              try {
                 ordersFacade.edit(ord);
-              }catch(Exception e){
-                request.setAttribute("Error","Change Verify status failed.");
-                System.out.println("Error Update Verify status: " +e);
+              } catch (Exception e) {
+                request.setAttribute("Error", "Change Verify status failed.");
+                System.out.println("Error Update Verify status: " + e);
               }
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
+              break;
+            case "updateDelivery":
+              Orders ordDeli = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              boolean isDeli = Boolean.parseBoolean(request.getParameter("isDeliveried"));
+              ordDeli.setIsDeliveried(isDeli);
+              try {
+                ordersFacade.edit(ordDeli);
+              } catch (Exception e) {
+                request.setAttribute("Error", "Change Delivery status failed.");
+                System.out.println("Error Update Delivery status: " + e);
+              }
+              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
+              break;
+            case "invoice":
+              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              request.setAttribute("Order", ord);
+              request.setAttribute("OrderDetails", orderDetailsFacade.getListOrder(ord));
+              request.getRequestDispatcher("employeeUI/invoice.jsp").forward(request, response);
               break;
             case "category":
               if (request.getAttribute("Categories") == null) {
@@ -388,7 +412,6 @@ public class EmployeeController extends HttpServlet {
               unit.setDateCreated(new Date());
               try {
                 productUnitsFacade.create(unit);
-//                request.setAttribute("Success", "Add new Unit done.");
               } catch (Exception e) {
                 System.out.println(e);
                 request.setAttribute("Error", "Add new Unit failed. Unit Name already exists.");
@@ -403,7 +426,6 @@ public class EmployeeController extends HttpServlet {
               editUnit.setDateUpdated(new Date());
               try {
                 productUnitsFacade.edit(editUnit);
-//                request.setAttribute("Success", "Edit Unit Done");
               } catch (Exception e) {
                 System.out.println(e.getMessage());
                 request.setAttribute("Error", "Edit Unit failed.");
@@ -413,7 +435,6 @@ public class EmployeeController extends HttpServlet {
             case "deleteUnit":
               int unitId = Integer.parseInt(request.getParameter("unitId"));
               if (productUnitsFacade.Delete(unitId)) {
-//                request.setAttribute("Success", "Delete Unit Successful");
               } else {
                 request.setAttribute("Error", "Delete Unit Failed");
               }
@@ -466,7 +487,7 @@ public class EmployeeController extends HttpServlet {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (IOException | NumberFormatException | ServletException e) {
       System.out.println(e);
     }
   }

@@ -72,7 +72,10 @@
                       </th>
                       <th>
                         Date Created
-                      </th>                          
+                      </th>                
+                      <th>
+
+                      </th>
                       </thead>
                       <tbody>
                       <% int i = 1;%>
@@ -87,27 +90,77 @@
                             ${ord.orderId}
                           </td>
                           <td>
-                            <a href="#" >${ord.accId.fullname}</a>
+                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="Click to see">${ord.accId.fullname}</a>
                           </td>
                           <td>
                             <form action="EmployeeController?action=updateVerify" method="post" id="updateVerify">
+                              <input type="hidden" value="${ord.orderId}" name="orderId"/>
                               <select name="isVerify" class="browser-default custom-select" onchange="this.form.submit()">
-                                <option value="true" <c:if test="${isVerified}"> selected="true" </c:if >>Verified</option>
-                                <option value="false" <c:if test="${!isVerified}"> selected="true" </c:if>>Not Verified</option>
-                              </select>
-                            </form>
+                                <option value="true" <c:if test="${ord.isVerified}"> selected="true" </c:if>>Verified</option>
+                                <option value="false" <c:if test="${!ord.isVerified}"> selected="true" </c:if>>Not Verify</option>
+                                </select>
+                              </form>
                             </td>
                             <td>
-                            ${ord.isDeliveried}
-                          </td>
-                          <td>
+                              <form action="EmployeeController?action=updateDelivery" method="post" id="updateVerify">
+                                <input type="hidden" value="${ord.orderId}" name="orderId"/>
+                              <select name="isDeliveried" class="browser-default custom-select" onchange="this.form.submit()">
+                                <option value="true" <c:if test="${ord.isDeliveried}"> selected="true" </c:if>>Deliveried</option>
+                                <option value="false" <c:if test="${!ord.isDeliveried}"> selected="true" </c:if>>Not Delivery</option>
+                                </select>
+                              </form>
+                            </td>
+                            <td>
                             ${ord.dateUpdated}
                           </td>
                           <td>
                             ${ord.dateCreated}
                           </td>
+                          <c:if test="${ord.isVerified}" >
+                            <td>
+                              <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
+                            </td>
+                          </c:if>
                         </tr>
-                      </c:forEach>
+                        <!-- Modal Edit Category -->
+                      <div class="modal fade" id="viewUserInfo${ord.orderId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
+                           aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">                           
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Customer Infomation</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <label for="Name" class="bmd-label-floating">Fullname</label>
+                                <input type="text" class="form-control" id="Name" name="name" required="true" value="${ord.accId.fullname}" disabled="true">
+                              </div>
+                              <div class="form-group">
+                                <label for="Description" class="bmd-label-floating">Phone Number</label>
+                                <input type="text" class="form-control"  value="0${ord.accId.phone}" disabled="true">
+                              </div>
+                              <div class="form-group">
+                                <label for="Description" class="bmd-label-floating">Email</label>
+                                <input type="text" class="form-control"  value="${ord.accId.email}" disabled="true">
+                              </div>
+                              <div class="form-group">
+                                <label for="Description" class="bmd-label-floating">Address</label>
+                                <input type="text" class="form-control"  value="${ord.accId.address}" disabled="true">
+                              </div>
+                              <br/>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </c:forEach>
                     </tbody>
                   </table>
                 </div>

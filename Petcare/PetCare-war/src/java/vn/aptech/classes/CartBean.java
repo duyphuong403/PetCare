@@ -66,7 +66,7 @@ public class CartBean {
 
   }
 
-  public void addCart(String imageName, String name, String price, String quantity) {
+  public void addCart(String imageName, String unit, String name, String price, String quantity) {
     boolean isNew = true;
     if (list.size() > 0) {
       CartItemBean cartIB;
@@ -89,6 +89,7 @@ public class CartBean {
         if (iQuantity > 0) {
           cartItem.setImageName(imageName);
           cartItem.setName(name);
+          cartItem.setUnit(unit);
           cartItem.setPrice(iPrice);
           cartItem.setQuantity(iQuantity);
           cartItem.setTotalCost(iPrice * iQuantity);

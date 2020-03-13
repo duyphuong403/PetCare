@@ -13,9 +13,18 @@ public class CartItemBean {
 
   private String imageName;
   private String name;
+  private String unit;
   private int price;
   private int quantity;
   private int TotalCost;
+
+  public String getUnit() {
+    return unit;
+  }
+
+  public void setUnit(String unit) {
+    this.unit = unit;
+  }
 
   public String getImageName() {
     return imageName;
