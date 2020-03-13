@@ -38,37 +38,23 @@
                             <input class="input--style-3" type="text" placeholder="Username" name="name">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="birthday">
-                            <!--<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>-->
+                            <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password">
                         </div>
                           <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="password" placeholder="Retype Password" name="birthday">
-                            <!--<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>-->
+                            <input class="input--style-3 js-datepicker" type="password" placeholder="Retype Password" name="password">
                         </div>
-<!--                        <div class="input-group">
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="gender">
-                                    <option disabled="disabled" selected="selected">Gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                    <option>Other</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>-->
+
   <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="birthday">
-                            <!--<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>-->
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname">
                         </div>
                         <div class="input-group">
                             <input class="input--style-3" type="email" placeholder="Email" name="email">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Phone" name="phone">
+                            <input class="input--style-3" type="number" placeholder="Phone" name="phone">
                         </div>
   <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="birthday">
-                            <!--<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>-->
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
                         </div>
                         <div>
                             <button class="btn btn--pill btn--green" type="submit">Register</button>
