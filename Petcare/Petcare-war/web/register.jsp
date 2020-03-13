@@ -67,15 +67,38 @@
             </div>
         </div>
 
+        <script>
+            if (document.getElementById('phone').value != ""){
+            var y = document.getElementById('phone').value;
+            if (isNaN(y) || y.indexOf(" ") != - 1)
+            {
+            alert("Invalid Phone number");
+            document.getElementById('mobile_number').focus();
+            return false;
+            }
+            if (y.length > 10 || y.length < 10)
+            {
+            alert("Phone number should be 10 digit");
+            document.getElementById('phone').focus();
+            return false;
+            }
+            if (!(y.charAt(0) == "9" || y.charAt(0) == "8" || y.charAt(0) == "7"))
+            {
+            alert("Phone number should start with 9 ,8 or 7 ");
+            document.getElementById('phone').focus();
+            return false
+            }
+        </script>
+
         <% if (request.getAttribute("Error") != null) { %>
         <script>
-      swal("Error", "${Error}", "error");
+            swal("Error", "${Error}", "error");
         </script>
         <%};
-      request.removeAttribute("Error");
-      if (request.getAttribute("Success") != null) { %>
+            request.removeAttribute("Error");
+            if (request.getAttribute("Success") != null) { %>
         <script>
-      swal("Success", "${Success}", "success");
+            swal("Success", "${Success}", "success");
         </script>
         <%};
             request.removeAttribute("Success");
@@ -89,6 +112,7 @@
 
         <!-- Main JS-->
         <script src="js/global.js"></script>
+
 
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
