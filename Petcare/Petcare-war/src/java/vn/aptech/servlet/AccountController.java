@@ -7,18 +7,23 @@ package vn.aptech.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
+import vn.aptech.sb.AccountsFacadeLocal;
 
 /**
  *
  * @author happy
  */
 public class AccountController extends HttpServlet {
+
+    @EJB
+    private AccountsFacadeLocal accountsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,11 +46,53 @@ public class AccountController extends HttpServlet {
         } else {
             if (action == null) {
                 response.sendRedirect("profile.jsp");
+            } else {
+
+                switch (action) {
+                    case "viewEditAccount":
+
+                        if (request.getAttribute("Accounts") == null) {
+                            request.setAttribute("Accounts", accountsFacade.findAll());
+                        }
+                        request.setAttribute("title", "Edit Account");
+                        request.setAttribute("account", "active");
+                        if (request.getParameter("accId") != null) {
+                            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
+                        } else {
+                            request.setAttribute("Error", "Account ID was null!");
+                        }
+                        request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+
+                    case "editAccount":
+                        if (request.getParameter("accId") == null) {
+                            request.setAttribute("Error", "Cannot find this account!");
+                        } else {
+                            Accounts acc = new Accounts();
+                            acc.setUsername(request.getParameter("username"));
+                            acc.setPassword(request.getParameter("password"));
+                            acc.setFullname(request.getParameter("fullname"));
+                            acc.setEmail(request.getParameter("email"));
+                            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                            acc.setAddress(request.getParameter("address"));
+                            acc.setRole(Short.parseShort(request.getParameter("role")));
+                            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+//                    acc.setDateCreated(new Date());
+                            acc.setReasonBanned(request.getParameter("reasonBanned"));
+
+                            try {
+                                accountsFacade.edit(acc);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                                request.setAttribute("Error", "Edit Account failed.");
+                            }
+                        }
+                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                }
             }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -55,8 +102,11 @@ public class AccountController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 
@@ -69,8 +119,11 @@ public class AccountController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 

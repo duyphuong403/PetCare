@@ -41,7 +41,7 @@
                     <p>About Us</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item ${feedbacks} ">
                 <a class="nav-link" href="AdminController?action=feedbacks">
                     <i class="material-icons">feedback</i>
                     <p>Feedbacks</p>

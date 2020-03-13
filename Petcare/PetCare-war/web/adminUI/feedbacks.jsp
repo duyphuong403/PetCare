@@ -1,8 +1,9 @@
 <%-- 
-    Document   : account
-    Created on : Jan 18, 2020, 9:35:45 AM
-    Author     : ngodu
+    Document   : feedbacks
+    Created on : Mar 12, 2020, 8:26:16 PM
+    Author     : TheVi-PC
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../templates-Admin/header.jsp" %>
 <div class="wrapper ">
@@ -15,35 +16,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-
-                                    <h4 class="card-title "><b>${title}</b></h4>
-                                    <a href="#" data-toggle="modal" data-target="#addAccount" style="color: #fff">
-                                        Create new Account
-                                    </a> &emsp; &emsp; &emsp; &emsp; 
-                                    <form class="navbar-form " action="AdminController?action=account" method="post" style="padding-top: 2%;">
-                                        <div class="input-group no-border">
-                                            <!--                                            <label class="bmd-label-floating" style="color:#fff">Search</label>
-                                                                                        <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
-                                                                                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                                                                            <i class="material-icons">search</i>
-                                                                                            <div class="ripple-container"></div>
-                                                                                        </button>-->
-                                        </div>
-                                    </form>
-                                </div>
-
-
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table">
 
                                             <thead class=" text-primary">
                                             <th>
-                                                Account ID
-                                            </th>
-                                            <th>
-                                                Username
+                                                ID
                                             </th>
                                             <th>
                                                 Full Name
@@ -55,67 +34,49 @@
                                                 Phone
                                             </th>
                                             <th>
-                                                Address
+                                                Content 
                                             </th>
                                             <th>
-                                                Role
-                                            </th>
-                                            <th>
-                                                Status
+                                                IsRead 
                                             </th>
                                             <th>
                                                 Date Created
                                             </th>
-                                            <th>
-                                                Reason Banned
-                                            </th>
+                                            
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${accounts}" var="acc">
+                                                <c:forEach items="${feedbacks}" var="feed">
                                                     <tr>
                                                         <td>
-                                                            ${acc.accId}
+                                                            ${feed.feedbacktId}
                                                         </td>
                                                         <td>
-                                                            ${acc.username}
+                                                            ${feed.fullname}
                                                         </td>
                                                         <td>
-                                                            ${acc.fullname}
+                                                            ${feed.email}
                                                         </td>
                                                         <td>
-                                                            ${acc.email}
+                                                            ${feed.phone}
                                                         </td>
                                                         <td>
-                                                            ${acc.phone}
+                                                            ${feed.content}
                                                         </td>
                                                         <td>
-                                                            ${acc.address}
+                                                            ${feed.isRead}
                                                         </td>
                                                         <td>
-                                                            <c:if test="${acc.role == 0}" >User</c:if>
-                                                            <c:if test="${acc.role == 1}" >Employee</c:if>
-                                                            <c:if test="${acc.role == 2}" >Administrator</c:if>
-                                                            </td>
-                                                            <td>
-                                                                <div class="custom-control custom-switch">
-                                                                    <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
-                                                                <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
-                                                            </div>
+                                                            ${feed.dateCreated}
                                                         </td>
-                                                        <td>
-                                                            ${acc.dateCreated}
-                                                        </td>
-                                                        <td>
-                                                            ${acc.reasonBanned}
-                                                        </td>
-                                                        <td>
-<!--                                                            <a href="AdminController?action=viewEditAccount&accId=${acc.accId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>-->
+                                                        
+<!--                                                        <td>
+                                                            <a href="AdminController?action=viewEditAccount&accId=${acc.accId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
                                                             <form action="AdminController?action=deleteAccount" method="post" id="deleteAccount${acc.accId}">
                                                                 <input type="text" name="accId" value="${acc.accId}" hidden="true">
                                                                 <a href="#" type="submit" style="color: #333" title="Delete" id="" onclick="deleteAccount${acc.accId}()"><i class="material-icons">delete</i></a>
                                                             </form>
-                                                        </td>
-                                                <script>
+                                                        </td>-->
+<!--                                                <script>
                                                     function deleteAccount${acc.accId}() {
                                                         swal({
                                                             title: "Are you sure?",
@@ -133,7 +94,7 @@
                                                         });
                                                     }
 
-                                                </script>
+                                                </script>-->
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
@@ -163,15 +124,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="Username" class="bmd-label-floating">Username</label>
-                            <input type="text" class="form-control" id="Username" name="username" required="true" minlength="5" maxlength="50">
+                            <input type="text" class="form-control" id="Username" name="username" required="true" minlength="5" maxlength="200">
                         </div>
                         <div class="form-group">
                             <label for="Password" class="bmd-label-floating">Password</label>
-                            <input type="password" class="form-control" id="Password" name="password" required="true" minlength="5" maxlength="50">
+                            <input type="password" class="form-control" id="Password" name="password" required="true">
                         </div>
                         <div class="form-group">
                             <label for="Email" class="bmd-label-floating">Email</label>
-                            <input type="email" class="form-control" id="Email" name="email" required="true"  minlength="8" maxlength="200">
+                            <input type="email" class="form-control" id="Email" name="email" required="true">
                         </div>
                         <div class="form-group">
                             <label for="Fullname" class="bmd-label-floating">Full name</label>
@@ -179,8 +140,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Phone" class="bmd-label-floating">Phone number</label>
-                            <input type="number" class="form-control" id="Phone" name="phone" required="true" form="((09|03|07|08|05)+([0-9]{8})\b)/g;">
-
+                            <input type="number" class="form-control" id="Phone" name="phone" required="true">
                         </div>
 
                         <div class="form-group">
@@ -189,10 +149,10 @@
                             <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee 
                             <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
                         </div>
-                        <!--                        <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
-                                                    <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
-                                                </div>-->
+<!--                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
+                            <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
+                        </div>-->
                         <br/>
                     </div>
                     <div class="modal-footer">
@@ -217,37 +177,19 @@
     <%};
         request.removeAttribute("Success");
     %>
-    //
-    //    <script>
-        //        $('.cbx-active').change(function () {
-        //            var checkBox = $(this);
-        //            var accId = checkBox.attr('accId');
-        //            var value = this.checked;
-        //            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
-        //                accId: accId,
-        //                value: value
-        //            }, function (resp) {
-        //                checkBox.next().html(resp);
-        //            });
-        //        });
-        //    </script>
-    <script>
-////        $(document).ready(function() {
-//            $('.cbx-active').change(function ()  {
-//                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-//                var phone = $('#phone').val();
-//                if (phone !== '') {
-//                    if (vnf_regex.test(phone) === false)
-//                    {
-//                        alert('Your phone number is invalid!');
-//                    } else {
-//                        alert('Your phone number can use');
-//                    }
-//                } else {
-//                    alert('Input phone number!');
-//                }
+//
+//    <script>
+//        $('.cbx-active').change(function () {
+//            var checkBox = $(this);
+//            var accId = checkBox.attr('accId');
+//            var value = this.checked;
+//            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
+//                accId: accId,
+//                value: value
+//            }, function (resp) {
+//                checkBox.next().html(resp);
 //            });
-////        });
+//        });
 //    </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
