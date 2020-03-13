@@ -42,42 +42,45 @@
                                             <th>
                                                 Date Created
                                             </th>
-                                            
+
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${feedbacks}" var="feed">
+
+                                                <c:forEach items="${feedbacks}" var="item">
                                                     <tr>
                                                         <td>
-                                                            ${feed.feedbacktId}
+                                                            ${item.feedbacktId}
                                                         </td>
                                                         <td>
-                                                            ${feed.fullname}
+
+                                                            ${item.fullname}
                                                         </td>
                                                         <td>
-                                                            ${feed.email}
+                                                            ${item.email}
                                                         </td>
                                                         <td>
-                                                            ${feed.phone}
+                                                            ${item.phone}
                                                         </td>
                                                         <td>
-                                                            ${feed.content}
+                                                            ${item.content}
                                                         </td>
                                                         <td>
-                                                            ${feed.isRead}
+                                                            ${item.isRead}
                                                         </td>
                                                         <td>
-                                                            ${feed.dateCreated}
+                                                            ${item.dateCreated}
                                                         </td>
-                                                        
-<!--                                                        <td>
-                                                            <a href="AdminController?action=viewEditAccount&accId=${acc.accId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
-                                                            <form action="AdminController?action=deleteAccount" method="post" id="deleteAccount${acc.accId}">
-                                                                <input type="text" name="accId" value="${acc.accId}" hidden="true">
-                                                                <a href="#" type="submit" style="color: #333" title="Delete" id="" onclick="deleteAccount${acc.accId}()"><i class="material-icons">delete</i></a>
+
+                                                        <td class="text-center">
+
+                                                            
+                                                            <form action="AdminController?action=deletefeed" method="post" id="deletefeed${item.feedbacktId}">
+                                                                <input type="hidden" name="feedbacktId" value="${item.feedbacktId}" >
+                                                                <a href="#" type="submit" style="color: #333" title="Delete"  onclick="deletefeed${item.feedbacktId}()"><i class="material-icons">delete</i></a>
                                                             </form>
-                                                        </td>-->
-<!--                                                <script>
-                                                    function deleteAccount${acc.accId}() {
+                                                        </td>
+                                                         <script>
+                                                    function deletefeed${item.feedbacktId}() {
                                                         swal({
                                                             title: "Are you sure?",
                                                             text: "You will not be able to recover this Account!",
@@ -89,14 +92,14 @@
                                                             dangerMode: true
                                                         }).then(function (isConfirm) {
                                                             if (isConfirm) {
-                                                                $("#deleteAccount${acc.accId}").submit();
+                                                                $("#deletefeed${item.feedbacktId}").submit();
                                                             }
                                                         });
                                                     }
 
-                                                </script>-->
-                                                </tr>
-                                            </c:forEach>
+                                                </script>
+                                                    </tr>
+                                                </c:forEach>
                                             </tbody>
 
                                         </table>
@@ -149,10 +152,10 @@
                             <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true"/>Employee 
                             <INPUT TYPE="radio" NAME="role" VALUE="2"/>Administrator 
                         </div>
-<!--                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
-                            <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
-                        </div>-->
+                        <!--                        <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
+                                                    <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
+                                                </div>-->
                         <br/>
                     </div>
                     <div class="modal-footer">
@@ -177,19 +180,19 @@
     <%};
         request.removeAttribute("Success");
     %>
-//
-//    <script>
-//        $('.cbx-active').change(function () {
-//            var checkBox = $(this);
-//            var accId = checkBox.attr('accId');
-//            var value = this.checked;
-//            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
-//                accId: accId,
-//                value: value
-//            }, function (resp) {
-//                checkBox.next().html(resp);
-//            });
-//        });
-//    </script>
+    //
+    //    <script>
+        //        $('.cbx-active').change(function () {
+        //            var checkBox = $(this);
+        //            var accId = checkBox.attr('accId');
+        //            var value = this.checked;
+        //            $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
+        //                accId: accId,
+        //                value: value
+        //            }, function (resp) {
+        //                checkBox.next().html(resp);
+        //            });
+        //        });
+        //    </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
