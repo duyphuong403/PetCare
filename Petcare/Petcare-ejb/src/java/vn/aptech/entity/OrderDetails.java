@@ -56,6 +56,10 @@ public class OrderDetails implements Serializable {
   @NotNull
   @Column(name = "Price")
   private int price;
+  @Basic(optional = false)
+  @NotNull
+  @Column(name = "Total")
+  private int total;
   @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
   @ManyToOne(optional = false)
   private Orders orderId;
@@ -70,12 +74,13 @@ public class OrderDetails implements Serializable {
     this.odId = odId;
   }
 
-  public OrderDetails(Integer odId, int quantity, int price, String name, String unit) {
+  public OrderDetails(Integer odId, int quantity, int price, String name, String unit, int total) {
     this.odId = odId;
     this.quantity = quantity;
     this.price = price;
     this.name = name;
     this.unit = unit;
+    this.total = total;
   }
 
   public String getUnit() {
@@ -157,6 +162,14 @@ public class OrderDetails implements Serializable {
   @Override
   public String toString() {
     return "vn.aptech.entity.OrderDetails[ odId=" + odId + " ]";
+  }
+
+  public int getTotal() {
+    return total;
+  }
+
+  public void setTotal(int total) {
+    this.total = total;
   }
 
 }

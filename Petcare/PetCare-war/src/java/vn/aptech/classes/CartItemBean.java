@@ -58,7 +58,7 @@ public class CartItemBean {
     this.quantity = quantity;
   }
 
-  public double getTotalCost() {
+  public int getTotalCost() {
     return TotalCost;
   }
 

@@ -11,6 +11,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Petcare | Invoice</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
       .clearfix:after {
@@ -103,19 +104,19 @@
     </style>
   </head>
   <body>
+    <c:set value="${Order}" var="ord" scope="session"/>
     <header class="clearfix">
       <div id="logo">
         <img src="lib/images/pet-icon.png">
       </div>
-      <h1>INVOICE 3-2-1</h1>
+      <h1>INVOICE <b>#${ord.orderId}</b></h1>
       <div id="company" class="clearfix">
-        <div>Company Name</div>
-        <div>455 Foggy Heights,<br> AZ 85004, US</div>
+        <div>Petcare</div>
+        <div>590 Cach Mang Thang Tam street,<br> District 3, HCM City, Viet Nam</div>
         <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
+        <div><a href="mailto:support@petcare.com">support@petcare.com</a></div>
       </div>
       <div id="project">
-        <c:set value="${Order}" var="ord" scope="session"/>
         <div><span>FULNAME</span> ${ord.accId.fullname}</div>
         <div><span>PHONE</span> 0${ord.accId.phone}</div>
         <div><span>ADDRESS</span> ${ord.accId.address}</div>
@@ -143,11 +144,16 @@
               <td>${ordDt.name}</td>
               <td>${ordDt.unit}</td>
               <td>${ordDt.price}</td>
-              <td>${ordDt.quantity}</td>
-              <td><c:out value="${orDt.price * orDt.quantity}"/></td>
+              <td>${ordDt.quantity}</td>             
+              <td>${ordDt.total}</td>
               <% i++;%>
             </tr>
           </c:forEach>
+          <tr>
+            <c:set value="${SubTotal}" var="subtotal" scope="session"/>
+            <td colspan="5" style="font-size:20px; text-align: right"><b>Subtotal:</b></td>
+            <td style="font-size: 20px"><b>${SubTotal}</b></td>
+          </tr>
         </tbody>
       </table>
       <div id="notices">

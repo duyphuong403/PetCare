@@ -105,12 +105,17 @@
                               <form action="EmployeeController?action=updateDelivery" method="post" id="updateVerify">
                                 <input type="hidden" value="${ord.orderId}" name="orderId"/>
                               <select name="isDeliveried" class="browser-default custom-select" onchange="this.form.submit()">
-                                <option value="true" <c:if test="${ord.isDeliveried}"> selected="true" </c:if>>Deliveried</option>
-                                <option value="false" <c:if test="${!ord.isDeliveried}"> selected="true" </c:if>>Not Delivery</option>
-                                </select>
-                              </form>
-                            </td>
-                            <td>
+                                <c:if test="${ord.isDeliveried}">
+                                  <option value="true">Deliveried</option>
+                                </c:if>
+                                <c:if test="${!ord.isDeliveried}">
+                                  <option value="true" <c:if test="${ord.isDeliveried}"> selected="true" </c:if>>Deliveried</option>
+                                  <option value="false" <c:if test="${!ord.isDeliveried}"> selected="true" </c:if>>Not Delivery</option>
+                                </c:if>
+                              </select>
+                            </form>
+                          </td>
+                          <td>
                             ${ord.dateUpdated}
                           </td>
                           <td>

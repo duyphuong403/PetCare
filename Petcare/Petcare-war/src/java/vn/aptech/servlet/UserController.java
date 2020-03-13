@@ -224,6 +224,7 @@ public class UserController extends HttpServlet {
                                 ordl.setUnit(cib.getUnit());
                                 ordl.setPrice(cib.getPrice());
                                 ordl.setQuantity(cib.getQuantity());
+                                ordl.setTotal(cib.getTotalCost());
                                 try {
                                     orderDetailsFacade.create(ordl);
                                 } catch (Exception e) {

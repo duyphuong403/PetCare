@@ -27,7 +27,7 @@ public class AdminController extends HttpServlet {
 
   @EJB
   private AccountsFacadeLocal accountsFacade;
-  
+
   @EJB
   private FeedbacksFacadeLocal feedbacksFacade;
 
@@ -52,18 +52,23 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
       } else {
         int role = curAcc.getRole();
-        switch (role) {
-          case 1:
-            request.setAttribute("title", "Dashboard");
-            request.getRequestDispatcher("/EmployeeController").forward(request, response);
-            break;
-          case 2:
-            request.setAttribute("title", "Dashboard");
-            request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-            break;
-          default:
-            request.setAttribute("title", "Dashboard");
-            request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+        if (curAcc.getIsInactive()) {
+          request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+          request.getRequestDispatcher("UserController").forward(request, response);
+        } else {
+          switch (role) {
+            case 1:
+              request.setAttribute("title", "Dashboard");
+              request.getRequestDispatcher("/EmployeeController").forward(request, response);
+              break;
+            case 2:
+              request.setAttribute("title", "Dashboard");
+              request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+              break;
+            default:
+              request.setAttribute("title", "Dashboard");
+              request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+          }
         }
       }
     } else {
@@ -99,7 +104,7 @@ public class AdminController extends HttpServlet {
         case "account":
           List<Accounts> accounts = accountsFacade.findAll();
           request.setAttribute("title", "Accounts");
-          request.setAttribute("account", "active");
+          request.setAttribute("Account", "active");
           request.setAttribute("accounts", accounts);
           request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
           if (request.getParameter("txtSearch") != null) {
@@ -212,25 +217,35 @@ public class AdminController extends HttpServlet {
           session.removeAttribute("cart");
           response.sendRedirect(request.getHeader("referer"));
           break;
-          
+
         case "feedbacks":
+
           List<Feedbacks> feedbacks = feedbacksFacade.findAll();
           request.setAttribute("title", "Contact Us");
           request.setAttribute("ContactUs", "active");
-          request.getRequestDispatcher("clientUI/contactus.jsp").forward(request, response);
+          request.setAttribute("feedbacks", feedbacks);
+          request.getRequestDispatcher("adminUI/feedbacks.jsp").forward(request, response);
           if (request.getParameter("txtSearch") != null) {
-            request.setAttribute("Feedbacks", feedbacksFacade.find(request.getParameter("txtSearch")));
+            request.setAttribute("feedbacks", feedbacksFacade.find(request.getParameter("txtSearch")));
+
             request.setAttribute("txtSearch", request.getParameter("txtSearch"));
           } else {
             System.out.println();
             request.setAttribute("Error", "Feedbacks is already exist!");
           }
           break;
-          
-        
+
+        case "deletefeed":
+          int id = Integer.parseInt(request.getParameter("feedbacktId"));
+          Feedbacks f = feedbacksFacade.find(id);
+          feedbacksFacade.remove(f);
+          request.setAttribute("feedbacks", f);
+
+          request.getRequestDispatcher("AdminController?action=feedbacks").forward(request, response);
+          break;
+
       }
-      
-    
+
     }
   }
 

@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
@@ -100,21 +102,23 @@ public class EmployeeController extends HttpServlet {
       } else {
         if (action == null) {
           int role = curAcc.getRole();
-          switch (role) {
-            case 1:
-              request.setAttribute("title", "Order");
-              request.setAttribute("order", "active");
-              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
-              break;
-            case 2:
-              request.setAttribute("title", "Dashboard");
-              request.setAttribute("dashboard", "active");
-              request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-              break;
-            default:
-              request.setAttribute("title", "Profile");
-              request.setAttribute("profile", "active");
-              request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+          if (curAcc.getIsInactive()) {
+            request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+            request.getRequestDispatcher("UserController").forward(request, response);
+          } else {
+            switch (role) {
+              case 1:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("/EmployeeController").forward(request, response);
+                break;
+              case 2:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                break;
+              default:
+                request.setAttribute("title", "Dashboard");
+                request.getRequestDispatcher("clientUI/profile.jsp").forward(request, response);
+            }
           }
         } else {
           switch (action) {
@@ -140,8 +144,12 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("noOfPages", nOfPages);
 
-              if (request.getParameter("txtSearch") != null) {
-                request.setAttribute("Orders", ordersFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+              if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
+                List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
+                request.setAttribute("Orders", ordList);
+                if (ordList.size() == 0) {
+                  request.setAttribute("Error", "Not found any order with this ID");
+                }
                 request.setAttribute("txtSearch", request.getParameter("txtSearch"));
               } else {
                 request.setAttribute("Orders", ordersFacade.getRecordsPagination(currentPage, pageSize));
@@ -164,11 +172,11 @@ public class EmployeeController extends HttpServlet {
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
               break;
             case "updateDelivery":
-              Orders ordDeli = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               boolean isDeli = Boolean.parseBoolean(request.getParameter("isDeliveried"));
-              ordDeli.setIsDeliveried(isDeli);
+              ord.setIsDeliveried(isDeli);
               try {
-                ordersFacade.edit(ordDeli);
+                ordersFacade.edit(ord);
               } catch (Exception e) {
                 request.setAttribute("Error", "Change Delivery status failed.");
                 System.out.println("Error Update Delivery status: " + e);
@@ -178,7 +186,14 @@ public class EmployeeController extends HttpServlet {
             case "invoice":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               request.setAttribute("Order", ord);
-              request.setAttribute("OrderDetails", orderDetailsFacade.getListOrder(ord));
+
+              List<OrderDetails> ordl = orderDetailsFacade.getListOrder(ord);
+              int subtotal = 0;
+              for (int i = 0; i < ordl.size(); i++) {
+                subtotal += ordl.get(i).getTotal();
+              }
+              request.setAttribute("SubTotal", subtotal);
+              request.setAttribute("OrderDetails", ordl);
               request.getRequestDispatcher("employeeUI/invoice.jsp").forward(request, response);
               break;
             case "category":
