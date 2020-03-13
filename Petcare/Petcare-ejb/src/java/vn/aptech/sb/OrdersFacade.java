@@ -54,9 +54,9 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
   }
   
   @Override
-  public List<Orders> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage) {
+  public List<Orders> searchWithPagination(int txtSearch, int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Orders e where e.orderId like :txtSearch", Orders.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Orders e where e.orderId = :txtSearch", Orders.class).setParameter("txtSearch", txtSearch).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;

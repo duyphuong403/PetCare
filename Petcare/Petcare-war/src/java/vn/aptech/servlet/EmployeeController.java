@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,8 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import vn.aptech.classes.CartBean;
+import vn.aptech.classes.CartItemBean;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
@@ -140,8 +145,12 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("noOfPages", nOfPages);
 
-              if (request.getParameter("txtSearch") != null) {
-                request.setAttribute("Orders", ordersFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+              if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
+                List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
+                request.setAttribute("Orders", ordList);
+                if (ordList.size() == 0) {
+                  request.setAttribute("Error", "Not found any order with this ID");
+                }
                 request.setAttribute("txtSearch", request.getParameter("txtSearch"));
               } else {
                 request.setAttribute("Orders", ordersFacade.getRecordsPagination(currentPage, pageSize));
@@ -164,11 +173,11 @@ public class EmployeeController extends HttpServlet {
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
               break;
             case "updateDelivery":
-              Orders ordDeli = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               boolean isDeli = Boolean.parseBoolean(request.getParameter("isDeliveried"));
-              ordDeli.setIsDeliveried(isDeli);
+              ord.setIsDeliveried(isDeli);
               try {
-                ordersFacade.edit(ordDeli);
+                ordersFacade.edit(ord);
               } catch (Exception e) {
                 request.setAttribute("Error", "Change Delivery status failed.");
                 System.out.println("Error Update Delivery status: " + e);
@@ -178,7 +187,14 @@ public class EmployeeController extends HttpServlet {
             case "invoice":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               request.setAttribute("Order", ord);
-              request.setAttribute("OrderDetails", orderDetailsFacade.getListOrder(ord));
+
+              List<OrderDetails> ordl = orderDetailsFacade.getListOrder(ord);
+              int subtotal = 0;
+              for (int i = 0; i < ordl.size(); i++) {
+                subtotal += ordl.get(i).getTotal();
+              }
+              request.setAttribute("SubTotal", subtotal);
+              request.setAttribute("OrderDetails", ordl);
               request.getRequestDispatcher("employeeUI/invoice.jsp").forward(request, response);
               break;
             case "category":
