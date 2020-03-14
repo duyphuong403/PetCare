@@ -192,6 +192,7 @@ public class UserController extends HttpServlet {
                             Accounts curAcc = (Accounts) session.getAttribute("curAcc");
                             order.setAccId(curAcc);
                             order.setDateCreated(curDate);
+                            order.setStatus("Not Verify");
                             try {
                                 ordersFacade.create(order);
                             } catch (Exception e) {

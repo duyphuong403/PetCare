@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
     , @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId")
-    , @NamedQuery(name = "Orders.findByIsVerified", query = "SELECT o FROM Orders o WHERE o.isVerified = :isVerified")
-    , @NamedQuery(name = "Orders.findByIsDeliveried", query = "SELECT o FROM Orders o WHERE o.isDeliveried = :isDeliveried")
     , @NamedQuery(name = "Orders.findByDateUpdated", query = "SELECT o FROM Orders o WHERE o.dateUpdated = :dateUpdated")
     , @NamedQuery(name = "Orders.findByDateCreated", query = "SELECT o FROM Orders o WHERE o.dateCreated = :dateCreated")})
 public class Orders implements Serializable {
@@ -51,12 +49,8 @@ public class Orders implements Serializable {
     private Integer orderId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IsVerified")
-    private boolean isVerified;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IsDeliveried")
-    private boolean isDeliveried;
+    @Column(name = "Status")
+    private String status;
     @Column(name = "DateUpdated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUpdated;
@@ -78,10 +72,9 @@ public class Orders implements Serializable {
         this.orderId = orderId;
     }
 
-    public Orders(Integer orderId, boolean isVerified, boolean isDeliveried, Date dateCreated) {
+    public Orders(Integer orderId, String status, Date dateCreated) {
         this.orderId = orderId;
-        this.isVerified = isVerified;
-        this.isDeliveried = isDeliveried;
+        this.status = status;
         this.dateCreated = dateCreated;
     }
 
@@ -91,22 +84,6 @@ public class Orders implements Serializable {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public boolean getIsVerified() {
-        return isVerified;
-    }
-
-    public void setIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
-    }
-
-    public boolean getIsDeliveried() {
-        return isDeliveried;
-    }
-
-    public void setIsDeliveried(boolean isDeliveried) {
-        this.isDeliveried = isDeliveried;
     }
 
     public Date getDateUpdated() {
@@ -166,5 +143,13 @@ public class Orders implements Serializable {
     public String toString() {
         return "vn.aptech.entity.Orders[ orderId=" + orderId + " ]";
     }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
     
 }

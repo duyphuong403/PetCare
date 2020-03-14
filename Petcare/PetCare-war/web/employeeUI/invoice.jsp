@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- saved from url=(0105)https://s3-eu-west-1.amazonaws.com/htmlpdfapi.production/free_html5_invoice_templates/example1/index.html -->
@@ -121,7 +122,7 @@
         <div><span>PHONE</span> 0${ord.accId.phone}</div>
         <div><span>ADDRESS</span> ${ord.accId.address}</div>
         <div><span>EMAIL</span> <a href="mailto:${ord.accId.email}">${ord.accId.email}</a></div>
-        <div><span>DATE</span> ${ord.dateCreated}</div>
+        <div><span>DATE</span><fmt:formatDate value="${ord.dateCreated}" pattern="MM-dd-yyyy" /></div>
       </div>
     </header>
     <main>
@@ -133,7 +134,7 @@
             <th scope="col">UNIT</th>
             <th scope="col">PRICE</th>
             <th scope="col">QTY</th>
-            <th scope="col">TOTAL</th>
+            <th scope="col">SUBTOTAL</th>
           </tr>
         </thead>
         <tbody>
@@ -151,7 +152,7 @@
           </c:forEach>
           <tr>
             <c:set value="${SubTotal}" var="subtotal" scope="session"/>
-            <td colspan="5" style="font-size:20px; text-align: right"><b>Subtotal:</b></td>
+            <td colspan="5" style="font-size:20px; text-align: right"><b>Total: <b></td>
             <td style="font-size: 20px"><b>${SubTotal}</b></td>
           </tr>
         </tbody>

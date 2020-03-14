@@ -12,7 +12,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Orders;
-import vn.aptech.entity.Products;
 
 /**
  *
@@ -46,7 +45,7 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
   @Override
   public List<Orders> getRecordsPagination(int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Orders e", Orders.class).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Orders e order by e.orderId desc", Orders.class).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;
@@ -56,7 +55,7 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
   @Override
   public List<Orders> searchWithPagination(int txtSearch, int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Orders e where e.orderId = :txtSearch", Orders.class).setParameter("txtSearch", txtSearch).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Orders e where e.orderId = :txtSearch order by e.orderId desc", Orders.class).setParameter("txtSearch", txtSearch).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;

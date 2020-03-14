@@ -60,7 +60,7 @@
                         Unit Price
                       </th>
                       <th>
-                        Total Price
+                        Subtotal
                       </th>
                       </thead>
                       <tbody> 
@@ -84,7 +84,7 @@
                       </c:forEach>
                       </tr>
                       <tr>
-                        <td colspan="5" style="font-size:20px; text-align: right"><b>Subtotal:</b></td>
+                        <td colspan="5" style="font-size:20px; text-align: right"><b>Total Price:</b></td>
                         <td style="font-size: 20px"><b>$<c:out value="${cart.total}"/></b></td>
                       </tr>
                       <tr>

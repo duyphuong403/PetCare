@@ -23,12 +23,6 @@
                                     </a> &emsp; &emsp; &emsp; &emsp; 
                                     <form class="navbar-form " action="AdminController?action=account" method="post" style="padding-top: 2%;">
                                         <div class="input-group no-border">
-                                            <!--                                            <label class="bmd-label-floating" style="color:#fff">Search</label>
-                                                                                        <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
-                                                                                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                                                                            <i class="material-icons">search</i>
-                                                                                            <div class="ripple-container"></div>
-                                                                                        </button>-->
                                         </div>
                                     </form>
                                 </div>

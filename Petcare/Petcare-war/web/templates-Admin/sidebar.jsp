@@ -23,7 +23,7 @@
                     <p>Accounts</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item ${order}">
                 <a class="nav-link" href="AdminController?action=orders">
                     <i class="material-icons">shopping_cart</i>
                     <p>Orders</p>
@@ -35,13 +35,13 @@
                     <p>PetGuides</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item ${aboutus}">
                 <a class="nav-link" href="AdminController?action=aboutus">
                     <i class="material-icons">location_ons</i>
                     <p>About Us</p>
                 </a>
             </li>
-            <li class="nav-item ${feedbacks} ">
+            <li class="nav-item ${feedback} ">
                 <a class="nav-link" href="AdminController?action=feedbacks">
                     <i class="material-icons">feedback</i>
                     <p>Feedbacks</p>

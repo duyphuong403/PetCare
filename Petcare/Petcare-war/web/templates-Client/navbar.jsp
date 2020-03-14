@@ -37,9 +37,9 @@
                 </i>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                 <% if (curAcc.getRole() == 1) { %> 
-                <a class="dropdown-item" href="EmployeeController?action=order">Dashboard</a>
+                  <a class="dropdown-item" href="EmployeeController?action=order">Dashboard</a>
                 <% } else if (curAcc.getRole() == 2) {%>
-                <a class="dropdown-item" href="AdminController?action=account">Dashboard</a>
+                  <a class="dropdown-item" href="AdminController?action=account">Dashboard</a>
                 <% } %>
                 <a class="dropdown-item" href="profile.jsp">Profile</a>
                 <div class="dropdown-divider"></div>
