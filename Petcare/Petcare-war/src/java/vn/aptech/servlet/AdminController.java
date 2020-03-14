@@ -164,44 +164,44 @@ public class AdminController extends HttpServlet {
           }
           request.getRequestDispatcher("AdminController?action=account").forward(request, response);
           break;
-        case "viewEditAccount":
-          if (request.getAttribute("Accounts") == null) {
-            request.setAttribute("Accounts", accountsFacade.findAll());
-          }
-          request.setAttribute("title", "Edit Account");
-          request.setAttribute("account", "active");
-          if (request.getParameter("accId") != null) {
-            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
-          } else {
-            request.setAttribute("Error", "Account ID was null!");
-          }
-          request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
-          break;
-        case "editAccount":
-          if (request.getParameter("accId") == null) {
-            request.setAttribute("Error", "Cannot find this account!");
-          } else {
-            acc = new Accounts();
-            acc.setUsername(request.getParameter("username"));
-            acc.setPassword(request.getParameter("password"));
-            acc.setFullname(request.getParameter("fullname"));
-            acc.setEmail(request.getParameter("email"));
-            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
-            acc.setAddress(request.getParameter("address"));
-            acc.setRole(Short.parseShort(request.getParameter("role")));
-            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
-//                    acc.setDateCreated(new Date());
-            acc.setReasonBanned(request.getParameter("reasonBanned"));
-
-            try {
-              accountsFacade.edit(acc);
-            } catch (Exception e) {
-              System.out.println(e);
-              request.setAttribute("Error", "Edit Account failed.");
-            }
-          }
-          request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-          break;
+//        case "viewEditAccount":
+//          if (request.getAttribute("Accounts") == null) {
+//            request.setAttribute("Accounts", accountsFacade.findAll());
+//          }
+//          request.setAttribute("title", "Edit Account");
+//          request.setAttribute("account", "active");
+//          if (request.getParameter("accId") != null) {
+//            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
+//          } else {
+//            request.setAttribute("Error", "Account ID was null!");
+//          }
+//          request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
+//          break;
+//        case "editAccount":
+//          if (request.getParameter("accId") == null) {
+//            request.setAttribute("Error", "Cannot find this account!");
+//          } else {
+//            acc = new Accounts();
+//            acc.setUsername(request.getParameter("username"));
+//            acc.setPassword(request.getParameter("password"));
+//            acc.setFullname(request.getParameter("fullname"));
+//            acc.setEmail(request.getParameter("email"));
+//            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+//            acc.setAddress(request.getParameter("address"));
+//            acc.setRole(Short.parseShort(request.getParameter("role")));
+//            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+////                    acc.setDateCreated(new Date());
+//            acc.setReasonBanned(request.getParameter("reasonBanned"));
+//
+//            try {
+//              accountsFacade.edit(acc);
+//            } catch (Exception e) {
+//              System.out.println(e);
+//              request.setAttribute("Error", "Edit Account failed.");
+//            }
+//          }
+//          request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+//          break;
 
         case "deleteAccount":
           accId = Integer.parseInt(request.getParameter("accId"));

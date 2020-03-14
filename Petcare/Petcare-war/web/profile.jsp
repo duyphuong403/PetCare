@@ -4,12 +4,16 @@
 <style>
 
   #content {
-    padding-top: 200px;
+    padding-top: 500px;
   }
   .card .card-header-primary:not(.card-header-icon):not(.card-header-text) {
     background: linear-gradient(60deg, #ffad00, #fedd97);
+    padding-top: 50px;
   }
 
+  .col-md-12 {
+      padding-top: 50px;
+  }
   .card {
     background: #f6cc0026;
   }
@@ -46,6 +50,10 @@
                                 <label for="Password" class="bmd-label-floating">Password</label>
                                 <input type="password" class="form-control" id="Password" name="password" required="true" value="${acc.password}">
                             </div>
+                             <div class="form-group">
+                                <label for="rePassword" class="bmd-label-floating">Retype Password</label>
+                                <input type="password" class="form-control" id="Password" name="re-password" required="true" value="${acc.password}">
+                            </div>
                             <div class="form-group">
                                 <label for="Fullname" class="bmd-label-floating">Full name</label>
                                 <input type="text" class="form-control" id="Fullname" name="fullname" required="true" value="${acc.fullname}">
@@ -74,8 +82,8 @@
                 </div>
             </div>
         </div>
-        <a href="AdminController?action=account" type="button" class="btn btn-primary pull-left" style="background-color: #c1c6c7;">Back</a>
-        <button type="submit" class="btn btn-primary pull-right">Update Account</button>
+        <a href="UserController" type="button" class="btn btn-primary pull-left" style="background-color: #c1c6c7;">Back</a>
+        <button type="submit" class="btn btn-success">Update Account</button>
         <div class="clearfix"></div>
         </form>
     </div>

@@ -14,8 +14,16 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12">                           
                             <div class="card">
+                                <div class="card-header card-header-primary">
+
+                                    <h4 class="card-title "><b>${title}</b></h4>
+                                    
+                                        
+                                    </a> &emsp; &emsp; &emsp; &emsp; 
+                                    
+                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table">

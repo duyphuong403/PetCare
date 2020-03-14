@@ -173,7 +173,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Phone" class="bmd-label-floating">Phone number</label>
-                            <input type="number" class="form-control" id="Phone" name="phone" required="true" form="((09|03|07|08|05)+([0-9]{8})\b)/g;">
+                            <input type="number" class="form-control" id="Phone" name="phone" value= required="true" form="((09|03|07|08|05)+([0-9]{8})\b)/g;">
 
                         </div>
 
@@ -226,22 +226,22 @@
         //        });
         //    </script>
     <script>
-////        $(document).ready(function() {
-//            $('.cbx-active').change(function ()  {
-//                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-//                var phone = $('#phone').val();
-//                if (phone !== '') {
-//                    if (vnf_regex.test(phone) === false)
-//                    {
-//                        alert('Your phone number is invalid!');
-//                    } else {
-//                        alert('Your phone number can use');
-//                    }
-//                } else {
-//                    alert('Input phone number!');
-//                }
-//            });
-////        });
+        $(phone).ready(function() {
+            $('.cbx-active').change(function ()  {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var phone = $('#phone').val();
+                if (phone !== '') {
+                    if (vnf_regex.test(phone) === false)
+                    {
+                        alert('Your phone number is invalid!');
+                    } else {
+                        alert('Your phone number can use');
+                    }
+                } else {
+                    alert('Input phone number!');
+                }
+            });
+        });
 //    </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
