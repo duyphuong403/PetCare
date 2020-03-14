@@ -78,7 +78,8 @@ public class CartController extends HttpServlet {
   protected void addToCart(HttpServletRequest request) {
     HttpSession session = request.getSession();
     session.setMaxInactiveInterval(3600);
-    String imageName = request.getParameter("imageName");
+    int iProdId = Integer.parseInt(request.getParameter("prodId"));
+    String iImageName = request.getParameter("imageName");
     String iName = request.getParameter("name");
     String iUnit = request.getParameter("unit");
     String iPrice = request.getParameter("price");
@@ -93,7 +94,7 @@ public class CartController extends HttpServlet {
       session.setAttribute("cart", cartBean);
     }
 
-    cartBean.addCart(imageName, iUnit, iName, iPrice, iQuantity);
+    cartBean.addCart(iProdId, iImageName, iUnit, iName, iPrice, iQuantity);
   }
 
 }

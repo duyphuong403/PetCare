@@ -63,9 +63,9 @@ public class OrderDetails implements Serializable {
   @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
   @ManyToOne(optional = false)
   private Orders orderId;
-//  @JoinColumn(name = "ProdId", referencedColumnName = "ProdId")
-//  @ManyToOne(optional = false)
-//  private Products prodId;
+  @JoinColumn(name = "ProdId", referencedColumnName = "ProdId")
+  @ManyToOne(optional = false)
+  private Products prodId;
 
   public OrderDetails() {
   }
@@ -131,13 +131,13 @@ public class OrderDetails implements Serializable {
     this.orderId = orderId;
   }
 
-//  public Products getProdId() {
-//    return prodId;
-//  }
-//
-//  public void setProdId(Products prodId) {
-//    this.prodId = prodId;
-//  }
+  public Products getProdId() {
+    return prodId;
+  }
+
+  public void setProdId(Products prodId) {
+    this.prodId = prodId;
+  }
 
   @Override
   public int hashCode() {

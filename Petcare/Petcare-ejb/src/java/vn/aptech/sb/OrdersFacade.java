@@ -43,6 +43,16 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
   }
   
   @Override
+  public Orders getOrderByAccId(Accounts curAcc) {
+    try {
+      return em.createQuery("select a from Orders a where a.accId = :id order by a.dateCreated desc", Orders.class).setParameter("id", curAcc).getSingleResult();
+    } catch (NoResultException nre) {
+      System.out.println(nre);
+      return null;
+    }
+  }
+  
+  @Override
   public List<Orders> getRecordsPagination(int currentPage, int recordsPerPage) {
     try {
       return em.createQuery("select e from Orders e order by e.orderId desc", Orders.class).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();

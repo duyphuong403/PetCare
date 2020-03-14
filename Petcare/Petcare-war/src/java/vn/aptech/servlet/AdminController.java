@@ -66,7 +66,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
       } else {
         int role = curAcc.getRole();
-        if (curAcc.getIsInactive()) {
+        if (!curAcc.getIsActive()) {
           request.setAttribute("Error", "Your account was banned. Please contact Administrator");
           request.getRequestDispatcher("UserController").forward(request, response);
         } else {
@@ -95,19 +95,24 @@ public class AdminController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
           } else {
             Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
-            session.setAttribute("curAcc", curAcc);
             if (curAcc != null) {
-              switch (curAcc.getRole()) {
-                case 1:
-                  request.setAttribute("title", "Dashboard");
-                  response.sendRedirect("EmployeeController?action=order");
-                  break;
-                case 2:
-                  response.sendRedirect("AdminController?action=account");
-                  break;
-                default:
-                  response.sendRedirect(request.getHeader("referer"));
-                  break;
+              if (!curAcc.getIsActive()) {
+                request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+                request.getRequestDispatcher("UserController").forward(request, response);
+              } else {
+                session.setAttribute("curAcc", curAcc);
+                switch (curAcc.getRole()) {
+                  case 1:
+                    request.setAttribute("title", "Dashboard");
+                    response.sendRedirect("EmployeeController?action=order");
+                    break;
+                  case 2:
+                    response.sendRedirect("AdminController?action=account");
+                    break;
+                  default:
+                    response.sendRedirect(request.getHeader("referer"));
+                    break;
+                }
               }
             } else {
               request.setAttribute("message", "Username or password invalid.");
@@ -135,11 +140,11 @@ public class AdminController extends HttpServlet {
           boolean value = Boolean.parseBoolean(request.getParameter("value"));
 
           Accounts acc = accountsFacade.find(accId);
-          acc.setIsInactive(value);
+          acc.setIsActive(value);
 
           accountsFacade.edit(acc);
 
-          response.getWriter().print(value ? "InActive" : "Active");
+          response.getWriter().print(value ? "Active" : "InActive");
 
           break;
         case "addAccount":
@@ -152,7 +157,7 @@ public class AdminController extends HttpServlet {
           acc.setPhone(Integer.parseInt(request.getParameter("phone")));
           acc.setAddress(request.getParameter("address"));
           acc.setRole(Short.parseShort(request.getParameter("role")));
-          acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+          acc.setIsActive(Boolean.parseBoolean(request.getParameter("isInactive")));
           acc.setDateCreated(new Date());
           acc.setReasonBanned(request.getParameter("reasonBanned"));
 

@@ -88,9 +88,9 @@ public class EmployeeController extends HttpServlet {
       Products prod;
       Orders ord;
 
-      int nOfPages = 0;
-      int pageSize = 10;
-      int currentPage = 1;
+      int nOfPages;
+      int pageSize;
+      int currentPage;
 
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
       String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
@@ -102,7 +102,7 @@ public class EmployeeController extends HttpServlet {
       } else {
         if (action == null) {
           int role = curAcc.getRole();
-          if (curAcc.getIsInactive()) {
+          if (!curAcc.getIsActive()) {
             request.setAttribute("Error", "Your account was banned. Please contact Administrator");
             request.getRequestDispatcher("UserController").forward(request, response);
           } else {
@@ -458,11 +458,11 @@ public class EmployeeController extends HttpServlet {
               boolean value = Boolean.parseBoolean(request.getParameter("value"));
 
               Accounts acc = accountsFacade.find(accId);
-              acc.setIsInactive(value);
+              acc.setIsActive(value);
 
               accountsFacade.edit(acc);
 
-              response.getWriter().print(value ? "InActive" : "Active");
+              response.getWriter().print(value ? "Active" : "InActive");
 
               break;
             case "petguide":

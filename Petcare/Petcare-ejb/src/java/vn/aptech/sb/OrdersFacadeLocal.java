@@ -36,4 +36,6 @@ public interface OrdersFacadeLocal {
     List<Orders> getRecordsPagination(int currentPage, int recordsPerPage);
             
     List<Orders> searchWithPagination(int txtSearch, int currentPage, int recordsPerPage);
+    
+    Orders getOrderByAccId(Accounts accId);
 }
