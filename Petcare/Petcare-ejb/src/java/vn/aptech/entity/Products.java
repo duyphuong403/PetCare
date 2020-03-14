@@ -6,8 +6,10 @@
 package vn.aptech.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
   , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
   , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
   , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
+  , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")
   , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
   , @NamedQuery(name = "Products.findByDateUpdated", query = "SELECT p FROM Products p WHERE p.dateUpdated = :dateUpdated")
   , @NamedQuery(name = "Products.findByDateCreated", query = "SELECT p FROM Products p WHERE p.dateCreated = :dateCreated")})
@@ -75,7 +80,6 @@ public class Products implements Serializable {
   @Column(name = "DateUpdated")
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateUpdated;
-  @Basic(optional = false)
   @Column(name = "DateCreated")
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateCreated;
@@ -88,6 +92,8 @@ public class Products implements Serializable {
   @JoinColumn(name = "UnitId", referencedColumnName = "UnitId")
   @ManyToOne(optional = false)
   private ProductUnits unitId;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
+  private Collection<OrderDetails> orderDetailsCollection;
 
   public Products() {
   }
@@ -96,12 +102,12 @@ public class Products implements Serializable {
     this.prodId = prodId;
   }
 
-  public Products(Integer prodId, String name, int quantity, boolean isNew, Date dateCreated) {
+  public Products(Integer prodId, String name, int quantity, int price, boolean isNew) {
     this.prodId = prodId;
     this.name = name;
     this.quantity = quantity;
+    this.price = price;
     this.isNew = isNew;
-    this.dateCreated = dateCreated;
   }
 
   public Integer getProdId() {
@@ -200,6 +206,15 @@ public class Products implements Serializable {
     this.unitId = unitId;
   }
 
+  @XmlTransient
+  public Collection<OrderDetails> getOrderDetailsCollection() {
+    return orderDetailsCollection;
+  }
+
+  public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
+    this.orderDetailsCollection = orderDetailsCollection;
+  }
+
   @Override
   public int hashCode() {
     int hash = 0;
@@ -224,5 +239,5 @@ public class Products implements Serializable {
   public String toString() {
     return "vn.aptech.entity.Products[ prodId=" + prodId + " ]";
   }
-
+  
 }

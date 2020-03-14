@@ -84,6 +84,7 @@ public class CartController extends HttpServlet {
     String iUnit = request.getParameter("unit");
     String iPrice = request.getParameter("price");
     String iQuantity = request.getParameter("quantity");
+    int iMaxQuantity = Integer.parseInt(request.getParameter("maxQuantity"));
 
     CartBean cartBean = null;
 
@@ -94,7 +95,7 @@ public class CartController extends HttpServlet {
       session.setAttribute("cart", cartBean);
     }
 
-    cartBean.addCart(iProdId, iImageName, iUnit, iName, iPrice, iQuantity);
+    cartBean.addCart(iProdId, iImageName, iUnit, iName, iPrice, iQuantity, iMaxQuantity);
   }
 
 }

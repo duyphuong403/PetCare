@@ -52,7 +52,6 @@
             </div>
         </div>
     </div>
-    <%@include file="../templates-Client/feature.jsp" %>
 </div>
 
     <%@include file="../templates-Client/footer.jsp" %>

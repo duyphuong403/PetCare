@@ -308,7 +308,7 @@ public class AdminController extends HttpServlet {
             request.setAttribute("Error", "Change status failed.");
             System.out.println("Error Update status: " + e);
           }
-          request.getRequestDispatcher("AdminController?action=order").forward(request, response);
+          request.getRequestDispatcher("AdminController?action=orders").forward(request, response);
           break;
 
       }

@@ -36,7 +36,6 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
-                    <%--<jsp:useBean id="cart" scope="session" class="vn.aptech.classes.CartBean" />--%>
                     <c:if test="${cart.lineItemCount == 0}">
                       <tr> 
                         <td colspan="6" style="text-align: center; color: #512f04"><b>- Cart is currently empty -</b></td>
@@ -73,7 +72,7 @@
                             <td><c:out value="${cartItem.name}"/></td>
                             <td style="width: 20%">
                               <input type='hidden' name='stt' value='${counter.count}'>
-                              <input type='number' class="form-control" name="quantity" value='${cartItem.quantity}' style="width: 45%;display: inline-block; text-align: center;"> 
+                              <input type='number' class="form-control" name="quantity" value='${cartItem.quantity}' style="width: 45%;display: inline-block; text-align: center;" min="1" max="${cartItem.maxQuantity}" title="Quantity in stock: ${cartItem.maxQuantity}"> 
                               <button type="submit" name="action" value="Update" style="color:#001fff" title="Update"><i class="material-icons">refresh</i></button>
                               <button type="submit" name="action" value="Delete" style="color: red;" title="Remove"><i class="material-icons">close</i></button>
                             </td>

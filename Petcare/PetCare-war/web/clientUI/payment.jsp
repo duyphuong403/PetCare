@@ -142,7 +142,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <a href="#" class="btn btn-primary" title="Change Payment Info" style="float:left;color: #fff;font-weight: 600; background-color: #a713a6;">Change Info</a>
+                          <a href="profile.jsp" class="btn btn-primary" title="Change Payment Info" style="float:left;color: #fff;font-weight: 600; background-color: #a713a6;">Change Info</a>
                           <a href="UserController?action=addOrder" class="btn btn-success" title="Confirm delivery to this address" style="float:right;color: #fff;font-weight: 600; background-color: #057aff;">Confirm</a>
                         </div>
                       </div>

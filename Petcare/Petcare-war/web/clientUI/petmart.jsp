@@ -20,6 +20,7 @@
                     <div class="product">
                       <form method="POST" action="CartController?action=addToCart">
                         <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="maxQuantity" value="${prod.quantity}">
                         <input type="hidden" name="unit" value="${prod.unitId.name}">
                         <input type="hidden" name="price" value="${prod.price}">
                         <input type="hidden" name="prodId" value="${prod.prodId}">
@@ -34,7 +35,16 @@
                         </a>
                         <div class="product-icon">
                           <ul class="global-list">
-                            <li><button type="submit"><i class="material-icons">add_shopping_cart</i></button></li>
+                            <c:if test="${prod.quantity > 0}">                                
+                              <li>
+                                <button type="submit"><i class="material-icons">add_shopping_cart</i></button>
+                              </li>
+                            </c:if>
+                            <c:if test="${prod.quantity <= 0}">                                
+                              <li style="margin-left: 18px;color: red;">
+                                <button><h4>Out of stock</h4></button>
+                              </li>
+                            </c:if>
                           </ul>
                         </div>
                       </form>

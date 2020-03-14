@@ -43,9 +43,9 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
   }
   
   @Override
-  public Orders getOrderByAccId(Accounts curAcc) {
+  public List<Orders> getOrderByAccId(Accounts curAcc) {
     try {
-      return em.createQuery("select a from Orders a where a.accId = :id order by a.dateCreated desc", Orders.class).setParameter("id", curAcc).getSingleResult();
+      return em.createQuery("select a from Orders a where a.accId = :id order by a.dateCreated desc", Orders.class).setParameter("id", curAcc).getResultList();
     } catch (NoResultException nre) {
       System.out.println(nre);
       return null;

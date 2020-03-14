@@ -17,25 +17,25 @@ import vn.aptech.entity.Orders;
 @Local
 public interface OrdersFacadeLocal {
 
-    void create(Orders orders);
+  void create(Orders orders);
 
-    void edit(Orders orders);
+  void edit(Orders orders);
 
-    void remove(Orders orders);
+  void remove(Orders orders);
 
-    Orders find(Object id);
+  Orders find(Object id);
 
-    List<Orders> findAll();
+  List<Orders> findAll();
 
-    List<Orders> findRange(int[] range);
+  List<Orders> findRange(int[] range);
 
-    int count();
-    
-    Orders getOrderLastest(Accounts accId);
-    
-    List<Orders> getRecordsPagination(int currentPage, int recordsPerPage);
-            
-    List<Orders> searchWithPagination(int txtSearch, int currentPage, int recordsPerPage);
-    
-    Orders getOrderByAccId(Accounts accId);
+  int count();
+
+  Orders getOrderLastest(Accounts accId);
+
+  List<Orders> getRecordsPagination(int currentPage, int recordsPerPage);
+
+  List<Orders> searchWithPagination(int txtSearch, int currentPage, int recordsPerPage);
+
+  List<Orders> getOrderByAccId(Accounts accId);
 }

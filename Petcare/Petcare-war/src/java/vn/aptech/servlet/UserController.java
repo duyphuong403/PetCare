@@ -6,7 +6,9 @@
 package vn.aptech.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -250,19 +252,24 @@ public class UserController extends HttpServlet {
         case "history":
           Accounts curAcc = (Accounts) session.getAttribute("curAcc");
           if (curAcc == null) {
-            request.setAttribute("Error", "Please log in before continue.");
+            request.setAttribute("Error", "Please sign in before continue.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
           } else {
             // get orderId
-            Orders curOrd = ordersFacade.getOrderByAccId(curAcc);
+            List<Orders> curOrd = ordersFacade.getOrderByAccId(curAcc);
             // check if any order
-            if (curOrd == null) {
-              request.setAttribute("Error", "Not found any order.");
-              request.getRequestDispatcher("UserController").forward(request, response);
-            } else {
-              request.setAttribute("order", orderDetailsFacade.getListOrder(curOrd));
+            if (!curOrd.isEmpty()) {
+              ArrayList ordlList = new ArrayList();
+              for (int i = 0; i < curOrd.size(); i++) {
+                ordlList.add(orderDetailsFacade.getListOrder(ordersFacade.find(curOrd.get(i).getOrderId())));
+              }
+              request.setAttribute("order", curOrd);
+              request.setAttribute("orderDetail", ordlList);
               request.setAttribute("title", "Order History");
               request.getRequestDispatcher("clientUI/orderHistory.jsp").forward(request, response);
+            } else {
+              session.setAttribute("Error", "Not found any order.");
+              response.sendRedirect("UserController");
             }
           }
           break;

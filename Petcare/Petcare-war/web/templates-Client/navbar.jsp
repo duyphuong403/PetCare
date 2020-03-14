@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <a href="#" id="logo"><img src="lib/images/logo.gif" width="310" height="114" alt="" /></a>
+      <a href="UserController" id="logo"><img src="lib/images/logo.gif" width="310" height="114" alt="" /></a>
       <ul class="navigation" id="navigation">
         <li class="${Home}"><a href="UserController">Home</a></li>
         <li class="${PetMart}"><a href="UserController?action=petmart">PetMart</a></li>

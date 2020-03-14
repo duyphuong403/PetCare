@@ -18,6 +18,7 @@ public class CartItemBean {
   private int price;
   private int quantity;
   private int TotalCost;
+  private int maxQuantity;
 
   public String getUnit() {
     return unit;
@@ -73,6 +74,14 @@ public class CartItemBean {
 
   public void setImageName(String imageName) {
     this.imageName = imageName;
+  }
+
+  public int getMaxQuantity() {
+    return maxQuantity;
+  }
+
+  public void setMaxQuantity(int maxQuantity) {
+    this.maxQuantity = maxQuantity;
   }
 
 }

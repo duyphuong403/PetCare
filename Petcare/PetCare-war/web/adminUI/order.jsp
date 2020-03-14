@@ -90,7 +90,7 @@
                             <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="Click to see"><b>${ord.accId.fullname}</b></a>
                           </td>
                           <td>
-                            <form action="EmployeeController?action=updateStatus" method="post" id="updateVerify">
+                            <form action="AdminController?action=updateStatus" method="post" id="updateVerify">
                               <input type="hidden" value="${ord.orderId}" name="orderId"/>
                               <select name="status" class="browser-default custom-select" onchange="this.form.submit()">
                                 <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
@@ -100,7 +100,7 @@
                             </form>
                           </td>
                           <td>
-                            <fmt:formatDate value="${ord.Updated}" pattern="HH:mm:ss MM-dd-yyyy" />
+                            <fmt:formatDate value="${ord.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
                             <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />

@@ -95,6 +95,8 @@ public class Accounts implements Serializable {
   @Column(name = "ReasonBanned")
   private String reasonBanned;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
+  private Collection<Orders> ordersCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
   private Collection<Products> productsCollection;
 
   public Accounts() {
@@ -200,6 +202,15 @@ public class Accounts implements Serializable {
 
   public void setReasonBanned(String reasonBanned) {
     this.reasonBanned = reasonBanned;
+  }
+
+  @XmlTransient
+  public Collection<Orders> getOrdersCollection() {
+    return ordersCollection;
+  }
+
+  public void setOrdersCollection(Collection<Orders> ordersCollection) {
+    this.ordersCollection = ordersCollection;
   }
 
   @XmlTransient

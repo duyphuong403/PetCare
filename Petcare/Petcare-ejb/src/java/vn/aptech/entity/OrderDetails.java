@@ -18,11 +18,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ngodu
+ * @author Dell
  */
 @Entity
 @Table(name = "OrderDetails")
@@ -30,8 +31,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
   @NamedQuery(name = "OrderDetails.findAll", query = "SELECT o FROM OrderDetails o")
   , @NamedQuery(name = "OrderDetails.findByOdId", query = "SELECT o FROM OrderDetails o WHERE o.odId = :odId")
+  , @NamedQuery(name = "OrderDetails.findByName", query = "SELECT o FROM OrderDetails o WHERE o.name = :name")
+  , @NamedQuery(name = "OrderDetails.findByUnit", query = "SELECT o FROM OrderDetails o WHERE o.unit = :unit")
   , @NamedQuery(name = "OrderDetails.findByQuantity", query = "SELECT o FROM OrderDetails o WHERE o.quantity = :quantity")
-  , @NamedQuery(name = "OrderDetails.findByPrice", query = "SELECT o FROM OrderDetails o WHERE o.price = :price")})
+  , @NamedQuery(name = "OrderDetails.findByPrice", query = "SELECT o FROM OrderDetails o WHERE o.price = :price")
+  , @NamedQuery(name = "OrderDetails.findByTotal", query = "SELECT o FROM OrderDetails o WHERE o.total = :total")})
 public class OrderDetails implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -42,10 +46,12 @@ public class OrderDetails implements Serializable {
   private Integer odId;
   @Basic(optional = false)
   @NotNull
+  @Size(min = 1, max = 100)
   @Column(name = "Name")
   private String name;
   @Basic(optional = false)
   @NotNull
+  @Size(min = 1, max = 50)
   @Column(name = "Unit")
   private String unit;
   @Basic(optional = false)
@@ -74,13 +80,29 @@ public class OrderDetails implements Serializable {
     this.odId = odId;
   }
 
-  public OrderDetails(Integer odId, int quantity, int price, String name, String unit, int total) {
+  public OrderDetails(Integer odId, String name, String unit, int quantity, int price, int total) {
     this.odId = odId;
-    this.quantity = quantity;
-    this.price = price;
     this.name = name;
     this.unit = unit;
+    this.quantity = quantity;
+    this.price = price;
     this.total = total;
+  }
+
+  public Integer getOdId() {
+    return odId;
+  }
+
+  public void setOdId(Integer odId) {
+    this.odId = odId;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getUnit() {
@@ -89,22 +111,6 @@ public class OrderDetails implements Serializable {
 
   public void setUnit(String unit) {
     this.unit = unit;
-  }
-  
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-  
-  public Integer getOdId() {
-    return odId;
-  }
-
-  public void setOdId(Integer odId) {
-    this.odId = odId;
   }
 
   public int getQuantity() {
@@ -121,6 +127,14 @@ public class OrderDetails implements Serializable {
 
   public void setPrice(int price) {
     this.price = price;
+  }
+
+  public int getTotal() {
+    return total;
+  }
+
+  public void setTotal(int total) {
+    this.total = total;
   }
 
   public Orders getOrderId() {
@@ -163,13 +177,5 @@ public class OrderDetails implements Serializable {
   public String toString() {
     return "vn.aptech.entity.OrderDetails[ odId=" + odId + " ]";
   }
-
-  public int getTotal() {
-    return total;
-  }
-
-  public void setTotal(int total) {
-    this.total = total;
-  }
-
+  
 }
