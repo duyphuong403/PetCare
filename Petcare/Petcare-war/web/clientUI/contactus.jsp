@@ -63,7 +63,7 @@
         </div>    
                  
                          <div class="modal-footer">
-                             <button type="reset" class="btn btn-secondary"  data-dismiss="modal">Reset</button>
+                             <a href="UserController" type="button" class="btn btn-primary pull-left" style="background-color: #c1c6c7;">Back</a>
                              <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                         <br/>
