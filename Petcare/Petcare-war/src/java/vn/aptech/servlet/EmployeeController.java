@@ -88,9 +88,9 @@ public class EmployeeController extends HttpServlet {
       Products prod;
       Orders ord;
 
-      int nOfPages = 0;
-      int pageSize = 10;
-      int currentPage = 1;
+      int nOfPages;
+      int pageSize;
+      int currentPage;
 
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
       String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
@@ -102,7 +102,7 @@ public class EmployeeController extends HttpServlet {
       } else {
         if (action == null) {
           int role = curAcc.getRole();
-          if (curAcc.getIsInactive()) {
+          if (!curAcc.getIsActive()) {
             request.setAttribute("Error", "Your account was banned. Please contact Administrator");
             request.getRequestDispatcher("UserController").forward(request, response);
           } else {
@@ -147,7 +147,7 @@ public class EmployeeController extends HttpServlet {
               if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
                 List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
                 request.setAttribute("Orders", ordList);
-                if (ordList.size() == 0) {
+                if (ordList.isEmpty()) {
                   request.setAttribute("Error", "Not found any order with this ID");
                 }
                 request.setAttribute("txtSearch", request.getParameter("txtSearch"));
@@ -159,30 +159,17 @@ public class EmployeeController extends HttpServlet {
               request.setAttribute("order", "active");
               request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
               break;
-            case "updateVerify":
+            case "updateStatus":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
-              boolean isVerified = Boolean.parseBoolean(request.getParameter("isVerify"));
-              ord.setIsVerified(isVerified);
+              ord.setStatus(request.getParameter("status"));
               try {
                 ordersFacade.edit(ord);
               } catch (Exception e) {
-                request.setAttribute("Error", "Change Verify status failed.");
-                System.out.println("Error Update Verify status: " + e);
+                request.setAttribute("Error", "Change status failed.");
+                System.out.println("Error Update status: " + e);
               }
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
-              break;
-            case "updateDelivery":
-              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
-              boolean isDeli = Boolean.parseBoolean(request.getParameter("isDeliveried"));
-              ord.setIsDeliveried(isDeli);
-              try {
-                ordersFacade.edit(ord);
-              } catch (Exception e) {
-                request.setAttribute("Error", "Change Delivery status failed.");
-                System.out.println("Error Update Delivery status: " + e);
-              }
-              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
-              break;
+              break;            
             case "invoice":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               request.setAttribute("Order", ord);
@@ -471,11 +458,11 @@ public class EmployeeController extends HttpServlet {
               boolean value = Boolean.parseBoolean(request.getParameter("value"));
 
               Accounts acc = accountsFacade.find(accId);
-              acc.setIsInactive(value);
+              acc.setIsActive(value);
 
               accountsFacade.edit(acc);
 
-              response.getWriter().print(value ? "InActive" : "Active");
+              response.getWriter().print(value ? "Active" : "InActive");
 
               break;
             case "petguide":

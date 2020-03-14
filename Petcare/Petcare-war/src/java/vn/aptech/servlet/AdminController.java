@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
+import vn.aptech.entity.Orders;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.FeedbacksFacadeLocal;
+import vn.aptech.sb.OrderDetailsFacadeLocal;
+import vn.aptech.sb.OrdersFacadeLocal;
 
 /**
  *
@@ -30,6 +33,12 @@ public class AdminController extends HttpServlet {
 
   @EJB
   private FeedbacksFacadeLocal feedbacksFacade;
+
+  @EJB
+  private OrderDetailsFacadeLocal orderDetailsFacade;
+
+  @EJB
+  private OrdersFacadeLocal ordersFacade;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,6 +54,11 @@ public class AdminController extends HttpServlet {
 
     HttpSession session = request.getSession();
     String action = request.getParameter("action");
+
+    int nOfPages;
+    int pageSize;
+    int currentPage;
+
     if (action == null) {
       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
       if (curAcc == null) {
@@ -52,7 +66,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
       } else {
         int role = curAcc.getRole();
-        if (curAcc.getIsInactive()) {
+        if (!curAcc.getIsActive()) {
           request.setAttribute("Error", "Your account was banned. Please contact Administrator");
           request.getRequestDispatcher("UserController").forward(request, response);
         } else {
@@ -81,19 +95,24 @@ public class AdminController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
           } else {
             Accounts curAcc = accountsFacade.checkLogin(email.toLowerCase(), pwd);
-            session.setAttribute("curAcc", curAcc);
             if (curAcc != null) {
-              switch (curAcc.getRole()) {
-                case 1:
-                  request.setAttribute("title", "Dashboard");
-                  response.sendRedirect("EmployeeController?action=order");
-                  break;
-                case 2:
-                  response.sendRedirect("AdminController?action=account");
-                  break;
-                default:
-                  response.sendRedirect(request.getHeader("referer"));
-                  break;
+              if (!curAcc.getIsActive()) {
+                request.setAttribute("Error", "Your account was banned. Please contact Administrator");
+                request.getRequestDispatcher("UserController").forward(request, response);
+              } else {
+                session.setAttribute("curAcc", curAcc);
+                switch (curAcc.getRole()) {
+                  case 1:
+                    request.setAttribute("title", "Dashboard");
+                    response.sendRedirect("EmployeeController?action=order");
+                    break;
+                  case 2:
+                    response.sendRedirect("AdminController?action=account");
+                    break;
+                  default:
+                    response.sendRedirect(request.getHeader("referer"));
+                    break;
+                }
               }
             } else {
               request.setAttribute("message", "Username or password invalid.");
@@ -121,11 +140,11 @@ public class AdminController extends HttpServlet {
           boolean value = Boolean.parseBoolean(request.getParameter("value"));
 
           Accounts acc = accountsFacade.find(accId);
-          acc.setIsInactive(value);
+          acc.setIsActive(value);
 
           accountsFacade.edit(acc);
 
-          response.getWriter().print(value ? "InActive" : "Active");
+          response.getWriter().print(value ? "Active" : "InActive");
 
           break;
         case "addAccount":
@@ -138,7 +157,7 @@ public class AdminController extends HttpServlet {
           acc.setPhone(Integer.parseInt(request.getParameter("phone")));
           acc.setAddress(request.getParameter("address"));
           acc.setRole(Short.parseShort(request.getParameter("role")));
-          acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
+          acc.setIsActive(Boolean.parseBoolean(request.getParameter("isInactive")));
           acc.setDateCreated(new Date());
           acc.setReasonBanned(request.getParameter("reasonBanned"));
 
@@ -198,9 +217,6 @@ public class AdminController extends HttpServlet {
           }
           request.getRequestDispatcher("AdminController?action=account").forward(request, response);
           break;
-        case "orders":
-          response.sendRedirect("login.jsp");
-          break;
         case "petguides":
           request.setAttribute("title", "PetGuides");
           request.setAttribute("petguide", "active");
@@ -219,7 +235,8 @@ public class AdminController extends HttpServlet {
           break;
 
         case "feedbacks":
-
+          request.setAttribute("title", "Feedback");
+          request.setAttribute("feedback", "active");
           List<Feedbacks> feedbacks = feedbacksFacade.findAll();
           request.setAttribute("title", "Contact Us");
           request.setAttribute("ContactUs", "active");
@@ -242,6 +259,56 @@ public class AdminController extends HttpServlet {
           request.setAttribute("feedbacks", f);
 
           request.getRequestDispatcher("AdminController?action=feedbacks").forward(request, response);
+          break;
+
+        case "orders":
+          if (request.getAttribute("countProd") == null) {
+            request.setAttribute("countProd", ordersFacade.count());
+          }
+          currentPage = 1;
+          if (request.getParameter("currentPage") != null) {
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+          }
+          request.setAttribute("currentPage", currentPage);
+
+          pageSize = 10;
+          if (request.getParameter("pageSize") != null) {
+            pageSize = Integer.parseInt(request.getParameter("pageSize"));
+          }
+          request.setAttribute("pageSize", pageSize);
+
+          nOfPages = ordersFacade.count() / pageSize;
+          if (ordersFacade.count() % pageSize > 0) {
+            nOfPages++;
+          }
+          request.setAttribute("noOfPages", nOfPages);
+
+          if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
+            List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
+            request.setAttribute("Orders", ordList);
+            if (ordList.isEmpty()) {
+              request.setAttribute("Error", "Not found any order with this ID");
+            }
+            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+          } else {
+            request.setAttribute("Orders", ordersFacade.getRecordsPagination(currentPage, pageSize));
+          }
+          request.setAttribute("title", "Orders");
+          request.setAttribute("order", "active");
+          request.getRequestDispatcher("adminUI/order.jsp").forward(request, response);
+
+          break;
+        case "updateStatus":
+          Orders ord;
+          ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+          ord.setStatus(request.getParameter("status"));
+          try {
+            ordersFacade.edit(ord);
+          } catch (Exception e) {
+            request.setAttribute("Error", "Change status failed.");
+            System.out.println("Error Update status: " + e);
+          }
+          request.getRequestDispatcher("AdminController?action=orders").forward(request, response);
           break;
 
       }

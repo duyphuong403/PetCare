@@ -15,15 +15,13 @@
   <script>
     swal("Error", "${Error}", "error");
   </script>
-  <%};
-    request.removeAttribute("Error");
+  <% request.removeAttribute("Error"); };
+    
     if (request.getAttribute("Success") != null) { %>
   <script>
     swal("Success", "${Success}", "success");
   </script>
-  <%};
-    request.removeAttribute("Success");
-  %>
+  <% request.removeAttribute("Success");};%>
   
   <% if (session.getAttribute("Error") != null) { %>
   <script>

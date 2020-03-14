@@ -88,13 +88,13 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label class="bmd-label-floating">Date Updated</label>
-                              <input type="datetime" class="form-control" disabled value="${prod.dateUpdated}">
+                              <input type="datetime" class="form-control" disabled value="<fmt:formatDate value="${prod.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label class="bmd-label-floating">Date Created</label>
-                            <input type="datetime" class="form-control" disabled value="${prod.dateCreated}">
+                            <input type="datetime" class="form-control" disabled value="<fmt:formatDate value="${prod.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />">
                           </div>
                         </div>
                       </div>                  

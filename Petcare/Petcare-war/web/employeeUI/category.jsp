@@ -57,10 +57,10 @@
                             ${cate.description}
                           </td>
                           <td>
-                            ${cate.dateUpdated}
+                           <fmt:formatDate value="${cate.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
-                            ${cate.dateCreated}
+                            <fmt:formatDate value="${cate.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
                             <a href="#" data-toggle="modal" data-target="#editCate${cate.cateId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>

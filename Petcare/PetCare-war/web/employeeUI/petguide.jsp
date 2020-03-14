@@ -49,7 +49,7 @@
                           ${petGuide}
                         </td>    
                         <td>
-                          ${petGuide}
+                          <fmt:formatDate value="${petGuide.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
                         </td>    
                       </tr>
                       </c:forEach>

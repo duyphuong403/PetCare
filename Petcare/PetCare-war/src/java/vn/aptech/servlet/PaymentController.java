@@ -38,7 +38,7 @@ public class PaymentController extends HttpServlet {
       request.setAttribute("Error", "Please sign in to continue buy product.");
       request.getRequestDispatcher("login.jsp").forward(request, response);
     } else {
-      if (curAcc.getIsInactive()) {
+      if (!curAcc.getIsActive()) {
         request.setAttribute("Error", "Your account was banned. Please contact Administrator");
         request.getRequestDispatcher("UserController").forward(request, response);
       } else {

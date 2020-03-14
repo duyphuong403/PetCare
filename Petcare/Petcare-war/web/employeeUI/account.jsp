@@ -84,7 +84,7 @@
                             </div>
                           </td>
                           <td>
-                            ${acc.dateCreated}
+                            <fmt:formatDate value="${acc.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
                             ${acc.reasonBanned}

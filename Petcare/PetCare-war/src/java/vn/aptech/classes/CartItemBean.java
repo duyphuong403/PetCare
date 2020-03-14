@@ -11,12 +11,14 @@ package vn.aptech.classes;
  */
 public class CartItemBean {
 
-  private String imageName;
+  private int prodId;
   private String name;
+  private String imageName;
   private String unit;
   private int price;
   private int quantity;
   private int TotalCost;
+  private int maxQuantity;
 
   public String getUnit() {
     return unit;
@@ -24,14 +26,6 @@ public class CartItemBean {
 
   public void setUnit(String unit) {
     this.unit = unit;
-  }
-
-  public String getImageName() {
-    return imageName;
-  }
-
-  public void setImageName(String imageName) {
-    this.imageName = imageName;
   }
 
   public String getName() {
@@ -64,6 +58,30 @@ public class CartItemBean {
 
   public void setTotalCost(int TotalCost) {
     this.TotalCost = TotalCost;
+  }
+
+  public int getProdId() {
+    return prodId;
+  }
+
+  public void setProdId(int prodId) {
+    this.prodId = prodId;
+  }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
+  }
+
+  public int getMaxQuantity() {
+    return maxQuantity;
+  }
+
+  public void setMaxQuantity(int maxQuantity) {
+    this.maxQuantity = maxQuantity;
   }
 
 }

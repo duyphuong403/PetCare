@@ -10,6 +10,7 @@ package vn.aptech.classes;
  * @author Dell
  */
 import java.util.ArrayList;
+import vn.aptech.entity.Products;
 
 public class CartBean {
 
@@ -66,7 +67,7 @@ public class CartBean {
 
   }
 
-  public void addCart(String imageName, String unit, String name, String price, String quantity) {
+  public void addCart(int prodId, String imageName, String unit, String name, String price, String quantity, int iMaxQuantity) {
     boolean isNew = true;
     if (list.size() > 0) {
       CartItemBean cartIB;
@@ -87,11 +88,13 @@ public class CartBean {
       CartItemBean cartItem = new CartItemBean();
       try {
         if (iQuantity > 0) {
+          cartItem.setProdId(prodId);
           cartItem.setImageName(imageName);
           cartItem.setName(name);
           cartItem.setUnit(unit);
           cartItem.setPrice(iPrice);
           cartItem.setQuantity(iQuantity);
+          cartItem.setMaxQuantity(iMaxQuantity);
           cartItem.setTotalCost(iPrice * iQuantity);
           list.add(cartItem);
           calculateOrderTotal();
