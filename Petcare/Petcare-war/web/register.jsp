@@ -52,7 +52,7 @@
                                 <input class="input--style-3" type="email" placeholder="Email" name="email" required="true">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true">
+                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" minlength="9" maxlength="10">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <script>
+<!--        <script>
             if (document.getElementById('phone').value != ""){
             var y = document.getElementById('phone').value;
             if (isNaN(y) || y.indexOf(" ") != - 1)
@@ -88,7 +88,7 @@
             document.getElementById('phone').focus();
             return false
             }
-        </script>
+        </script>-->
 
         <% if (request.getAttribute("Error") != null) { %>
         <script>

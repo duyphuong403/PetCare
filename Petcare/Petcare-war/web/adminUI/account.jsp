@@ -73,6 +73,7 @@
                                             <tbody>
                                                 <c:forEach items="${accounts}" var="acc">
                                                     <tr>
+                                                        
                                                         <td>
                                                             ${acc.accId}
                                                         </td>
@@ -179,7 +180,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Phone" class="bmd-label-floating">Phone number</label>
-                            <input type="number" class="form-control" id="Phone" name="phone" value= required="true" form="((09|03|07|08|05)+([0-9]{8})\b)/g;">
+                            <input type="number" class="form-control" id="Phone" name="phone" value= required="true" minlength="9" maxlength="10">
 
                         </div>
 
