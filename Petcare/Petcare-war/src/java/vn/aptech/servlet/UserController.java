@@ -6,7 +6,6 @@
 package vn.aptech.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,6 +20,7 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
+import vn.aptech.entity.Products;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
@@ -112,8 +112,15 @@ public class UserController extends HttpServlet {
           request.setAttribute("noOfPages", nOfPages);
 
           if (request.getParameter("txtSearch") != null) {
-            request.setAttribute("Products", productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
+            List<Products> prodList = productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize);
+            if (prodList.size() == 0) {
+              request.setAttribute("Error", "Not found any result.");
+            } else {
+              request.setAttribute("Products", prodList);
+            }
             request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+          } else if (request.getParameter("category") != null) {
+            request.setAttribute("Products", productsFacade.searchCateWithPagination(categoriesFacade.find(Integer.parseInt(request.getParameter("category"))), currentPage, pageSize));
           } else {
             request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
           }
@@ -131,6 +138,11 @@ public class UserController extends HttpServlet {
         case "productDetail":
           request.setAttribute("title", "Product Detail");
           request.setAttribute("PetMart", "active");
+          request.setAttribute("Products", productsFacade.find(Integer.parseInt(request.getParameter("prodId"))));
+          if (request.getAttribute("Categories") == null) {
+            request.setAttribute("Categories", categoriesFacade.findAll());
+          }
+
           request.getRequestDispatcher("clientUI/productDetail.jsp").forward(request, response);
           break;
         case "aboutus":

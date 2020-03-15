@@ -10,7 +10,6 @@ package vn.aptech.classes;
  * @author Dell
  */
 import java.util.ArrayList;
-import vn.aptech.entity.Products;
 
 public class CartBean {
 
