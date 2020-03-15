@@ -3,13 +3,12 @@
     Created on : Jan 18, 2020, 9:35:45 AM
     Author     : ngodu
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../templates-Admin/header.jsp" %>
 <div class="wrapper ">
   <%@include file="../templates-Admin/sidebar.jsp" %>
   <div class="main-panel">
     <div class="wrapper ">
-      <%@include file="../templates-Admin/sidebar.jsp" %>
+      <%@include file="../templates-Admin/status-bar.jsp" %>
       <div class="content">
         <div class="container-fluid">
           <div class="row">
