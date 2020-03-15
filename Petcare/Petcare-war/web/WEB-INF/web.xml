@@ -75,4 +75,10 @@
         <local>vn.aptech.sb.FeedbacksFacadeLocal</local>
         <ejb-link>Petcare-ejb.jar#FeedbacksFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>PetGuidesFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>vn.aptech.sb.PetGuidesFacadeLocal</local>
+        <ejb-link>Petcare-ejb.jar#PetGuidesFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

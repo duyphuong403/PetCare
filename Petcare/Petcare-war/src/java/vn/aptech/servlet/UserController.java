@@ -7,6 +7,7 @@ package vn.aptech.servlet;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
+import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
@@ -50,7 +52,7 @@ public class UserController extends HttpServlet {
     private ProductsFacadeLocal productsFacade;
 
     @EJB
-    private PetGuidesFacadeLocal articlesFacade;
+    private PetGuidesFacadeLocal petGuidesFacade;
 
     @EJB
     private CategoriesFacadeLocal categoriesFacade;
@@ -75,7 +77,7 @@ public class UserController extends HttpServlet {
         if (action == null) {
             request.setAttribute("Home", "active");
             request.setAttribute("Categories", categoriesFacade.findAll());
-            request.setAttribute("Articles", articlesFacade.findAll());
+
             request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
         } else {
             switch (action) {
@@ -168,12 +170,17 @@ public class UserController extends HttpServlet {
                         }
                     }
                     break;
-                case "petguide":
-                    request.setAttribute("title", "Pet Guide");
-                    request.setAttribute("PetGuide", "active"); // Phuc
-                    request.setAttribute("Articles", articlesFacade.findAll());
+
+                case "petguides":
+                    List<PetGuides> petguides = petGuidesFacade.findAll();
+                    request.setAttribute("title", "PetGuides");
+                    request.setAttribute("petguide", "active");
+                    request.setAttribute("petgui", petguides);
+
                     request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
+                
                     break;
+
                 case "contactus":
                     request.setAttribute("title", "Contact Us");
                     request.setAttribute("ContactUs", "active");
