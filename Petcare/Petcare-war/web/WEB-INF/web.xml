@@ -76,12 +76,18 @@
         <ejb-link>Petcare-ejb.jar#FeedbacksFacade</ejb-link>
     </ejb-local-ref>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 616f5e0... add 404 page
     <ejb-local-ref>
         <ejb-ref-name>ProductsFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <local>vn.aptech.sb.ProductsFacadeLocal</local>
         <ejb-link>Petcare-ejb.jar#ProductsFacade</ejb-link>
     </ejb-local-ref>
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 58134ac... pet guide update
+=======
+>>>>>>> parent of 616f5e0... add 404 page
 </web-app>
