@@ -86,16 +86,16 @@ public class AccountController extends HttpServlet {
                             }
                         }
                         request.getRequestDispatcher("UserController").forward(request, response);
-                    case "deleteAccount":
-                       int accId = Integer.parseInt(request.getParameter("accId")) ;
-                        try {
-                            accountsFacade.remove(accountsFacade.find(accId));
-                            request.setAttribute("Success", "Account has been remove!");
-                        } catch (Exception e) {
-                            request.setAttribute("Error", "Delete Account Failed");
-                        }
-                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-                        break;
+//                    case "deleteAccount":
+//                       int accId = Integer.parseInt(request.getParameter("accId")) ;
+//                        try {
+//                            accountsFacade.remove(accountsFacade.find(accId));
+//                            request.setAttribute("Success", "Account has been remove!");
+//                        } catch (Exception e) {
+//                            request.setAttribute("Error", "Delete Account Failed");
+//                        }
+//                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+//                        break;
                 }
             }
         }
