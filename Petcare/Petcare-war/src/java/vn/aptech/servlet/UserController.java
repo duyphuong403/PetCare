@@ -7,7 +7,6 @@ package vn.aptech.servlet;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,6 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
-import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
@@ -36,112 +34,48 @@ import vn.aptech.sb.ProductsFacadeLocal;
  */
 public class UserController extends HttpServlet {
 
-  @EJB
-  private AccountsFacadeLocal accountsFacade;
+    @EJB
+    private AccountsFacadeLocal accountsFacade;
 
-  @EJB
-  private OrderDetailsFacadeLocal orderDetailsFacade;
+    @EJB
+    private OrderDetailsFacadeLocal orderDetailsFacade;
 
-  @EJB
-  private OrdersFacadeLocal ordersFacade;
+    @EJB
+    private OrdersFacadeLocal ordersFacade;
 
-  @EJB
-  private ProductUnitsFacadeLocal productUnitsFacade;
+    @EJB
+    private ProductUnitsFacadeLocal productUnitsFacade;
 
-  @EJB
-  private ProductsFacadeLocal productsFacade;
+    @EJB
+    private ProductsFacadeLocal productsFacade;
 
-  @EJB
-  private PetGuidesFacadeLocal articlesFacade;
+    @EJB
+    private PetGuidesFacadeLocal articlesFacade;
 
-  @EJB
-  private CategoriesFacadeLocal categoriesFacade;
+    @EJB
+    private CategoriesFacadeLocal categoriesFacade;
 
-  @EJB
-  private FeedbacksFacadeLocal feedbacksFacade;
+    @EJB
+    private FeedbacksFacadeLocal feedbacksFacade;
 
-  /**
-   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-   * methods.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
-  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    String action = request.getParameter("action");
-    HttpSession session = request.getSession();
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
 
-    if (action == null) {
-      request.setAttribute("Home", "active");
-      request.setAttribute("Categories", categoriesFacade.findAll());
-      request.setAttribute("Articles", articlesFacade.findAll());
-      request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
-    } else {
-      switch (action) {
-        case "showCart":
-          request.setAttribute("title", "Cart");
-          request.setAttribute("Cart", "active");
-          request.getRequestDispatcher("clientUI/showCart.jsp").forward(request, response);
-          break;
-        case "petmart":
-          request.setAttribute("title", "Petmart");
-          request.setAttribute("PetMart", "active");
-
-          if (request.getAttribute("countProd") == null) {
-            request.setAttribute("countProd", productsFacade.count());
-          }
-          int currentPage = 1;
-          if (request.getParameter("currentPage") != null) {
-            currentPage = Integer.parseInt(request.getParameter("currentPage"));
-          }
-          request.setAttribute("currentPage", currentPage);
-
-          int pageSize = 12;
-          if (request.getParameter("pageSize") != null) {
-            pageSize = Integer.parseInt(request.getParameter("pageSize"));
-          }
-          request.setAttribute("pageSize", pageSize);
-
-          int nOfPages = productsFacade.count() / pageSize;
-          if (productsFacade.count() % pageSize > 0) {
-            nOfPages++;
-          }
-          request.setAttribute("noOfPages", nOfPages);
-
-          if (request.getParameter("txtSearch") != null) {
-            List<Products> prodList = productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize);
-            if (prodList.size() == 0) {
-              request.setAttribute("Error", "Not found any result.");
-            } else {
-              request.setAttribute("Products", prodList);
-            }
-            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
-          } else if (request.getParameter("category") != null) {
-            request.setAttribute("Products", productsFacade.searchCateWithPagination(categoriesFacade.find(Integer.parseInt(request.getParameter("category"))), currentPage, pageSize));
-          } else {
-            request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
-          }
-
-          if (request.getAttribute("Categories") == null) {
+        if (action == null) {
+            request.setAttribute("Home", "active");
             request.setAttribute("Categories", categoriesFacade.findAll());
-          }
-
-          if (request.getAttribute("Units") == null) {
-            request.setAttribute("Units", productUnitsFacade.findAll());
-          }
-
-          request.getRequestDispatcher("clientUI/petmart.jsp").forward(request, response);
-          break;
-        case "productDetail":
-          request.setAttribute("title", "Product Detail");
-          request.setAttribute("PetMart", "active");
-          request.setAttribute("Products", productsFacade.find(Integer.parseInt(request.getParameter("prodId"))));
-          if (request.getAttribute("Categories") == null) {
-            request.setAttribute("Categories", categoriesFacade.findAll());
-
+            request.setAttribute("Articles", articlesFacade.findAll());
             request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
         } else {
             switch (action) {
@@ -219,17 +153,12 @@ public class UserController extends HttpServlet {
                     }
 
                     break;
-
-                case "petguides":
-                    List<PetGuides> petguides = petGuidesFacade.findAll();
-                    request.setAttribute("title", "PetGuides");
-                    request.setAttribute("petguide", "active");
-                    request.setAttribute("petgui", petguides);
-
+                case "petguide":
+                    request.setAttribute("title", "Pet Guide");
+                    request.setAttribute("PetGuide", "active"); // Phuc
+                    request.setAttribute("Articles", articlesFacade.findAll());
                     request.getRequestDispatcher("clientUI/petguide.jsp").forward(request, response);
-
                     break;
-
                 case "contactus":
                     request.setAttribute("title", "Contact Us");
                     request.setAttribute("ContactUs", "active");
