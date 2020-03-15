@@ -6,14 +6,6 @@
 
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
-<style>
-  .prod-name {
-      width: 10em; /* the element needs a fixed width (in px, em, %, etc) */
-      overflow: hidden; /* make sure it hides the content that overflows */
-      white-space: nowrap; /* don't break the line */
-      text-overflow: ellipsis; /* give the beautiful '...' effect */
-  }
-</style>
 <div id="body">
   <div id="content">
     <%@include file="../templates-Client/formSearch.jsp" %>
@@ -34,11 +26,11 @@
                         <input type="hidden" name="prodId" value="${prod.prodId}">
                         <input type="hidden" name="imageName" value="${prod.imageName}">
                         <input type="hidden" name="name" value="${prod.name}">                   
-                        <a href="UserController?action=productDetail&prodId=${prod.prodId}" title="${prod.name}">
+                        <a href="UserController?action=productDetail&prodId=${prod.prodId}">
                           <span class="product-image">
                             <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
                           </span>
-                          <span class="product-title prod-name">${prod.name}</span>
+                          <span class="product-title">${prod.name}</span>
                           <span class="price">$${prod.price}</span>
                         </a>
                         <div class="product-icon">

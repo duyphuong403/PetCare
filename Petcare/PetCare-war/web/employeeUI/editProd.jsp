@@ -48,7 +48,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="bmd-label-floating">Description</label>
-                            <textarea row="5" type="text" class="form-control" id="Description" name="description" required="true" value="" maxlength="2147483647">${prod.description}</textarea>
+                            <textarea row="1" type="text" class="form-control" id="Description" name="description" required="true" value="" maxlength="200">${prod.description}</textarea>
                           </div>
                         </div>
                       </div>
