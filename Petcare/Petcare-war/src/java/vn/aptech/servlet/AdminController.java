@@ -16,10 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
-import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.FeedbacksFacadeLocal;
-import vn.aptech.sb.PetGuidesFacadeLocal;
 
 /**
  *
@@ -32,9 +30,6 @@ public class AdminController extends HttpServlet {
 
   @EJB
   private FeedbacksFacadeLocal feedbacksFacade;
-  
-  @EJB
-  private PetGuidesFacadeLocal petGuidesFacade;
 
   @EJB
   private OrderDetailsFacadeLocal orderDetailsFacade;
@@ -220,82 +215,10 @@ public class AdminController extends HttpServlet {
           request.getRequestDispatcher("AdminController?action=account").forward(request, response);
           break;
         case "petguides":
-          List<PetGuides> petguides = petGuidesFacade.findAll();
           request.setAttribute("title", "PetGuides");
           request.setAttribute("petguide", "active");
-          request.setAttribute("petguides", petguides);
-          
           request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
-          if (request.getParameter("txtSearch") != null) {
-            request.setAttribute("petguides", accountsFacade.find(request.getParameter("txtSearch")));
-            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
-          } else {
-            System.out.println();
-            request.setAttribute("Error", "Account is already exist!");
-          }
           break;
-        case "addPetguides":{
-         PetGuides pet = new PetGuides();
-//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
-       Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-          pet.setTitle(request.getParameter("title"));
-          pet.setContent(request.getParameter("content"));
-          pet.setImageName(request.getParameter("imageName"));
-          pet.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
-          pet.setAccId(curAcc);
-         
-          pet.setDateCreated(new Date());
-          
-
-          try {
-            petGuidesFacade.create(pet);
-          } catch (Exception e) {
-            System.out.println(e);
-            request.setAttribute("Error", "PetGuide is already exist!");
-          }
-          request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
-          break;
-        }
-        case "findId":{
-            int id = Integer.parseInt(request.getParameter("petGuideId"));
-            PetGuides p = petGuidesFacade.find(id);
-            request.setAttribute("pet", p);
-            request.getRequestDispatcher("adminUI/editpetguide.jsp").forward(request, response);
-            break;
-        }
-          
-        case "editPetguides":
-          if (request.getParameter("petGuideId") == null) 
-            request.setAttribute("Error", "Cannot find this account!");
-           else {
-           PetGuides pet1 = new PetGuides();
-            pet1.setPetGuideId(Integer.parseInt(request.getParameter("petGuideId")));
-            pet1.setTitle(request.getParameter("title"));
-            pet1.setContent(request.getParameter("content"));
-            pet1.setImageName(request.getParameter("imageName"));        
-            
-//                    acc.setDateCreated(new Date());
-            
-                   
-            try {
-             petGuidesFacade.edit(pet1);
-            } catch (Exception e) {
-              System.out.println(e);
-              request.setAttribute("Error", "Edit Petguide failed.");
-            }
-          }
-          request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
-          break;  
-    
-          case "deletepet":{
-          int id = Integer.parseInt(request.getParameter("petGuideId"));
-          PetGuides p = petGuidesFacade.find(id);
-          petGuidesFacade.remove(p);
-          request.setAttribute("petguides", p);
-
-          request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
-          break;
-          }
         case "aboutus":
           response.sendRedirect("login.jsp");
           break;
