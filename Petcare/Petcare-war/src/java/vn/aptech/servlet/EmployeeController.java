@@ -147,6 +147,7 @@ public class EmployeeController extends HttpServlet {
               if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
                 List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
                 request.setAttribute("Orders", ordList);
+//                request.setAttribute("OrderDetail", orderDetailsFacade.getListOrder(ord));
                 if (ordList.isEmpty()) {
                   request.setAttribute("Error", "Not found any order with this ID");
                 }

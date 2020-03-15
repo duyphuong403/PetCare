@@ -70,7 +70,9 @@
                           Subtotal
                         </th>
                         </thead>
-                        <tbody> 
+                        <tbody>
+                          <c:forEach items="${ordlList}" var="odl">
+                            <c:if test="${odl.get(i)}" ></c:if>
                           <tr>
                             <td> <%= i%><% i++;%></td>
                             <td><img src="ProductImages/" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 100px;"></td>
@@ -85,6 +87,7 @@
                             <td colspan="5" style="font-size:20px; text-align: right"><b>Total Price:</b></td>
                             <td style="font-size: 20px"><b>total</b></td>
                           </tr>
+                          </c:forEach>
                         </tbody>
                       </table>
                       <hr/>

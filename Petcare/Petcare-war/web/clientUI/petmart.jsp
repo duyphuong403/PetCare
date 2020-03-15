@@ -26,7 +26,7 @@
                         <input type="hidden" name="prodId" value="${prod.prodId}">
                         <input type="hidden" name="imageName" value="${prod.imageName}">
                         <input type="hidden" name="name" value="${prod.name}">                   
-                        <a href="#">
+                        <a href="UserController?action=productDetail&prodId=${prod.prodId}">
                           <span class="product-image">
                             <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
                           </span>
@@ -102,7 +102,6 @@
         </div><!-- /.row -->
       </div><!-- /.container -->
     </div><!-- /.main-content -->
-
   </div>
 </div>
 

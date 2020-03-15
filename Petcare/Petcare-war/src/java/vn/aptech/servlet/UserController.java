@@ -129,6 +129,11 @@ public class UserController extends HttpServlet {
 
           request.getRequestDispatcher("clientUI/petmart.jsp").forward(request, response);
           break;
+        case "productDetail":
+          request.setAttribute("title", "Product Detail");
+          request.setAttribute("PetMart", "active");
+          request.getRequestDispatcher("clientUI/productDetail.jsp").forward(request, response);
+          break;
         case "aboutus":
           request.setAttribute("title", "About Us");
           request.setAttribute("AboutUs", "active");
