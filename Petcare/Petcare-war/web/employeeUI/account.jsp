@@ -16,7 +16,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title "><b>Accounts</b></h4>
+                <h4 class="card-title "><b>Customer Accounts</b></h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -49,9 +49,6 @@
                     <th>
                       Date Created
                     </th>
-                    <th>
-                      Reason Banned
-                    </th>
                     </thead>
                     <tbody>
                       <c:forEach items="${accounts}" var="acc">
@@ -75,20 +72,19 @@
                             ${acc.address}
                           </td>
                           <td>
-                            ${acc.role}
+                            <c:if test="${acc.role == 0}">User</c:if>
+                              <c:if test="${acc.role == 1}">Employee</c:if>
+                              <c:if test="${acc.role == 2}">Administrator</c:if>
                           </td>
                           <td>
                             <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
-                              <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
+                              <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isActive ? "checked" : ""} accId="${acc.accId}">
+                              <label class="custom-control-label" for="switch${acc.accId}">${acc.isActive ? "Active" : "InActive"}</label>
                             </div>
                           </td>
                           <td>
-                            ${acc.dateCreated}
-                          </td>
-                          <td>
-                            ${acc.reasonBanned}
-                          </td>
+                            <fmt:formatDate value="${acc.dateCreated}" pattern="MM-dd-yyyy" />
+                          </td>                         
                         </tr>
                       </c:forEach>
                     </tbody>

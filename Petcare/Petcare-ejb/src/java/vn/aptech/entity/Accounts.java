@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
   , @NamedQuery(name = "Accounts.findByPhone", query = "SELECT a FROM Accounts a WHERE a.phone = :phone")
   , @NamedQuery(name = "Accounts.findByAddress", query = "SELECT a FROM Accounts a WHERE a.address = :address")
   , @NamedQuery(name = "Accounts.findByRole", query = "SELECT a FROM Accounts a WHERE a.role = :role")
-  , @NamedQuery(name = "Accounts.findByIsInactive", query = "SELECT a FROM Accounts a WHERE a.isInactive = :isInactive")
+  , @NamedQuery(name = "Accounts.findByIsActive", query = "SELECT a FROM Accounts a WHERE a.isActive = :isActive")
   , @NamedQuery(name = "Accounts.findByDateCreated", query = "SELECT a FROM Accounts a WHERE a.dateCreated = :dateCreated")
   , @NamedQuery(name = "Accounts.findByReasonBanned", query = "SELECT a FROM Accounts a WHERE a.reasonBanned = :reasonBanned")})
 public class Accounts implements Serializable {
@@ -84,8 +84,8 @@ public class Accounts implements Serializable {
   private short role;
   @Basic(optional = false)
   @NotNull
-  @Column(name = "IsInactive")
-  private boolean isInactive;
+  @Column(name = "IsActive")
+  private boolean isActive;
   @Basic(optional = false)
   @NotNull
   @Column(name = "DateCreated")
@@ -94,6 +94,8 @@ public class Accounts implements Serializable {
   @Size(max = 1000)
   @Column(name = "ReasonBanned")
   private String reasonBanned;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
+  private Collection<Orders> ordersCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
   private Collection<Products> productsCollection;
 
@@ -104,13 +106,13 @@ public class Accounts implements Serializable {
     this.accId = accId;
   }
 
-  public Accounts(Integer accId, String username, String password, int phone, short role, boolean isInactive, Date dateCreated) {
+  public Accounts(Integer accId, String username, String password, int phone, short role, boolean isActive, Date dateCreated) {
     this.accId = accId;
     this.username = username;
     this.password = password;
     this.phone = phone;
     this.role = role;
-    this.isInactive = isInactive;
+    this.isActive = isActive;
     this.dateCreated = dateCreated;
   }
 
@@ -178,12 +180,12 @@ public class Accounts implements Serializable {
     this.role = role;
   }
 
-  public boolean getIsInactive() {
-    return isInactive;
+  public boolean getIsActive() {
+    return isActive;
   }
 
-  public void setIsInactive(boolean isInactive) {
-    this.isInactive = isInactive;
+  public void setIsActive(boolean isActive) {
+    this.isActive = isActive;
   }
 
   public Date getDateCreated() {
@@ -200,6 +202,15 @@ public class Accounts implements Serializable {
 
   public void setReasonBanned(String reasonBanned) {
     this.reasonBanned = reasonBanned;
+  }
+
+  @XmlTransient
+  public Collection<Orders> getOrdersCollection() {
+    return ordersCollection;
+  }
+
+  public void setOrdersCollection(Collection<Orders> ordersCollection) {
+    this.ordersCollection = ordersCollection;
   }
 
   @XmlTransient

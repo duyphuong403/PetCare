@@ -27,7 +27,7 @@
                   <div class="col-md-4">
                     <form class="navbar-form " action="EmployeeController?action=product" method="post" style="padding-top: 2%;">
                       <div class="input-group no-border">
-                        <label class="bmd-label-floating" style="color:#fff">Search</label>
+                        <label class="bmd-label-floating" style="color:#fff">Search Product Name</label>
                         <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                           <i class="material-icons">search</i>
@@ -36,51 +36,55 @@
                       </div>
                     </form>
                   </div>
-                  <div class="col-md-4 form-group">
-                    <label class="bmd-label-floating" style="color: #fff">Number of Product per page</label>
-                    <form action="EmployeeController?action=product" method="post" id="changePageSize">
-                      <select name="pageSize" id="pageSize" class="browser-default custom-select" onchange="this.form.submit()">
-                        <option value="10" <c:if test="${pageSize == 2}"> selected="true" </c:if >>10</option>
-                        <option value="50" <c:if test="${pageSize == 4}"> selected="true" </c:if>>50</option>
-                        <option value="100" <c:if test="${pageSize == 100}"> selected="true" </c:if>>100</option>
-                        </select>
-                      </form>
-                    </div>
+                  <div class="col-md-4">
+                    <label class="bmd-label-floating" style="color: #fff">Categories</label>
+                    <form class="navbar-form " action="EmployeeController?action=product" method="post" style="padding-top: 2%;">
+                      <div class="input-group no-border">
+                        <select type="text" class="browser-default custom-select" name="category" onchange="this.form.submit()">
+                          <option <c:if test="${category == null}">selected="true"</c:if>>
+                              -- Choose Category --
+                            </option>
+                          <c:forEach items="${Categories}" var="item">                       
+                            <option value="${item.cateId}" <c:if test="${category == item.cateId}">selected="true"</c:if>>
+                              ${item.name}
+                            </option>
+                          </c:forEach>
+                        </select>                       
+                      </div>
+                    </form>
                   </div>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                      <th>
-                        No.
-                      </th>
-                      <th>
-                        Name
-                      </th>
-                      <th>
-                        Category
-                      </th>                                 
-                      <th>
-                        Quantity
-                      </th>
-                       <th>
-                        Price
-                      </th>
-                      <th>
-                        Unit
-                      </th>
-                      <th>
-                        Feature
-                      </th>                   
-                      <th>
-                        Created by
-                      </th>
-                      <th>
-                        Action
-                      </th>
-                      </thead>
-                      <tbody>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                      No.
+                    </th>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Category
+                    </th>                                 
+                    <th>
+                      Quantity
+                    </th>
+                    <th>
+                      Price
+                    </th>
+                    <th>
+                      Unit
+                    </th>          
+                    <th>
+                      Created by
+                    </th>
+                    <th>
+                      Action
+                    </th>
+                    </thead>
+                    <tbody>
                       <% int i = 1;%>
                       <c:forEach items="${Products}" var="prod">
                         <tr>
@@ -89,7 +93,7 @@
                             <% i++;
                             %>
                           </td>
-                          <td>
+                          <td title="<fmt:formatDate value="${prod.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />">
                             ${prod.name}
                           </td>
                           <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
@@ -99,14 +103,11 @@
                             ${prod.quantity}
                           </td>
                           <td>
-                            ${prod.price}
+                            $${prod.price}
                           </td>
                           <td>
                             ${prod.unitId.name}
-                          </td>
-                          <td>
-                            ${prod.isNew}
-                          </td>                       
+                          </td>                                            
                           <td>
                             ${prod.accId.username}
                           </td>
@@ -117,6 +118,7 @@
                               <a href="#" type="submit" style="color: #333" title="Delete" id="deleteProd" onclick="deleteProd()"><i class="material-icons">delete</i></a>
                             </form>
                           </td>
+                        </tr>
                       <script>
                         function deleteProd() {
                           swal({
@@ -134,9 +136,7 @@
                             }
                           });
                         }
-
                       </script>
-                      </tr>
                     </c:forEach>
                     </tbody>
                   </table>
@@ -203,17 +203,17 @@
             <label for="Name" class="bmd-label-floating">Name</label>
             <input type="text" class="form-control" id="Name" name="name" required="true" maxlength="200">
           </div>
-          <div class="form-group">
-            <label for="Description" class="bmd-label-floating">Description</label>
-            <input type="text" class="form-control" id="Description" name="description" required="true" maxlength="200">
-          </div>
+           <div class="form-group">
+            <label for="Price" class="bmd-label-floating">Price</label>
+            <input type="number" class="form-control" id="Price" name="price" required="true" min="0" max="99999">
+          </div>          
           <div class="form-group">
             <label for="Quantiy" class="bmd-label-floating">Quantiy</label>
             <input type="number" class="form-control" id="Quantiy" name="quantity" required="true" min="0" max="99999">
           </div>
-          <div class="form-group">
-            <label for="Price" class="bmd-label-floating">Price</label>
-            <input type="number" class="form-control" id="Price" name="price" required="true" min="0" max="99999">
+         <div class="form-group">
+            <label for="Description" class="bmd-label-floating">Description</label>
+            <textarea row="5" type="text" class="form-control" id="Description" name="description" required="true" maxlength="2147483647"></textarea>
           </div>
           <div class="form-group">
             <label for="Unit" class="bmd-label-floating">Unit</label>
@@ -223,16 +223,9 @@
               </c:forEach>
             </select>            
           </div>
-          <div class="form-group">
-            <label for="Description" class="bmd-label-floating">Is New</label><br>
-            <input type="radio" id="yes" name="isNew" value="true" checked="checked">
-            <label for="yes">Yes</label>
-            <input type="radio" id="no" name="isNew" value="false">
-            <label for="no">No</label><br>
-          </div>
           <div class="form-group" style="text-align: center">
             <label for="Image" class="bmd-label-floating" style="float: left;">Choose Image</label>
-            <img src="#" id="imageChange" height="200" style="max-width: 500px"/>
+            <img src="" id="imageChange" height="200" style="max-width: 500px"/>
             <input type="file" class="form-control" id="fileupload" name="file" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" />
           </div>
           <br/>

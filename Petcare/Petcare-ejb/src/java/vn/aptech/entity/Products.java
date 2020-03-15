@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,9 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
   @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
   , @NamedQuery(name = "Products.findByProdId", query = "SELECT p FROM Products p WHERE p.prodId = :prodId")
   , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
-  , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
   , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
   , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
+  , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")
   , @NamedQuery(name = "Products.findByIsNew", query = "SELECT p FROM Products p WHERE p.isNew = :isNew")
   , @NamedQuery(name = "Products.findByDateUpdated", query = "SELECT p FROM Products p WHERE p.dateUpdated = :dateUpdated")
   , @NamedQuery(name = "Products.findByDateCreated", query = "SELECT p FROM Products p WHERE p.dateCreated = :dateCreated")})
@@ -54,7 +55,8 @@ public class Products implements Serializable {
   @Size(min = 1, max = 200)
   @Column(name = "Name")
   private String name;
-  @Size(max = 200)
+  @Lob
+  @Size(max = 2147483647)
   @Column(name = "Description")
   private String description;
   @Size(max = 200)
@@ -75,7 +77,6 @@ public class Products implements Serializable {
   @Column(name = "DateUpdated")
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateUpdated;
-  @Basic(optional = false)
   @Column(name = "DateCreated")
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateCreated;
@@ -96,12 +97,12 @@ public class Products implements Serializable {
     this.prodId = prodId;
   }
 
-  public Products(Integer prodId, String name, int quantity, boolean isNew, Date dateCreated) {
+  public Products(Integer prodId, String name, int quantity, int price, boolean isNew) {
     this.prodId = prodId;
     this.name = name;
     this.quantity = quantity;
+    this.price = price;
     this.isNew = isNew;
-    this.dateCreated = dateCreated;
   }
 
   public Integer getProdId() {
@@ -224,5 +225,5 @@ public class Products implements Serializable {
   public String toString() {
     return "vn.aptech.entity.Products[ prodId=" + prodId + " ]";
   }
-
+  
 }

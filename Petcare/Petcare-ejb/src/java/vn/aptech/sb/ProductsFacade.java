@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import vn.aptech.entity.Categories;
 import vn.aptech.entity.Products;
 
 /**
@@ -43,7 +44,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
   @Override
   public List<Products> getProductPagination(int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Products e", Products.class).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Products e order by e.cateId.name asc", Products.class).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;
@@ -53,7 +54,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
   @Override
   public List<Products> findByName(String txtSearch) {
     try {
-      return em.createQuery("select e from Products e where e.name like :txtSearch", Products.class).setParameter("txtSearch", "%" + txtSearch+ "%").getResultList();
+      return em.createQuery("select e from Products e where e.name like :txtSearch order by e.cateId.name asc", Products.class).setParameter("txtSearch", "%" + txtSearch+ "%").getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;
@@ -63,7 +64,17 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
   @Override
   public List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage) {
     try {
-      return em.createQuery("select e from Products e where e.name like :txtSearch", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+      return em.createQuery("select e from Products e where e.name like :txtSearch order by e.cateId.name asc", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+    } catch (Exception ex) {
+      System.out.println(ex);
+      return null;
+    }
+  }
+  
+  @Override
+  public List<Products> searchCateWithPagination(Categories category, int currentPage, int recordsPerPage) {
+    try {
+      return em.createQuery("select e from Products e where e.cateId = :txtSearch order by e.cateId.name asc", Products.class).setParameter("txtSearch", category).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;

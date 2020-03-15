@@ -5,6 +5,7 @@
  */
 package vn.aptech.sb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,5 +38,17 @@ public class AccountsFacade extends AbstractFacade<Accounts> implements Accounts
             return null;
         }
     }
+    
+    
+    
+    @Override
+  public List<Accounts> filterEmployee() {
+    try {
+      return em.createQuery("select a from Accounts a where a.role = 0",Accounts.class).getResultList();
+    } catch (Exception e) {
+      System.out.println(e);
+      return null;
+    }
+  }
 
 }

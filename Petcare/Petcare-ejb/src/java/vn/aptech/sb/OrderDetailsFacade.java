@@ -41,4 +41,14 @@ public class OrderDetailsFacade extends AbstractFacade<OrderDetails> implements 
       }
     }
     
+    @Override
+    public List<OrderDetails> joinTable(int id){
+      try {
+        return em.createQuery("select a from OrderDetails a INNER JOIN a.orderId o where o.orderId = :id", OrderDetails.class).setParameter("id", id).getResultList();
+      } catch (Exception e) {
+        System.out.println("Error when get list Oreder: " +e);
+        return null;
+      }
+    }
+    
 }

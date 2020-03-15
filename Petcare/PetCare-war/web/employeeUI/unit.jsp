@@ -57,10 +57,10 @@
                             ${unit.description}
                           </td>                       
                           <td>
-                            ${unit.dateUpdated}
+                            <fmt:formatDate value="${ord.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
-                            ${unit.dateCreated}
+                            <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
                             <a href="#" data-toggle="modal" data-target="#editUnit${unit.unitId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>

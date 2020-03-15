@@ -87,10 +87,11 @@ public class EmployeeController extends HttpServlet {
       Categories cate;
       Products prod;
       Orders ord;
-
-      int nOfPages = 0;
-      int pageSize = 10;
-      int currentPage = 1;
+      List<OrderDetails> ordl;
+      int subtotal;
+      int nOfPages;
+      int pageSize;
+      int currentPage;
 
       String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
       String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
@@ -102,7 +103,7 @@ public class EmployeeController extends HttpServlet {
       } else {
         if (action == null) {
           int role = curAcc.getRole();
-          if (curAcc.getIsInactive()) {
+          if (!curAcc.getIsActive()) {
             request.setAttribute("Error", "Your account was banned. Please contact Administrator");
             request.getRequestDispatcher("UserController").forward(request, response);
           } else {
@@ -123,6 +124,7 @@ public class EmployeeController extends HttpServlet {
         } else {
           switch (action) {
             case "order":
+//              orderDetailsFacade.joinTable(2);
               if (request.getAttribute("countProd") == null) {
                 request.setAttribute("countProd", ordersFacade.count());
               }
@@ -147,7 +149,8 @@ public class EmployeeController extends HttpServlet {
               if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
                 List<Orders> ordList = ordersFacade.searchWithPagination(Integer.parseInt(request.getParameter("txtSearch")), currentPage, pageSize);
                 request.setAttribute("Orders", ordList);
-                if (ordList.size() == 0) {
+//                request.setAttribute("OrderDetail", orderDetailsFacade.getListOrder(ord));
+                if (ordList.isEmpty()) {
                   request.setAttribute("Error", "Not found any order with this ID");
                 }
                 request.setAttribute("txtSearch", request.getParameter("txtSearch"));
@@ -159,27 +162,30 @@ public class EmployeeController extends HttpServlet {
               request.setAttribute("order", "active");
               request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
               break;
-            case "updateVerify":
+            case "orderDetail":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
-              boolean isVerified = Boolean.parseBoolean(request.getParameter("isVerify"));
-              ord.setIsVerified(isVerified);
-              try {
-                ordersFacade.edit(ord);
-              } catch (Exception e) {
-                request.setAttribute("Error", "Change Verify status failed.");
-                System.out.println("Error Update Verify status: " + e);
+              request.setAttribute("Orders", ord);
+              ordl = orderDetailsFacade.getListOrder(ord);
+              request.setAttribute("OrderDetail", ordl);
+              subtotal = 0;
+              for (int i = 0; i < ordl.size(); i++) {
+                subtotal += ordl.get(i).getTotal();
               }
-              request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
+              request.setAttribute("SubTotal", subtotal);
+              request.setAttribute("title", "Order Detail");
+              request.setAttribute("order", "active");
+              request.getRequestDispatcher("employeeUI/orderDetail.jsp").forward(request, response);
+
               break;
-            case "updateDelivery":
+            case "updateStatus":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
-              boolean isDeli = Boolean.parseBoolean(request.getParameter("isDeliveried"));
-              ord.setIsDeliveried(isDeli);
+              ord.setStatus(request.getParameter("status"));
+              ord.setDateUpdated(new Date());
               try {
                 ordersFacade.edit(ord);
               } catch (Exception e) {
-                request.setAttribute("Error", "Change Delivery status failed.");
-                System.out.println("Error Update Delivery status: " + e);
+                request.setAttribute("Error", "Change status failed.");
+                System.out.println("Error Update status: " + e);
               }
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
               break;
@@ -187,8 +193,8 @@ public class EmployeeController extends HttpServlet {
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               request.setAttribute("Order", ord);
 
-              List<OrderDetails> ordl = orderDetailsFacade.getListOrder(ord);
-              int subtotal = 0;
+              ordl = orderDetailsFacade.getListOrder(ord);
+              subtotal = 0;
               for (int i = 0; i < ordl.size(); i++) {
                 subtotal += ordl.get(i).getTotal();
               }
@@ -250,11 +256,11 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("currentPage", currentPage);
 
-              pageSize = 10;
-              if (request.getParameter("pageSize") != null) {
-                pageSize = Integer.parseInt(request.getParameter("pageSize"));
-              }
-              request.setAttribute("pageSize", pageSize);
+              pageSize = 100;
+//              if (request.getParameter("pageSize") != null && !request.getParameter("pageSize").equals("")) {
+//                pageSize = Integer.parseInt(request.getParameter("pageSize"));
+//              }
+//              request.setAttribute("pageSize", pageSize);
 
               nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
@@ -262,9 +268,15 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("noOfPages", nOfPages);
 
-              if (request.getParameter("txtSearch") != null) {
-                request.setAttribute("Products", productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
-                request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+              if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
+                List<Products> prodList = productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize);
+                if (prodList.isEmpty()) {
+                  request.setAttribute("Error", "Not found any result.");
+                } else {
+                  request.setAttribute("Products", prodList);
+                }                
+              } else if (request.getParameter("category") != null && !request.getParameter("category").equals("")) {
+                request.setAttribute("Products", productsFacade.searchCateWithPagination(categoriesFacade.find(Integer.parseInt(request.getParameter("category"))), currentPage, pageSize));
               } else {
                 request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
               }
@@ -289,6 +301,7 @@ public class EmployeeController extends HttpServlet {
               prod.setDescription(request.getParameter("description"));
               prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
               prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+              prod.setPrice(Integer.parseInt(request.getParameter("price")));
               ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
               prod.setUnitId(prodUnit);
               prod.setDateCreated(new Date());
@@ -348,13 +361,12 @@ public class EmployeeController extends HttpServlet {
               if (request.getParameter("prodId") == null || request.getParameter("cateId") == null) {
                 request.setAttribute("Error", "Product Id or Category Id was null");
               } else {
-                prod = new Products();
-                prod.setProdId(Integer.parseInt(request.getParameter("prodId")));
+                prod = productsFacade.find(Integer.parseInt(request.getParameter("prodId")));
                 prod.setName(request.getParameter("name"));
                 prod.setCateId(categoriesFacade.find(Integer.parseInt(request.getParameter("cateId"))));
                 prod.setDescription(request.getParameter("description"));
                 prod.setImageName(request.getParameter("imageName"));
-
+                
                 InputStream isEdit;
                 FileOutputStream fosEdit;
 
@@ -460,7 +472,7 @@ public class EmployeeController extends HttpServlet {
 
               request.setAttribute("title", "Account");
               request.setAttribute("account", "active");
-              request.setAttribute("accounts", accountsFacade.findAll());
+              request.setAttribute("accounts", accountsFacade.filterEmployee());
               request.getRequestDispatcher("employeeUI/account.jsp").forward(request, response);
 
               break;
@@ -471,11 +483,14 @@ public class EmployeeController extends HttpServlet {
               boolean value = Boolean.parseBoolean(request.getParameter("value"));
 
               Accounts acc = accountsFacade.find(accId);
-              acc.setIsInactive(value);
+              acc.setIsActive(value);
+              if (!value) {
+                session.removeAttribute("curAcc");
+              }
 
               accountsFacade.edit(acc);
 
-              response.getWriter().print(value ? "InActive" : "Active");
+              response.getWriter().print(value ? "Active" : "InActive");
 
               break;
             case "petguide":

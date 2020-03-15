@@ -3,39 +3,39 @@
     Created on : Dec 13, 2019, 10:12:35 AM
     Author     : Dell
 --%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@page import="vn.aptech.entity.Accounts"%>
-            <style>
-                    .container {
-                    background-color: #fff;
-                    min-height: 100%;
-                }
-                
-                a:hover,
-                a:focus {
-                    color: #fff !important;
-                    text-decoration: none;
-                }
-                
-                .dropdown-item.active,
-                .dropdown-item:active {
-                    color: #ffffff;
-                    text-decoration: none;
-                    background-color: #ff9800;
-            </style>
-            <div id="header" class="topnav">
-                <div class="topbar-content">
-                    <div class="float-left">
-                        <span><span class="icon icon-phone-call"></span> Call us <span class="number" style="color: #000000">+123 45 67 89</span></span>
-                    </div>
-                    <div class="float-right">
-                        <div class="user-option">
-                            <i class="far fa-user"></i>
-                            <% if (session.getAttribute("curAcc") == null) { %>
-                                <a href="login.jsp" style="color: #000000">Login</a> / <a href="register.jsp" style="color: #000000">Signup</a>
-                                <%} else {
-          Accounts curAcc = (Accounts) session.getAttribute("curAcc"); %>
-                                    <a href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: none">Hi <i>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="vn.aptech.entity.Accounts"%>
+<style>
+  .container {
+    background-color: #fff;
+    min-height: 100%;
+  }
+
+  a:hover,
+  a:focus {
+    color: #fff !important;
+    text-decoration: none;
+  }
+
+  .dropdown-item.active,
+  .dropdown-item:active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #ff9800;
+  </style>
+  <div id="header" class="topnav">
+    <div class="topbar-content">
+      <div class="float-left">
+        <span><span class="icon icon-phone-call"></span> Call us <span class="number" style="color: #000000">+123 45 67 89</span></span>
+        </div>
+        <div class="float-right">
+          <div class="user-option">
+            <i class="far fa-user"></i>
+            <% if (session.getAttribute("curAcc") == null) { %>
+            <a href="login.jsp" style="color: #000000">Login</a> / <a href="register.jsp" style="color: #000000">Signup</a>
+            <%} else {
+                                  Accounts curAcc = (Accounts) session.getAttribute("curAcc"); %>
+            <a href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: none">Hi <i>
                 <c:if test="${curAcc.fullname != null}" >${curAcc.fullname}</c:if>
                 <c:if test="${curAcc.fullname == null}" >${curAcc.username}</c:if>
                 </i>
@@ -72,17 +72,17 @@
                 0
               </c:if>
             </span>
-                    </a>
-                </li>
-            </ul>
-            </div>
-            <!--<script>
-      function myFunction() {
-        var x = document.getElementById("header");
-        if (x.className === "topnav") {
-          x.className += " responsive";
-        } else {
-          x.className = "topnav";
-        }
-      }
-    </script>-->
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--<script>
+function myFunction() {
+var x = document.getElementById("header");
+if (x.className === "topnav") {
+  x.className += " responsive";
+} else {
+  x.className = "topnav";
+}
+}
+</script>-->

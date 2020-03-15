@@ -6,6 +6,14 @@
 
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
+<style>
+  .prod-name {
+      width: 10em; /* the element needs a fixed width (in px, em, %, etc) */
+      overflow: hidden; /* make sure it hides the content that overflows */
+      white-space: nowrap; /* don't break the line */
+      text-overflow: ellipsis; /* give the beautiful '...' effect */
+  }
+</style>
 <div id="body">
   <div id="content">
     <%@include file="../templates-Client/formSearch.jsp" %>
@@ -20,20 +28,31 @@
                     <div class="product">
                       <form method="POST" action="CartController?action=addToCart">
                         <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="maxQuantity" value="${prod.quantity}">
                         <input type="hidden" name="unit" value="${prod.unitId.name}">
                         <input type="hidden" name="price" value="${prod.price}">
+                        <input type="hidden" name="prodId" value="${prod.prodId}">
                         <input type="hidden" name="imageName" value="${prod.imageName}">
                         <input type="hidden" name="name" value="${prod.name}">                   
-                        <a href="#">
+                        <a href="UserController?action=productDetail&prodId=${prod.prodId}" title="${prod.name}">
                           <span class="product-image">
                             <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
                           </span>
-                          <span class="product-title">${prod.name}</span>
+                          <span class="product-title prod-name">${prod.name}</span>
                           <span class="price">$${prod.price}</span>
                         </a>
                         <div class="product-icon">
                           <ul class="global-list">
-                            <li><button type="submit"><i class="material-icons">add_shopping_cart</i></button></li>
+                            <c:if test="${prod.quantity > 0}">                                
+                              <li>
+                                <button type="submit"><i class="material-icons">add_shopping_cart</i></button>
+                              </li>
+                            </c:if>
+                            <c:if test="${prod.quantity <= 0}">                                
+                              <li style="margin-left: 18px;color: red;">
+                                <button><h4>Out of stock</h4></button>
+                              </li>
+                            </c:if>
                           </ul>
                         </div>
                       </form>
@@ -77,12 +96,7 @@
                 <div class="widget widget_categories">
                   <h3 class="widget_title">Categories</h3>
                   <ul>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">All Post</a>(2)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Vegetables</a>(3)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Fruits</a>(7)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Dried</a>(1)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Vegetables</a> (9)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Dried Fruit </a>(10)</li>
+                    <%@include file="../templates-Client/categories.jsp" %>           
                   </ul>
                 </div><!-- /.widget -->              
               </div><!-- /.widget-area -->    
@@ -91,7 +105,6 @@
         </div><!-- /.row -->
       </div><!-- /.container -->
     </div><!-- /.main-content -->
-
   </div>
 </div>
 

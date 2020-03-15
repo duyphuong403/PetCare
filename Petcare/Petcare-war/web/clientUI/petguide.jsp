@@ -41,4 +41,4 @@
   </div>
   
 
-    <%@include file="../templates-Client/footer.jsp" %>
+<%@include file="../templates-Client/footer.jsp" %>

@@ -4,16 +4,16 @@
     Author     : Dell
 --%>
 
-<%@include file="../templates-Employee/header.jsp" %>
+<%@include file="../templates-Admin/header.jsp" %>
 <style>
   .page-link:hover{
     color: #000000;
   }
 </style>
 <div class="wrapper ">
-  <%@include file="../templates-Employee/sidebar.jsp" %>    
+  <%@include file="../templates-Admin/sidebar.jsp" %>    
   <div class="main-panel">
-    <%@include file="../templates-Employee/status-bar.jsp" %>
+    <%@include file="../templates-Admin/status-bar.jsp" %>
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -25,7 +25,7 @@
                     <h4 class="card-title "><b>Orders</b></h4>                
                   </div>
                   <div class="col-md-4">
-                    <form class="navbar-form " action="EmployeeController?action=order" method="post" style="padding-top: 2%;">
+                    <form class="navbar-form " action="AdminController?action=order" method="post" style="padding-top: 2%;">
                       <div class="input-group no-border">
                         <label class="bmd-label-floating" style="color:#fff">Search Order ID</label>
                         <input type="text" value="${txtSearch}" class="form-control search" name="txtSearch">
@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-md-4 form-group">
                     <label class="bmd-label-floating" style="color: #fff">Number of Product per page</label>
-                    <form action="EmployeeController?action=order" method="post" id="changePageSize">
+                    <form action="AdminController?action=order" method="post" id="changePageSize">
                       <select name="pageSize" id="pageSize" class="browser-default custom-select" onchange="this.form.submit()">
                         <option value="10" <c:if test="${pageSize == 10}"> selected="true" </c:if >>10</option>
                         <option value="50" <c:if test="${pageSize == 50}"> selected="true" </c:if>>50</option>
@@ -60,10 +60,10 @@
                       </th>
                       <th>
                         Customer
-                      </th>
+                      </th>                                                  
                       <th>
                         Status
-                      </th>                                 
+                      </th>
                       <th>
                         Date Updated
                       </th>
@@ -71,7 +71,7 @@
                         Date Created
                       </th>                
                       <th>
-                        Action
+
                       </th>
                       </thead>
                       <tbody>
@@ -87,24 +87,15 @@
                             ${ord.orderId}
                           </td>
                           <td>
-                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="See more detail">${ord.accId.fullname}</a>
-                          </td>                          
+                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="Click to see"><b>${ord.accId.fullname}</b></a>
+                          </td>
                           <td>
-                            <form action="EmployeeController?action=updateStatus" method="post" id="updateVerify">
+                            <form action="AdminController?action=updateStatus" method="post" id="updateVerify">
                               <input type="hidden" value="${ord.orderId}" name="orderId"/>
                               <select name="status" class="browser-default custom-select" onchange="this.form.submit()">
-                                <c:if test="${ord.status == 'Not Verify'}">
-                                  <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
-                                  <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
-                                  <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
-                                </c:if>
-                                <c:if test="${ord.status == 'Verified'}">
-                                  <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
-                                  <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
-                                </c:if>
-                                <c:if test="${ord.status == 'Deliveried'}">
-                                  <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
-                                </c:if>
+                                <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
+                                <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
+                                <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
                               </select>
                             </form>
                           </td>
@@ -115,13 +106,10 @@
                             <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
-                             <a href="EmployeeController?action=orderDetail&orderId=${ord.orderId}" tilte="More Detail" style="color:#000000;font-size: 40px;"><i class="material-icons">more_horiz</i></a>
-                            <c:if test="${ord.status != 'Not Verify'}" >
-                              <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
-                            </c:if>
+                            <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
                           </td>
                         </tr>
-                        <!-- Modal Show Details -->
+                        <!-- Modal Edit Category -->
                       <div class="modal fade" id="viewUserInfo${ord.orderId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
                            aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -155,6 +143,7 @@
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -164,7 +153,6 @@
                 </div>
               </div>
             </div>
-
             <div>
               <nav aria-label="Page navigation example">
                 <ul class="pagination pg-blue justify-content-center">
@@ -202,4 +190,4 @@
   </div>
 </div>
 
-<%@include file="../templates-Employee/footer.jsp" %>
+<%@include file="../templates-Admin/footer.jsp" %>

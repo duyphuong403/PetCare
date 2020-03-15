@@ -48,6 +48,7 @@ public class AccountController extends HttpServlet {
                 request.getRequestDispatcher("AccountController?action=viewEditAccount").forward(request, response);
             } else {
                 switch (action) {
+
                     case "viewEditAccount":
 
                         request.setAttribute("title", "Edit Account");
@@ -60,7 +61,7 @@ public class AccountController extends HttpServlet {
                         }
                         if (request.getParameter("re-password").compareTo(request.getParameter("password")) != 0) {
                             request.setAttribute("Error", "Retype password doesn't match!");
-                            request.getRequestDispatcher("register.jsp").forward(request, response);
+                            request.getRequestDispatcher("profile.jsp").forward(request, response);
                         } else {
                             Accounts acc = accountsFacade.find(Integer.parseInt(request.getParameter("accountId")));
 //                            acc.setAccId(Integer.parseInt(request.getParameter("accountId")));
@@ -85,6 +86,16 @@ public class AccountController extends HttpServlet {
                             }
                         }
                         request.getRequestDispatcher("UserController").forward(request, response);
+//                    case "deleteAccount":
+//                       int accId = Integer.parseInt(request.getParameter("accId")) ;
+//                        try {
+//                            accountsFacade.remove(accountsFacade.find(accId));
+//                            request.setAttribute("Success", "Account has been remove!");
+//                        } catch (Exception e) {
+//                            request.setAttribute("Error", "Delete Account Failed");
+//                        }
+//                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+//                        break;
                 }
             }
         }

@@ -33,4 +33,6 @@ public interface OrderDetailsFacadeLocal {
     
     List<OrderDetails> getListOrder(Orders id);
     
+    List<OrderDetails> joinTable(int id);
+    
 }
