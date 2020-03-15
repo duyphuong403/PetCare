@@ -95,7 +95,7 @@
                               </div>
                             </td>
                             <td>
-                              ${acc.dateCreated}
+                              <fmt:formatDate value="${acc.dateCreated}" pattern="MM-dd-yyyy" />
                             </td>
                             <td>
                               ${acc.reasonBanned}
@@ -167,7 +167,7 @@
               </div>
               <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone number</label>
-                <input type="number" class="form-control" id="Phone" name="phone" value=r equired="true" minlength="9" maxlength="10">
+                <input type="number" class="form-control" id="Phone" name="phone" value=r equired="true" pattern="0[0-9]{9}">
 
               </div>
 

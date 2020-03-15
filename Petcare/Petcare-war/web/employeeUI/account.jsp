@@ -16,7 +16,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title "><b>Accounts</b></h4>
+                <h4 class="card-title "><b>Customer Accounts</b></h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -72,7 +72,9 @@
                             ${acc.address}
                           </td>
                           <td>
-                            ${acc.role}
+                            <c:if test="${acc.role == 0}">User</c:if>
+                              <c:if test="${acc.role == 1}">Employee</c:if>
+                              <c:if test="${acc.role == 2}">Administrator</c:if>
                           </td>
                           <td>
                             <div class="custom-control custom-switch">
@@ -81,7 +83,7 @@
                             </div>
                           </td>
                           <td>
-                            <fmt:formatDate value="${acc.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
+                            <fmt:formatDate value="${acc.dateCreated}" pattern="MM-dd-yyyy" />
                           </td>                         
                         </tr>
                       </c:forEach>

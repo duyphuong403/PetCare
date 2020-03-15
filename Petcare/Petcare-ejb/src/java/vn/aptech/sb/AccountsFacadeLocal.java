@@ -30,6 +30,10 @@ public interface AccountsFacadeLocal {
 
     int count();
     
-    Accounts checkLogin(String user, String pwd);
+    Accounts checkLogin(String user, String pwd); 
+
+  
+
+    List<Accounts> filterEmployee();
     
 }
