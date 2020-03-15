@@ -67,28 +67,7 @@
             </div>
         </div>
 
-<!--        <script>
-            if (document.getElementById('phone').value != ""){
-            var y = document.getElementById('phone').value;
-            if (isNaN(y) || y.indexOf(" ") != - 1)
-            {
-            alert("Invalid Phone number");
-            document.getElementById('mobile_number').focus();
-            return false;
-            }
-            if (y.length > 10 || y.length < 10)
-            {
-            alert("Phone number should be 10 digit");
-            document.getElementById('phone').focus();
-            return false;
-            }
-            if (!(y.charAt(0) == "9" || y.charAt(0) == "8" || y.charAt(0) == "7"))
-            {
-            alert("Phone number should start with 9 ,8 or 7 ");
-            document.getElementById('phone').focus();
-            return false
-            }
-        </script>-->
+
 
         <% if (request.getAttribute("Error") != null) { %>
         <script>
