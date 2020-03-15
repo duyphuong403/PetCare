@@ -466,7 +466,7 @@ public class EmployeeController extends HttpServlet {
 
               request.setAttribute("title", "Account");
               request.setAttribute("account", "active");
-              request.setAttribute("accounts", accountsFacade.findAll());
+              request.setAttribute("accounts", accountsFacade.filterEmployee(Short.parseShort("role")));
               request.getRequestDispatcher("employeeUI/account.jsp").forward(request, response);
 
               break;
