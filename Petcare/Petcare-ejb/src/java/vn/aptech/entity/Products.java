@@ -6,27 +6,24 @@
 package vn.aptech.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,7 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
   , @NamedQuery(name = "Products.findByProdId", query = "SELECT p FROM Products p WHERE p.prodId = :prodId")
   , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
-  , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
   , @NamedQuery(name = "Products.findByImageName", query = "SELECT p FROM Products p WHERE p.imageName = :imageName")
   , @NamedQuery(name = "Products.findByQuantity", query = "SELECT p FROM Products p WHERE p.quantity = :quantity")
   , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")
@@ -59,7 +55,8 @@ public class Products implements Serializable {
   @Size(min = 1, max = 200)
   @Column(name = "Name")
   private String name;
-  @Size(max = 200)
+  @Lob
+  @Size(max = 2147483647)
   @Column(name = "Description")
   private String description;
   @Size(max = 200)
@@ -92,8 +89,6 @@ public class Products implements Serializable {
   @JoinColumn(name = "UnitId", referencedColumnName = "UnitId")
   @ManyToOne(optional = false)
   private ProductUnits unitId;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
-  private Collection<OrderDetails> orderDetailsCollection;
 
   public Products() {
   }
@@ -204,15 +199,6 @@ public class Products implements Serializable {
 
   public void setUnitId(ProductUnits unitId) {
     this.unitId = unitId;
-  }
-
-  @XmlTransient
-  public Collection<OrderDetails> getOrderDetailsCollection() {
-    return orderDetailsCollection;
-  }
-
-  public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
-    this.orderDetailsCollection = orderDetailsCollection;
   }
 
   @Override

@@ -99,7 +99,7 @@ public class UserController extends HttpServlet {
           }
           request.setAttribute("currentPage", currentPage);
 
-          int pageSize = 12;
+          int pageSize = 9;
           if (request.getParameter("pageSize") != null) {
             pageSize = Integer.parseInt(request.getParameter("pageSize"));
           }
@@ -113,7 +113,7 @@ public class UserController extends HttpServlet {
 
           if (request.getParameter("txtSearch") != null) {
             List<Products> prodList = productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize);
-            if (prodList.size() == 0) {
+            if (prodList.isEmpty()) {
               request.setAttribute("Error", "Not found any result.");
             } else {
               request.setAttribute("Products", prodList);

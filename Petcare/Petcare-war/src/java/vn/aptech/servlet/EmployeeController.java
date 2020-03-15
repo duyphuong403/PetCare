@@ -256,11 +256,11 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("currentPage", currentPage);
 
-              pageSize = 10;
-              if (request.getParameter("pageSize") != null) {
-                pageSize = Integer.parseInt(request.getParameter("pageSize"));
-              }
-              request.setAttribute("pageSize", pageSize);
+              pageSize = 100;
+//              if (request.getParameter("pageSize") != null && !request.getParameter("pageSize").equals("")) {
+//                pageSize = Integer.parseInt(request.getParameter("pageSize"));
+//              }
+//              request.setAttribute("pageSize", pageSize);
 
               nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
@@ -268,9 +268,15 @@ public class EmployeeController extends HttpServlet {
               }
               request.setAttribute("noOfPages", nOfPages);
 
-              if (request.getParameter("txtSearch") != null) {
-                request.setAttribute("Products", productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize));
-                request.setAttribute("txtSearch", request.getParameter("txtSearch"));
+              if (request.getParameter("txtSearch") != null && !request.getParameter("txtSearch").equals("")) {
+                List<Products> prodList = productsFacade.searchWithPagination(request.getParameter("txtSearch"), currentPage, pageSize);
+                if (prodList.isEmpty()) {
+                  request.setAttribute("Error", "Not found any result.");
+                } else {
+                  request.setAttribute("Products", prodList);
+                }                
+              } else if (request.getParameter("category") != null && !request.getParameter("category").equals("")) {
+                request.setAttribute("Products", productsFacade.searchCateWithPagination(categoriesFacade.find(Integer.parseInt(request.getParameter("category"))), currentPage, pageSize));
               } else {
                 request.setAttribute("Products", productsFacade.getProductPagination(currentPage, pageSize));
               }
@@ -295,6 +301,7 @@ public class EmployeeController extends HttpServlet {
               prod.setDescription(request.getParameter("description"));
               prod.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
               prod.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+              prod.setPrice(Integer.parseInt(request.getParameter("price")));
               ProductUnits prodUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
               prod.setUnitId(prodUnit);
               prod.setDateCreated(new Date());
@@ -354,13 +361,12 @@ public class EmployeeController extends HttpServlet {
               if (request.getParameter("prodId") == null || request.getParameter("cateId") == null) {
                 request.setAttribute("Error", "Product Id or Category Id was null");
               } else {
-                prod = new Products();
-                prod.setProdId(Integer.parseInt(request.getParameter("prodId")));
+                prod = productsFacade.find(Integer.parseInt(request.getParameter("prodId")));
                 prod.setName(request.getParameter("name"));
                 prod.setCateId(categoriesFacade.find(Integer.parseInt(request.getParameter("cateId"))));
                 prod.setDescription(request.getParameter("description"));
                 prod.setImageName(request.getParameter("imageName"));
-
+                
                 InputStream isEdit;
                 FileOutputStream fosEdit;
 

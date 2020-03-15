@@ -53,9 +53,8 @@
                   <div class="col-lg-6">
                     <div class="product-details-info">
                       <span class="product-title"><strong>${prod.name}</strong></span>
-                      <span class="price">$${prod.price}</span>
+                      <span class="price" style="font-size: 20px;">$ ${prod.price}</span>
 
-                      <h5>${prod.description}</h5>
                       <c:if test="${prod.quantity != 0}">
                         <form method="POST" action="CartController?action=addToCart">
                           <input type="hidden" name="maxQuantity" value="${prod.quantity}">
@@ -65,7 +64,7 @@
                           <input type="hidden" name="imageName" value="${prod.imageName}">
                           <input type="hidden" name="name" value="${prod.name}">                   
                           <div class="quantity-price" style="padding-top: 20px;">
-                            <span>Quality</span>
+                            <span>Quantity</span>
                             <div class="quantity" data-trigger="spinner">
                               <input type="number" class="form-control" name="quantity" title="quantity" value="1" style="text-align: center" min="1" max="${prod.quantity}" required="true">
                             </div>             
@@ -82,17 +81,23 @@
                     </div><!-- /.products-details-info -->
                   </div>
                 </div><!-- /.row -->
-              </div><!-- /.products-details -->                                                            
+              </div><!-- /.products-details -->
+              <div class="products-description section-bg-white">              
+                <h3><strong>Description</strong></h3>
+                <hr/>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade show active" id="details">
+                    <h5>${prod.description}</h5>
+                  </div><!-- /.tab-pane -->                   
+                </div><!-- /.tab-content -->                          
+              </div><!-- /.products-description -->  
             </div><!-- /.details-content -->                   
           </div>
           <div class="col-md-4 col-lg-3 pull-md-8 pull-lg-9">
             <div class="gb-sidebar">
               <div class="widget-area">           
-                <div class="widget widget_categories">
-                  <h3 class="widget_title">Categories</h3>
-                  <ul>
-                    <%@include file="../templates-Client/categories.jsp" %>
-                  </ul>
+                <div class="widget widget_categories">                
+                  <%@include file="../templates-Client/categories.jsp" %>
                 </div><!-- /.widget -->               
               </div><!-- /.widget-area -->    
             </div><!-- /.gb-sidebar -->                        
