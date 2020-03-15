@@ -54,3 +54,4 @@
            min-height: 600px;
         }
       </style>
+      <%@include file="../common-template/preload.jsp" %>

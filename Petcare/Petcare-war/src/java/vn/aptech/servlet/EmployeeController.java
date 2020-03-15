@@ -257,11 +257,6 @@ public class EmployeeController extends HttpServlet {
               request.setAttribute("currentPage", currentPage);
 
               pageSize = 100;
-//              if (request.getParameter("pageSize") != null && !request.getParameter("pageSize").equals("")) {
-//                pageSize = Integer.parseInt(request.getParameter("pageSize"));
-//              }
-//              request.setAttribute("pageSize", pageSize);
-
               nOfPages = productsFacade.count() / pageSize;
               if (productsFacade.count() % pageSize > 0) {
                 nOfPages++;
