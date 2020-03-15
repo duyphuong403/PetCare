@@ -302,6 +302,7 @@ public class AdminController extends HttpServlet {
           Orders ord;
           ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
           ord.setStatus(request.getParameter("status"));
+          ord.setDateUpdated(new Date());
           try {
             ordersFacade.edit(ord);
           } catch (Exception e) {

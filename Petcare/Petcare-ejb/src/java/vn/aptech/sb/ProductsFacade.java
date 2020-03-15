@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import vn.aptech.entity.Categories;
 import vn.aptech.entity.Products;
 
 /**
@@ -64,6 +65,16 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
   public List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage) {
     try {
       return em.createQuery("select e from Products e where e.name like :txtSearch", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
+    } catch (Exception ex) {
+      System.out.println(ex);
+      return null;
+    }
+  }
+  
+  @Override
+  public List<Products> searchCateWithPagination(Categories category, int currentPage, int recordsPerPage) {
+    try {
+      return em.createQuery("select e from Products e where e.cateId = :txtSearch", Products.class).setParameter("txtSearch", category).setFirstResult(currentPage * recordsPerPage - recordsPerPage).setMaxResults(recordsPerPage).getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;

@@ -53,7 +53,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="form-group">
                             <label class="bmd-label-floating">Category</label>
                             <select name="cateId" class="form-control" style="-webkit-appearance: listbox;" >
@@ -63,7 +63,7 @@
                             </select>                      
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="Unit" class="bmd-label-floating">Unit</label>
                             <select name="unitId" class="form-control" style="-webkit-appearance: listbox;" >
@@ -73,22 +73,13 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-md-4">
+
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
                           <div class="form-group">
-                            <p for="IsNew" class="bmd-label-floating">Is New</p>
-                            <input type="radio" class="" id="IsNew" name="isNew" required="true" value="true" <c:if test="${prod.isNew}"> checked="true"</c:if>>
-                              <label for="yes">Yes</label>
-                              <input type="radio" class="" id="IsNew" name="isNew" required="true" value="false" <c:if test="${!prod.isNew}"> checked="true"</c:if>>
-                              <label for="no">No</label>
-                            </div>
-                            <br/>
-                          </div>      
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">Date Updated</label>
-                              <input type="datetime" class="form-control" disabled value="<fmt:formatDate value="${prod.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />">
+                            <label class="bmd-label-floating">Date Updated</label>
+                            <input type="datetime" class="form-control" disabled value="<fmt:formatDate value="${prod.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />">
                           </div>
                         </div>
                         <div class="col-md-6">

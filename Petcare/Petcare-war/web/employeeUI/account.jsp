@@ -49,9 +49,6 @@
                     <th>
                       Date Created
                     </th>
-                    <th>
-                      Reason Banned
-                    </th>
                     </thead>
                     <tbody>
                       <c:forEach items="${accounts}" var="acc">
@@ -79,16 +76,13 @@
                           </td>
                           <td>
                             <div class="custom-control custom-switch">
-                              <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isInactive ? "checked" : ""} accId="${acc.accId}">
-                              <label class="custom-control-label" for="switch${acc.accId}">${acc.isInactive ? "InActive" : "Active"}</label>
+                              <input type="checkbox" class="custom-control-input cbx-active" id="switch${acc.accId}" ${acc.isActive ? "checked" : ""} accId="${acc.accId}">
+                              <label class="custom-control-label" for="switch${acc.accId}">${acc.isActive ? "Active" : "InActive"}</label>
                             </div>
                           </td>
                           <td>
                             <fmt:formatDate value="${acc.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
-                          </td>
-                          <td>
-                            ${acc.reasonBanned}
-                          </td>
+                          </td>                         
                         </tr>
                       </c:forEach>
                     </tbody>

@@ -7,23 +7,37 @@
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
 <style>
-.quantity {
+  .quantity {
     text-align: center;
     font-size: 14px;
     width: 130px;
     border: 1px solid #d9d9d9;
     border-radius: 30px;
     display: inline-block;
-}
-.quantity a {
+  }
+  .quantity a {
     color: #2b2b2b;
     padding: 0 10px;
     line-height: 0;
     border: 0;
     display: inline-block;
-}
+  }
+  .product-details-info {
+    padding: 40px 0;
+  }
+  .product-details-info .product-title {
+    font-size: 30px;
+    margin-bottom: 0;
+    line-height: 32px;
+  }
+  .form-control, .is-focused .form-control {
+    background-image: none;
+  }
+  .form-control:invalid {
+    background-image: none;
+  }
 </style>
-
+<c:set var="prod" value="${Products}" scope="request"/>
 <div id="body" style="padding-top: 100px;">
   <div id="content">
     <div class="main-content bg-color">
@@ -34,49 +48,37 @@
               <div class="product-details section-bg-white">
                 <div class="row">
                   <div class="col-lg-6">
-                    <div id="details-slider" class="details-slider carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                        <li data-target="#details-slider" data-slide-to="0" class="active"><img src="./shop_detail._files/list1.png" alt="Image" class="img-fluid"></li>
-                        <li data-target="#details-slider" data-slide-to="1" class=""><img src="./shop_detail._files/list2.png" alt="Image" class="img-fluid"></li>
-                        <li data-target="#details-slider" data-slide-to="2" class=""><img src="./shop_detail._files/list3.png" alt="Image" class="img-fluid"></li>
-                        <li data-target="#details-slider" data-slide-to="3"><img src="./shop_detail._files/list4.png" alt="Image" class="img-fluid"></li>
-                      </ol>
-                      <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item item active">
-                          <img class="img-fluid" src="./shop_detail._files/slider1.jpg" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="img-fluid" src="./shop_detail._files/slider1.jpg" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="img-fluid" src="./shop_detail._files/slider1.jpg" alt="Image">
-                        </div>
-                      </div>
-                    </div><!-- /#details-slider -->  
+                    <img src="ProductImages/${prod.imageName}" alt="${prod.imageName}" class="img-fluid" style="max-height: 350px;">
                   </div>
                   <div class="col-lg-6">
                     <div class="product-details-info">
-                      <span class="product-title">Organic <strong>Cabbage</strong></span>
-                      <span class="price"><del>$15.00</del>$12.00</span>
+                      <span class="product-title"><strong>${prod.name}</strong></span>
+                      <span class="price">$${prod.price}</span>
 
-                      <p>100% Organic Food from Farm Tomoko</p>
-                      <ul class="global-list">
-                        <li>Food from Farm Hong Quat Packging</li>
-                        <li>100% Organic Food</li>
-                        <li>100% Fresh Not Chemicals</li>
-                      </ul>
-                      <div class="quantity-price">
-                        <span>Quality</span>
-                        <div class="quantity" data-trigger="spinner">
-                          <a href="https://demo.themeregion.com/biotic/shop-details.html#" data-spin="down"><i class="fa fa-minus"></i></a>
-                          <input type="text" name="quantity" value="1" title="quantity" class="input-text">
-                          <a href="https://demo.themeregion.com/biotic/shop-details.html#" data-spin="up"><i class="fa fa-plus"></i></a>
-                        </div>                                              
-                      </div> 
-                      <div class="add-to-cart">
-                        <a class="btn btn-primary" href="https://demo.themeregion.com/biotic/shopping-cart.html">Add to Cart</a>
-                        <span><a href="https://demo.themeregion.com/biotic/shop-details.html#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></span>
-                      </div><!-- /.add-to-cart -->                
+                      <h5>${prod.description}</h5>
+                      <c:if test="${prod.quantity != 0}">
+                        <form method="POST" action="CartController?action=addToCart">
+                          <input type="hidden" name="maxQuantity" value="${prod.quantity}">
+                          <input type="hidden" name="unit" value="${prod.unitId.name}">
+                          <input type="hidden" name="price" value="${prod.price}">
+                          <input type="hidden" name="prodId" value="${prod.prodId}">
+                          <input type="hidden" name="imageName" value="${prod.imageName}">
+                          <input type="hidden" name="name" value="${prod.name}">                   
+                          <div class="quantity-price" style="padding-top: 20px;">
+                            <span>Quality</span>
+                            <div class="quantity" data-trigger="spinner">
+                              <input type="number" class="form-control" name="quantity" title="quantity" value="1" style="text-align: center" min="1" max="${prod.quantity}" required="true">
+                            </div>             
+                          </div> 
+
+                          <div class="add-to-cart" style="padding-top: 20px;">
+                            <button type="submit" class="btn btn-success" >Add to Cart</button>
+                          </div><!-- /.add-to-cart -->                
+                        </form>
+                      </c:if>
+                      <c:if test="${prod.quantity == 0}">
+                        <h4 style="color:red"><strong>Out of stock</strong></h4>
+                      </c:if>
                     </div><!-- /.products-details-info -->
                   </div>
                 </div><!-- /.row -->
@@ -89,12 +91,7 @@
                 <div class="widget widget_categories">
                   <h3 class="widget_title">Categories</h3>
                   <ul>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">All Post</a>(2)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">Vegetables</a>(3)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">Fruits</a>(7)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">Dried</a>(1)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">Vegetables</a> (9)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-details.html#">Dried Fruit </a>(10)</li>
+                    <%@include file="../templates-Client/categories.jsp" %>
                   </ul>
                 </div><!-- /.widget -->               
               </div><!-- /.widget-area -->    

@@ -36,15 +36,13 @@
             <%@include file="../templates-Client/formSearch.jsp" %>
             <div class="section">
                 <ul class="navigation">
-                    <li class="active"><a href="#">Shopping Guides</a></li>
+                    <li class="active"><a href="#">Categories</a></li>
                 </ul>
                 <div class="aside">
                     <div>
                         <div>
                             <ul>
-                                <c:forEach items="${Categories}" var="item">
-                                    <li><a href="#">${item.name}</a></li>
-                                </c:forEach>
+                              <%@include file="../templates-Client/categories.jsp" %>
                             </ul>
                         </div>
                     </div>

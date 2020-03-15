@@ -88,12 +88,7 @@
                 <div class="widget widget_categories">
                   <h3 class="widget_title">Categories</h3>
                   <ul>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">All Post</a>(2)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Vegetables</a>(3)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Fruits</a>(7)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Dried</a>(1)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Vegetables</a> (9)</li>
-                    <li><a href="https://demo.themeregion.com/biotic/shop-list.html#">Dried Fruit </a>(10)</li>
+                    <%@include file="../templates-Client/categories.jsp" %>           
                   </ul>
                 </div><!-- /.widget -->              
               </div><!-- /.widget-area -->    

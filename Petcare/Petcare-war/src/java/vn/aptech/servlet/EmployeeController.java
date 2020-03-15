@@ -180,6 +180,7 @@ public class EmployeeController extends HttpServlet {
             case "updateStatus":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               ord.setStatus(request.getParameter("status"));
+              ord.setDateUpdated(new Date());
               try {
                 ordersFacade.edit(ord);
               } catch (Exception e) {
@@ -477,6 +478,9 @@ public class EmployeeController extends HttpServlet {
 
               Accounts acc = accountsFacade.find(accId);
               acc.setIsActive(value);
+              if (!value) {
+                session.removeAttribute("curAcc");
+              }
 
               accountsFacade.edit(acc);
 

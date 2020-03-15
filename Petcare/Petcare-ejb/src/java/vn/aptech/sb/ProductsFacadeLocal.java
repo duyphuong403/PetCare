@@ -7,6 +7,7 @@ package vn.aptech.sb;
 
 import java.util.List;
 import javax.ejb.Local;
+import vn.aptech.entity.Categories;
 import vn.aptech.entity.Products;
 
 /**
@@ -37,4 +38,6 @@ public interface ProductsFacadeLocal {
   List<Products> findByName(String txtSearch);
   
   List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage);
+  
+  List<Products> searchCateWithPagination(Categories category, int currentPage, int recordsPerPage);
 }
