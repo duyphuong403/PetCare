@@ -34,6 +34,6 @@ public interface AccountsFacadeLocal {
 
   
 
-    List<Accounts> filterEmployee(short role);
+    List<Accounts> filterEmployee();
     
 }

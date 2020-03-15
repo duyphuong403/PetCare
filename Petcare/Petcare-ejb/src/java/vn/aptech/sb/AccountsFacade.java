@@ -38,13 +38,13 @@ public class AccountsFacade extends AbstractFacade<Accounts> implements Accounts
             return null;
         }
     }
-   
     
     
     
-  public List<Accounts> filterEmployee(short role) {
+    @Override
+  public List<Accounts> filterEmployee() {
     try {
-      return em.createQuery("select a from Accounts a where a.role = 0:",Accounts.class).setParameter("role", role).getResultList();
+      return em.createQuery("select a from Accounts a where a.role = 0",Accounts.class).getResultList();
     } catch (Exception e) {
       System.out.println(e);
       return null;
