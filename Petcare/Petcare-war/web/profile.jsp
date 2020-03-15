@@ -44,7 +44,7 @@
                 <input type="text" name="accountId" value="${acc.accId}" hidden="true"/>
                 <input type="text" name="dateCreated" value="${acc.dateCreated}" hidden="true"/>
 
-                <input type="text" class="form-control" id="Username" name="username" required="true" value="${acc.username}" maxlength="200">
+                <input type="text" readonly="true" class="form-control" id="Username" name="username" required="true" value="${acc.username}" maxlength="200">
               </div>
               <div class="form-group">
                 <label for="Password" class="bmd-label-floating">Password</label>

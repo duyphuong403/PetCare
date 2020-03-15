@@ -165,10 +165,13 @@
                 <label for="Fullname" class="bmd-label-floating">Full name</label>
                 <input type="text" class="form-control" id="Fullname" name="fullname">
               </div>
-              <div class="form-group">
+                <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone number</label>
-                <input type="number" class="form-control" id="Phone" name="phone" value=r equired="true" pattern="0[0-9]{9}">
-
+                <input type="number" class="form-control" id="Phone" name="phone" required="true">
+              </div>
+                <div class="form-group">
+                <label for="Address" class="bmd-label-floating">Address</label>
+                <input type="text" class="form-control" id="Address" name="address" required="true">
               </div>
 
               <div class="form-group">
@@ -215,23 +218,23 @@
         });
       });
     </script>
-    <script>
-      $(phone).ready(function () {
-        $('.cbx-active').change(function () {
-          var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-          var phone = $('#phone').val();
-          if (phone !== '') {
-            if (vnf_regex.test(phone) === false) {
-              alert('Your phone number is invalid!');
-            } else {
-              alert('Your phone number can use');
-            }
-          } else {
-            alert('Input phone number!');
-          }
-        });
-      });
-      //
-    </script>
+ <script type="text/javascript">
+$(document).submit()(function() {
+    $('body').(function() {
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+    var Phone = $('#Phone').val();
+    if(Phone !==''){
+        if (vnf_regex.test(Phone) === false) 
+        {
+            alert('Your phone number is invalid!');
+        }else{
+            alert('You can use this phone number!');
+        }
+    }else{
+        alert('Please insert your phone number!');
+    }
+    });
+});
+</script>
 
     <%@include file="../templates-Admin/footer.jsp" %>
