@@ -36,17 +36,17 @@
                         <h2 class="title">Registration Info</h2>
                         <form method="POST" action="UserController?action=register">
                             <div class="input-group">
-                                <input class="input--style-3" type="text" placeholder="Username" name="username" required="true">
+                                <input class="input--style-3" type="text" placeholder="Username" name="username" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password" required="true">
+                                <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3 js-datepicker" type="password" placeholder="Retype Password" name="re-password" required="true">
                             </div>
 
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname">
+                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname" required="true">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3" type="email" placeholder="Email" name="email" required="true">

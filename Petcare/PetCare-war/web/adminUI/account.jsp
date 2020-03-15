@@ -154,7 +154,11 @@
               </div>
               <div class="form-group">
                 <label for="Password" class="bmd-label-floating">Password</label>
-                <input type="password" class="form-control" id="Password" name="password" required="true" minlength="5" maxlength="50">
+                <input type="password" class="form-control" id="Password" name="password" required="true" minlength="6" maxlength="50">
+              </div>
+                <div class="form-group">
+                <label for="re-Password" class="bmd-label-floating">Confirm Password</label>
+                <input type="password" class="form-control" id="re-Password" name="re-password" required="true">
               </div>
               <div class="form-group">
                 <label for="Email" class="bmd-label-floating">Email</label>
@@ -162,7 +166,7 @@
               </div>
               <div class="form-group">
                 <label for="Fullname" class="bmd-label-floating">Full name</label>
-                <input type="text" class="form-control" id="Fullname" name="fullname">
+                <input type="text" class="form-control" id="Fullname" name="fullname" required="true">
               </div>
                 <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone number</label>
