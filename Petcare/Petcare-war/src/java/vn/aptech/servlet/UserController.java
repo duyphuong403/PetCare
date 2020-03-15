@@ -36,48 +36,6 @@ import vn.aptech.sb.ProductsFacadeLocal;
  */
 public class UserController extends HttpServlet {
 
-<<<<<<< HEAD
-    @EJB
-    private AccountsFacadeLocal accountsFacade;
-
-    @EJB
-    private OrderDetailsFacadeLocal orderDetailsFacade;
-
-    @EJB
-    private OrdersFacadeLocal ordersFacade;
-
-    @EJB
-    private ProductUnitsFacadeLocal productUnitsFacade;
-
-    @EJB
-    private ProductsFacadeLocal productsFacade;
-
-    @EJB
-    private PetGuidesFacadeLocal petGuidesFacade;
-
-    @EJB
-    private CategoriesFacadeLocal categoriesFacade;
-
-    @EJB
-    private FeedbacksFacadeLocal feedbacksFacade;
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        HttpSession session = request.getSession();
-
-        if (action == null) {
-            request.setAttribute("Home", "active");
-=======
   @EJB
   private AccountsFacadeLocal accountsFacade;
 
@@ -182,7 +140,6 @@ public class UserController extends HttpServlet {
           request.setAttribute("PetMart", "active");
           request.setAttribute("Products", productsFacade.find(Integer.parseInt(request.getParameter("prodId"))));
           if (request.getAttribute("Categories") == null) {
->>>>>>> parent of 34e6ddb... Merge branch 'master' of https://github.com/duyphuong403/PetCare
             request.setAttribute("Categories", categoriesFacade.findAll());
 
             request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
