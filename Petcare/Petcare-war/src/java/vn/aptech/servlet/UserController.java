@@ -21,7 +21,6 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
-import vn.aptech.entity.Products;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
@@ -264,12 +263,12 @@ public class UserController extends HttpServlet {
             List<Orders> curOrd = ordersFacade.getOrderByAccId(curAcc);
             // check if any order
             if (!curOrd.isEmpty()) {
-              ArrayList ordlList = new ArrayList();
-              for (int i = 0; i < curOrd.size(); i++) {
-                ordlList.add(orderDetailsFacade.getListOrder(ordersFacade.find(curOrd.get(i).getOrderId())));
-              }
+//              ArrayList ordlList = new ArrayList();
+//              for (int i = 0; i < curOrd.size(); i++) {
+//                ordlList.add(orderDetailsFacade.getListOrder(ordersFacade.find(curOrd.get(i).getOrderId())));
+//              }
               request.setAttribute("order", curOrd);
-              request.setAttribute("orderDetail", ordlList);
+              request.setAttribute("orderDetail", orderDetailsFacade.findAll());
               request.setAttribute("title", "Order History");
               request.getRequestDispatcher("clientUI/orderHistory.jsp").forward(request, response);
             } else {

@@ -37,61 +37,77 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <c:if test="${order == null}">
-                    <table class="table table-striped">
+                    <table class="table">
                       <tr> 
-                        <td colspan="6" style="text-align: center; color: #512f04"><b>Not found and order.</b></td>
+                        <td colspan="6" style="text-align: center; color: #512f04"><b>Not found any order.</b></td>
                       </tr>
                     </table>
                   </c:if>
                   <c:if test="${order != null}">
-                    <% int i = 1;%>
-                    <c:forEach var="ord" items="${order}">
-                      <table class="table table-striped">
-                        <thead class="text-primary">
+                    <table class="table">
+                      <thead class="text-primary">
+                      <th width="5%">
+                        No.
+                      </th>
+                      <th>
+                        Image
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Quantiy
+                      </th>
+                      <th>
+                        Unit Price
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                      <th>
+                        Subtotal
+                      </th>
+                      </thead>
+                      <c:forEach var="ord" items="${order}">
+                        <% int i = 1;%>
+                        <tbody>
                           <tr>
                             <td colspan="6"><h4 style="color: #0523f6;">Order ID: <b>#${ord.orderId}</b></h4></td>
                           </tr>
-                        <th width="5%">
-                          No.
-                        </th>
-                        <th>
-                          Image
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Quantiy
-                        </th>
-                        <th>
-                          Unit Price
-                        </th>
-                        <th>
-                          Subtotal
-                        </th>
-                        </thead>
-                        <tbody>
-                          <c:forEach items="${ordlList}" var="odl">
-                            <c:if test="${odl.get(i)}" ></c:if>
-                          <tr>
-                            <td> <%= i%><% i++;%></td>
-                            <td><img src="ProductImages/" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 100px;"></td>
-                            <td>product name</td>
-                            <td style="width: 20%">
-                              quantiy
-                            </td>
-                            <td>price</td>
-                            <td>subtotal</td>
-                          </tr>
-                          <tr>
-                            <td colspan="5" style="font-size:20px; text-align: right"><b>Total Price:</b></td>
-                            <td style="font-size: 20px"><b>total</b></td>
-                          </tr>
+                          <% int total = 0; %>
+                          <c:forEach var="ordl" items="${orderDetail}">
+                            <c:if test="${ordl.orderId.orderId == ord.orderId}">
+                              <c:set var="total" value="${ordl.total}" scope="request"/>
+                              <% total += Integer.parseInt(request.getAttribute("total").toString()); %>
+                              <tr>
+                                <td> <%= i%><% i++;%></td>
+                                <td><img src="ProductImages/${ordl.prodId.imageName}" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 100px;"></td>
+                                <td>${ordl.prodId.name}</td>
+                                <td style="width: 20%">
+                                  ${ordl.quantity}
+                                </td>
+                                <td>
+                                  ${ordl.price}
+                                </td>
+                                <td>
+                                  <c:if test="${ordl.orderId.status == 'Not Verify'}"><h4 style="color: red">Waiting for verify</h4></c:if>
+                                  <c:if test="${ordl.orderId.status == 'Verified'}"><h4 style="color: blue">On the way</h4></c:if>
+                                  <c:if test="${ordl.orderId.status == 'Deliveried'}"><h4 style="color: #03c203">Delivered</h4></c:if>
+                                </td>
+                                <td>
+                                  ${ordl.total}
+                                </td>
+                              </tr>
+                            </c:if>
                           </c:forEach>
+                          <tr>
+                            <td colspan="6" style="font-size:20px; text-align: right"><b>Total Price:</b></td>
+                            <td style="font-size: 20px"><b><%= total %></b></td>
+                          </tr>
                         </tbody>
-                      </table>
-                      <hr/>
-                    </c:forEach>
+                      </c:forEach>
+                    </table>
+                    <hr/>
                   </c:if>
                 </div>
               </div>
