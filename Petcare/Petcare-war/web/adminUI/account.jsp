@@ -150,9 +150,12 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
+                  <form name="frmRecord" onSubmit="return CheckData()"/>
                 <label for="Username" class="bmd-label-floating">Username</label>
                 <input type="text" class="form-control" id="Username" name="username" required="true" minlength="5" maxlength="50">
-              </div>
+              
+                </div>
+      
               <div class="form-group">
                 <label for="Password" class="bmd-label-floating">Password</label>
                 <input type="password" class="form-control" id="Password" name="password" required="true" minlength="5" maxlength="50">
@@ -167,7 +170,7 @@
               </div>
                 <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone number</label>
-                <input type="number" class="form-control" id="Phone" name="phone" required="true">
+                <input type="text" class="form-control" id="Phone" name="phone" required="true">
               </div>
                 <div class="form-group">
                 <label for="Address" class="bmd-label-floating">Address</label>
@@ -218,23 +221,20 @@
         });
       });
     </script>
- <script type="text/javascript">
-$(document).submit()(function() {
-    $('body').(function() {
-    var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-    var Phone = $('#Phone').val();
-    if(Phone !==''){
-        if (vnf_regex.test(Phone) === false) 
-        {
-            alert('Your phone number is invalid!');
-        }else{
-            alert('You can use this phone number!');
-        }
-    }else{
-        alert('Please insert your phone number!');
-    }
-    });
-});
+<script>
+function CheckData()
+{
+  with(document.frmRecord)
+  {
+   if(txtUserName.value.match(/\ /)) {
+   alert("Please Select a Username without Spaces");
+   txtUserName.focus();
+   txtUserName.value="";
+   return false;
+}
+  }
+  return true;
+}
 </script>
 
     <%@include file="../templates-Admin/footer.jsp" %>

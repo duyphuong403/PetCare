@@ -52,7 +52,7 @@
                                 <input class="input--style-3" type="email" placeholder="Email" name="email" required="true">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" minlength="9" maxlength="10">
+                                <input class="input--style-3" type="text" placeholder="Phone" name="phone" required="true" id="Phone">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
@@ -66,30 +66,21 @@
                 </div>
             </div>
         </div>
-
-<!--        <script>
-            if (document.getElementById('phone').value != ""){
-            var y = document.getElementById('phone').value;
-            if (isNaN(y) || y.indexOf(" ") != - 1)
-            {
-            alert("Invalid Phone number");
-            document.getElementById('mobile_number').focus();
-            return false;
-            }
-            if (y.length > 10 || y.length < 10)
-            {
-            alert("Phone number should be 10 digit");
-            document.getElementById('phone').focus();
-            return false;
-            }
-            if (!(y.charAt(0) == "9" || y.charAt(0) == "8" || y.charAt(0) == "7"))
-            {
-            alert("Phone number should start with 9 ,8 or 7 ");
-            document.getElementById('phone').focus();
-            return false
-            }
-        </script>-->
-
+        <script>
+            $(document).ready(function ($) {
+                $cf = $('#phonenumber');
+                $cf.blur(function (e) {
+                    phone = $(this).val();
+                    phone = phone.replace(/[^0-9]/g, '');
+                    if (phone.length != 10)
+                    {
+                        alert('Phone number must be 10 digits.');
+                        $('#phonenumber').val('');
+                        $('#phonenumber').focus();
+                    }
+                });
+            });
+        </script>
         <% if (request.getAttribute("Error") != null) { %>
         <script>
             swal("Error", "${Error}", "error");
