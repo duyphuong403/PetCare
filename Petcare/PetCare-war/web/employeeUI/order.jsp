@@ -71,7 +71,7 @@
                         Date Created
                       </th>                
                       <th>
-
+                        Action
                       </th>
                       </thead>
                       <tbody>
@@ -87,7 +87,7 @@
                             ${ord.orderId}
                           </td>
                           <td>
-                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="Click to more detail">${ord.accId.fullname}</a>
+                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="See more detail">${ord.accId.fullname}</a>
                           </td>                          
                           <td>
                             <form action="EmployeeController?action=updateStatus" method="post" id="updateVerify">
@@ -114,13 +114,14 @@
                           <td>
                             <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
-                          <c:if test="${ord.status == 'Verified'}" >
-                            <td>
+                          <td>
+                             <a href="EmployeeController?action=orderDetail&orderId=${ord.orderId}" tilte="More Detail" style="color:#000000;font-size: 40px;"><i class="material-icons">more_horiz</i></a>
+                            <c:if test="${ord.status != 'Not Verify'}" >
                               <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
-                            </td>
-                          </c:if>
+                            </c:if>
+                          </td>
                         </tr>
-                        <!-- Modal Edit Category -->
+                        <!-- Modal Show Details -->
                       <div class="modal fade" id="viewUserInfo${ord.orderId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
                            aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -154,7 +155,6 @@
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
-                            </form>
                           </div>
                         </div>
                       </div>
@@ -164,6 +164,7 @@
                 </div>
               </div>
             </div>
+
             <div>
               <nav aria-label="Page navigation example">
                 <ul class="pagination pg-blue justify-content-center">

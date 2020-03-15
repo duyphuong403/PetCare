@@ -87,7 +87,8 @@ public class EmployeeController extends HttpServlet {
       Categories cate;
       Products prod;
       Orders ord;
-
+      List<OrderDetails> ordl;
+      int subtotal;
       int nOfPages;
       int pageSize;
       int currentPage;
@@ -123,6 +124,7 @@ public class EmployeeController extends HttpServlet {
         } else {
           switch (action) {
             case "order":
+//              orderDetailsFacade.joinTable(2);
               if (request.getAttribute("countProd") == null) {
                 request.setAttribute("countProd", ordersFacade.count());
               }
@@ -160,6 +162,21 @@ public class EmployeeController extends HttpServlet {
               request.setAttribute("order", "active");
               request.getRequestDispatcher("employeeUI/order.jsp").forward(request, response);
               break;
+            case "orderDetail":
+              ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
+              request.setAttribute("Orders", ord);
+              ordl = orderDetailsFacade.getListOrder(ord);
+              request.setAttribute("OrderDetail", ordl);
+              subtotal = 0;
+              for (int i = 0; i < ordl.size(); i++) {
+                subtotal += ordl.get(i).getTotal();
+              }
+              request.setAttribute("SubTotal", subtotal);
+              request.setAttribute("title", "Order Detail");
+              request.setAttribute("order", "active");
+              request.getRequestDispatcher("employeeUI/orderDetail.jsp").forward(request, response);
+
+              break;
             case "updateStatus":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               ord.setStatus(request.getParameter("status"));
@@ -170,13 +187,13 @@ public class EmployeeController extends HttpServlet {
                 System.out.println("Error Update status: " + e);
               }
               request.getRequestDispatcher("EmployeeController?action=order").forward(request, response);
-              break;            
+              break;
             case "invoice":
               ord = ordersFacade.find(Integer.parseInt(request.getParameter("orderId")));
               request.setAttribute("Order", ord);
 
-              List<OrderDetails> ordl = orderDetailsFacade.getListOrder(ord);
-              int subtotal = 0;
+              ordl = orderDetailsFacade.getListOrder(ord);
+              subtotal = 0;
               for (int i = 0; i < ordl.size(); i++) {
                 subtotal += ordl.get(i).getTotal();
               }
