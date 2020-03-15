@@ -216,8 +216,9 @@
         $.post('http://localhost:8080/Petcare-war/EmployeeController?action=change-state', {
           accId: accId,
           value: value
-        }, function (resp) {
+        }, function (resp) {          
           checkBox.next().html(resp);
+          location.reload();
         });
       });
     </script>
