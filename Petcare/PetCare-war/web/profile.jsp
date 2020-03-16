@@ -64,12 +64,14 @@
               </div>
               <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone</label>
-                <input type="text" class="form-control" id="Phone" name="phone" required="true" value="${acc.phone}" pattern="[1-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
+                <input type="text" class="form-control" id="Phone" name="phone" required="true" value="${acc.phone}" pattern="[0-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
               </div>
               <div class="form-group">
                 <label for="Address" class="bmd-label-floating">Address</label>
                 <input type="text" class="form-control" id="Address" name="address" required="true" value="${acc.address}">
               </div>
+              <label for="Note" style="color: #b41249" class="bmd-label-floating">Note: Leave the fields if you don't want to change!</label>
+
               <div class="form-group">
 
 <!--                                            <input type="text" class="form-control" id="Role" name="role" required="true" value="${acc.role}">-->
@@ -83,7 +85,7 @@
       </div>
     </div>
     <a href="UserController" type="button" class="btn btn-primary pull-left" style="background-color: #c1c6c7;">Back</a>
-    <button type="submit" class="btn btn-success">Update Account</button>
+    <button type="submit" class="btn btn-success">Update</button>
     <div class="clearfix"></div>
     </form>
   </div>

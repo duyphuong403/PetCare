@@ -25,7 +25,6 @@ import vn.aptech.sb.OrderDetailsFacadeLocal;
 import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 
-
 /**
  *
  * @author Dell
@@ -34,7 +33,7 @@ public class AdminController extends HttpServlet {
 
     @EJB
     private PetGuidesFacadeLocal petGuidesFacade;
-    
+
     @EJB
     private AccountsFacadeLocal accountsFacade;
 
@@ -263,7 +262,11 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect("login.jsp");
                     break;
                 case "logout":
-                    session.removeAttribute("curAcc");
+                    if (session.getAttribute("curAcc") != null) {
+                        session.removeAttribute("curAcc");
+
+                    }
+
                     session.removeAttribute("cart");
                     response.sendRedirect(request.getHeader("referer"));
                     break;

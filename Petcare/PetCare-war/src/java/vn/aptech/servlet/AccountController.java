@@ -51,7 +51,7 @@ public class AccountController extends HttpServlet {
 
                     case "viewEditAccount":
 
-                        request.setAttribute("title", "Edit Account");
+                        request.setAttribute("title", "Update Information");
                         request.setAttribute("account", "active");
                         request.getRequestDispatcher("profile.jsp").forward(request, response);
 
@@ -85,16 +85,7 @@ public class AccountController extends HttpServlet {
                             }
                         }
                         request.getRequestDispatcher("UserController").forward(request, response);
-//                    case "deleteAccount":
-//                       int accId = Integer.parseInt(request.getParameter("accId")) ;
-//                        try {
-//                            accountsFacade.remove(accountsFacade.find(accId));
-//                            request.setAttribute("Success", "Account has been remove!");
-//                        } catch (Exception e) {
-//                            request.setAttribute("Error", "Delete Account Failed");
-//                        }
-//                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-//                        break;
+                   
                 }
             }
         }
