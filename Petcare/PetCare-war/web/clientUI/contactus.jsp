@@ -68,6 +68,7 @@
                     </div>
                         <br/>
                     </div>
-</
 
+ </form>
+                        
 <%@include file="../templates-Client/footer.jsp" %>

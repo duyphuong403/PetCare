@@ -140,21 +140,15 @@ public class AdminController extends HttpServlet {
                     }
                     break;
                 case "change-state":
-
                     int accId = Integer.parseInt(request.getParameter("accId"));
                     boolean value = Boolean.parseBoolean(request.getParameter("value"));
-
                     Accounts acc = accountsFacade.find(accId);
                     acc.setIsActive(value);
-
                     accountsFacade.edit(acc);
-
                     response.getWriter().print(value ? "Active" : "InActive");
-
                     break;
                 case "addAccount":
                     acc = new Accounts();
-//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
                     acc.setUsername(request.getParameter("username"));
                     acc.setPassword(request.getParameter("password"));
                     acc.setFullname(request.getParameter("fullname"));
@@ -174,45 +168,6 @@ public class AdminController extends HttpServlet {
                     }
                     request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
-//        case "viewEditAccount":
-//          if (request.getAttribute("Accounts") == null) {
-//            request.setAttribute("Accounts", accountsFacade.findAll());
-//          }
-//          request.setAttribute("title", "Edit Account");
-//          request.setAttribute("account", "active");
-//          if (request.getParameter("accId") != null) {
-//            request.setAttribute("editAccount", accountsFacade.find(Integer.parseInt(request.getParameter("accId"))));
-//          } else {
-//            request.setAttribute("Error", "Account ID was null!");
-//          }
-//          request.getRequestDispatcher("adminUI/editAccount.jsp").forward(request, response);
-//          break;
-//        case "editAccount":
-//          if (request.getParameter("accId") == null) {
-//            request.setAttribute("Error", "Cannot find this account!");
-//          } else {
-//            acc = new Accounts();
-//            acc.setUsername(request.getParameter("username"));
-//            acc.setPassword(request.getParameter("password"));
-//            acc.setFullname(request.getParameter("fullname"));
-//            acc.setEmail(request.getParameter("email"));
-//            acc.setPhone(Integer.parseInt(request.getParameter("phone")));
-//            acc.setAddress(request.getParameter("address"));
-//            acc.setRole(Short.parseShort(request.getParameter("role")));
-//            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
-////                    acc.setDateCreated(new Date());
-//            acc.setReasonBanned(request.getParameter("reasonBanned"));
-//
-//            try {
-//              accountsFacade.edit(acc);
-//            } catch (Exception e) {
-//              System.out.println(e);
-//              request.setAttribute("Error", "Edit Account failed.");
-//            }
-//          }
-//          request.getRequestDispatcher("AdminController?action=account").forward(request, response);
-//          break;
-
                 case "deleteAccount":
                     accId = Integer.parseInt(request.getParameter("accId"));
                     try {
@@ -233,7 +188,7 @@ public class AdminController extends HttpServlet {
                         request.setAttribute("txtSearch", request.getParameter("txtSearch"));
                     } else {
                         System.out.println();
-                        request.setAttribute("Error", "Account is already exist!");
+                        request.setAttribute("Error", "Petguides is already exist!");
                     }
 
                     break;
@@ -258,27 +213,33 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
                     break;
                 }
-                case "findId": {
-                    int id = Integer.parseInt(request.getParameter("petGuideId"));
-                    PetGuides p = petGuidesFacade.find(id);
-                    request.setAttribute("pet", p);
+                case "viewEditGuides":
+//                    PetGuides pet = new PetGuides();
+                    request.setAttribute("title", "edit PetGuides");
+                    request.setAttribute("petguides", "active");
+                    if (request.getParameter("petGuideId") != null) {
+                        request.setAttribute("editPetguides", petGuidesFacade.find(Integer.parseInt("petGuideId")));
+                    } else {
+                        request.setAttribute("Error", "PetGuides Id was null");
+                    }
                     request.getRequestDispatcher("adminUI/editpetguide.jsp").forward(request, response);
                     break;
-                }
 
                 case "editPetguides":
+                    Accounts curAcc = (Accounts) session.getAttribute("curAcc");
                     if (request.getParameter("petGuideId") == null) {
-                        request.setAttribute("Error", "Cannot find this account!");
+                        request.setAttribute("Error", "Cannot find this PetGuides!");
                     } else {
-                        PetGuides pet1 = new PetGuides();
-                        pet1.setPetGuideId(Integer.parseInt(request.getParameter("petGuideId")));
-                        pet1.setTitle(request.getParameter("title"));
-                        pet1.setContent(request.getParameter("content"));
-                        pet1.setImageName(request.getParameter("imageName"));
+//                        Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+                        PetGuides pet = petGuidesFacade.find(Integer.parseInt(request.getParameter("petGuideId")));
+                        pet.setAccId(curAcc);
+                        pet.setTitle(request.getParameter("title"));
+                        pet.setContent(request.getParameter("content"));
+                        pet.setImageName(request.getParameter("imageName"));
 
 //                    acc.setDateCreated(new Date());
                         try {
-                            petGuidesFacade.edit(pet1);
+                            petGuidesFacade.edit(pet);
                         } catch (Exception e) {
                             System.out.println(e);
                             request.setAttribute("Error", "Edit Petguide failed.");

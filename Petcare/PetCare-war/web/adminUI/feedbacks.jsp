@@ -43,9 +43,9 @@
                       <th>
                         Content 
                       </th>
-                      <th>
+<!--                      <th>
                         IsRead 
-                      </th>
+                      </th>-->
                       <th>
                         Date Created
                       </th>
@@ -71,9 +71,9 @@
                             <td>
                               ${item.content}
                             </td>
-                            <td>
+<!--                            <td>
                               ${item.isRead}
-                            </td>
+                            </td>-->
                             <td>
                               ${item.dateCreated}
                             </td>
