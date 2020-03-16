@@ -68,11 +68,11 @@
                                                             ${item.dateCreated}
                                                         </td>
                                                         
-                                                        <td>
+<!--                                                        <td>
 
                                                             <a href="AdminController?action=viewEditGuides" type="submit" style="color: #333" title="Edit" id="" ><i class="material-icons">edit</i></a>
 
-                                                        </td>
+                                                        </td>-->
 
                                                         <td class="text-center">
 
