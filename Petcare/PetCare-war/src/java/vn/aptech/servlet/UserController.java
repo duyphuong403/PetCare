@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import vn.aptech.classes.AboutUs;
 import vn.aptech.classes.CartBean;
 import vn.aptech.classes.CartItemBean;
 import vn.aptech.entity.Accounts;
@@ -150,6 +151,13 @@ public class UserController extends HttpServlet {
                 case "aboutus":
                     request.setAttribute("title", "About Us");
                     request.setAttribute("AboutUs", "active");
+                    AboutUs as = new AboutUs();
+                    as.setCompanyName("Petcare co., ltd");
+                    as.setPhone("+123 45 67 89");
+                    as.setAddress("590 Cach Mang Thang Tam street, District 3, HCM City.");
+                    as.setEmail("support@petcare.com");
+                    as.setEmbededMap("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.325716352406!2d106.6641388146226!3d10.786346292314827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ed23ca5d8db%3A0x24d414f45e5a523!2zNTkwIEPDoWNoIE3huqFuZyBUaMOhbmcgVMOhbSwgUGjGsOG7nW5nIDExLCBRdeG6rW4gMywgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1584363850973!5m2!1svi!2s");
+                    request.setAttribute("comInfo", as);
                     request.getRequestDispatcher("clientUI/aboutus.jsp").forward(request, response);
                     break;
                 case "register":
