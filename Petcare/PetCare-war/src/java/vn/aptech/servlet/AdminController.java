@@ -265,11 +265,10 @@ public class AdminController extends HttpServlet {
                 case "logout":
                     if (session.getAttribute("curAcc") != null) {
                         session.removeAttribute("curAcc");
-
                     }
 
                     session.removeAttribute("cart");
-                    response.sendRedirect(request.getHeader("referer"));
+                    response.sendRedirect("UserController");
                     break;
 
                 case "feedbacks":
