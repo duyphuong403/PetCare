@@ -100,7 +100,7 @@ public class EmployeeController extends HttpServlet {
             int currentPage;
 
             String uploadDir = "C:\\PetCare\\Petcare\\PetCare-war\\web\\ProductImages\\";
-            String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImages\\";
+            
             String action = request.getParameter("action");
             Accounts curAcc = (Accounts) session.getAttribute("curAcc");
             if (curAcc == null) {

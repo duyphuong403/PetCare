@@ -95,7 +95,7 @@
                         <div class="col-md-12" style="text-align: center;">
                           <div class="form-group">
                             <img src="ProductImages/${prod.imageName}" id="currentImage" width="auto" height="200" title="${prod.imageName}"/>
-                            <img src="#" id="imageChange" height="200" width="auto" title=""/>
+                            <img src="" id="imageChange" height="200" width="auto" title=""/>
                             <input type="text" name="imageName" value="${prod.imageName}" hidden="true"/>
                             <input type="file" name="imageChange" id="imageChange" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);"/>
                           </div>

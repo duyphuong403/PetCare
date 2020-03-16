@@ -5,15 +5,20 @@
  */
 package vn.aptech.servlet;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.Orders;
@@ -28,6 +33,9 @@ import vn.aptech.sb.PetGuidesFacadeLocal;
  *
  * @author Dell
  */
+@MultipartConfig(location = "/PetGuideImage", fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)
 public class AdminController extends HttpServlet {
 
   @EJB
@@ -180,29 +188,51 @@ public class AdminController extends HttpServlet {
           List<PetGuides> petguides = petGuidesFacade.findAll();
           request.setAttribute("title", "PetGuides");
           request.setAttribute("petguide", "active");
-          request.setAttribute("petguides", petguides);
 
-          request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
           if (request.getParameter("txtSearch") != null) {
             request.setAttribute("petguides", accountsFacade.find(request.getParameter("txtSearch")));
             request.setAttribute("txtSearch", request.getParameter("txtSearch"));
           } else {
-            System.out.println();
-            request.setAttribute("Error", "Account is already exist!");
+            request.setAttribute("petguides", petguides);
           }
+          request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
+
           break;
         case "addPetguides": {
           PetGuides pet = new PetGuides();
-//                    Accounts addAccount = accountsFacade.find(Integer.parseInt(request.getParameter("accId")));
           Accounts curAcc = (Accounts) session.getAttribute("curAcc");
           pet.setTitle(request.getParameter("title"));
           pet.setContent(request.getParameter("content"));
-          pet.setImageName(request.getParameter("imageName"));
+          pet.setImageName(request.getParameter("ImageName"));
           pet.setIsNew(Boolean.parseBoolean(request.getParameter("isNew")));
           pet.setAccId(curAcc);
-
           pet.setDateCreated(new Date());
 
+          InputStream inputStream;
+          FileOutputStream fileOutputStream;
+          String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImage\\";
+          File fileSaveDir = new File(PetGuides);
+          if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdirs();
+          }
+          for (Part part : request.getParts()) {
+
+            inputStream = request.getPart(part.getName()).getInputStream();
+            int i = inputStream.available();
+            byte[] b = new byte[i];
+            inputStream.read(b);
+            String fileName = extractFileName(part);
+            fileName = new File(fileName).getName();
+
+            if (fileName != null && fileName.length() > 0) {
+              fileOutputStream = new FileOutputStream(fileSaveDir + "/" + fileName);
+              fileOutputStream.write(b);
+              fileOutputStream.close();
+              pet.setImageName(fileName);
+              System.out.println("Uploaded file " + fileSaveDir + "\\" + fileName + ".");
+            }
+            inputStream.close();
+          }
           try {
             petGuidesFacade.create(pet);
           } catch (Exception e) {
@@ -213,15 +243,16 @@ public class AdminController extends HttpServlet {
           break;
         }
         case "viewEditGuides":
-//                    PetGuides pet = new PetGuides();
           request.setAttribute("title", "edit PetGuides");
           request.setAttribute("petguides", "active");
           if (request.getParameter("petGuideId") != null) {
-            request.setAttribute("editPetguides", petGuidesFacade.find(Integer.parseInt("petGuideId")));
+            request.setAttribute("editPetguides", petGuidesFacade.find(Integer.parseInt(request.getParameter("petGuideId"))));
+            request.getRequestDispatcher("adminUI/editpetguide.jsp").forward(request, response);
+
           } else {
             request.setAttribute("Error", "PetGuides Id was null");
+            request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
           }
-          request.getRequestDispatcher("adminUI/editpetguide.jsp").forward(request, response);
           break;
 
         case "editPetguides":
@@ -229,14 +260,39 @@ public class AdminController extends HttpServlet {
           if (request.getParameter("petGuideId") == null) {
             request.setAttribute("Error", "Cannot find this PetGuides!");
           } else {
-//                        Accounts curAcc = (Accounts) session.getAttribute("curAcc");
             PetGuides pet = petGuidesFacade.find(Integer.parseInt(request.getParameter("petGuideId")));
             pet.setAccId(curAcc);
             pet.setTitle(request.getParameter("title"));
             pet.setContent(request.getParameter("content"));
             pet.setImageName(request.getParameter("imageName"));
+            pet.setDateUpdated(new Date());
+            InputStream isEdit;
+            FileOutputStream fosEdit;
+            String PetGuides = "C:\\PetCare\\Petcare\\PetCare-war\\web\\PetGuideImage\\";
 
-//                    acc.setDateCreated(new Date());
+            File fileEdit = new File(PetGuides);
+            if (!fileEdit.exists()) {
+              fileEdit.mkdirs();
+            }
+            for (Part part : request.getParts()) {
+              if (part.getName().equals("imageChange") && !part.getSubmittedFileName().equals("")) {
+                isEdit = request.getPart(part.getName()).getInputStream();
+                int i = isEdit.available();
+                byte[] b = new byte[i];
+                isEdit.read(b);
+                String fileName = extractFileName(part);
+                fileName = new File(fileName).getName();
+
+                if (fileName != null && fileName.length() > 0) {
+                  fosEdit = new FileOutputStream(fileEdit + "/" + fileName);
+                  fosEdit.write(b);
+                  fosEdit.close();
+                  pet.setImageName(fileName);
+//                  System.out.println("Uploaded file " + fileEdit + "\\" + fileName + ".");
+                }
+                isEdit.close();
+              }
+            }
             try {
               petGuidesFacade.edit(pet);
             } catch (Exception e) {
@@ -250,9 +306,12 @@ public class AdminController extends HttpServlet {
         case "deletepet": {
           int id = Integer.parseInt(request.getParameter("petGuideId"));
           PetGuides p = petGuidesFacade.find(id);
-          petGuidesFacade.remove(p);
-          request.setAttribute("petguides", p);
-
+          try {
+            petGuidesFacade.remove(p);
+          } catch (Exception e) {
+            System.out.println(e);
+            request.setAttribute("Error", "Delete Petguide failed.");
+          }
           request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
           break;
         }
@@ -353,6 +412,17 @@ public class AdminController extends HttpServlet {
       }
 
     }
+  }
+
+  private String extractFileName(Part part) {
+    String contentDisp = part.getHeader("content-disposition");
+    String[] items = contentDisp.split(";");
+    for (String s : items) {
+      if (s.trim().startsWith("filename")) {
+        return s.substring(s.indexOf("=") + 2, s.length() - 1);
+      }
+    }
+    return "";
   }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
