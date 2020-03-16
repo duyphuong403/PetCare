@@ -31,7 +31,7 @@
         <div class="card">
           <div class="card-header card-header-primary">
 
-            <h4 class="card-title "><b>${title}</b></h4>
+            <h4 class="card-title "><b>Profile</b></h4>
             <a href="#" data-toggle="modal" data-target="#editAccount" style="color: #fff">
 
           </div>

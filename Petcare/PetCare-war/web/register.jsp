@@ -55,7 +55,7 @@
                                 <input class="input--style-3" type="text" placeholder="Phone" name="phone" required="true" pattern="[1-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
+                                <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address" required="true" maxlength="200">
                             </div>
                             <div>
                                 <button class="btn btn--pill btn--green" type="submit">Register</button
