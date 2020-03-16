@@ -42,7 +42,7 @@
                                 <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="password" placeholder="Retype Password" name="re-password" required="true">
+                                <input class="input--style-3 js-datepicker" type="password" placeholder="Confirm Password" name="re-password" required="true">
                             </div>
 
                             <div class="input-group">
