@@ -87,7 +87,7 @@
                                   ${ordl.quantity}
                                 </td>
                                 <td>
-                                  ${ordl.price}
+                                  $ ${ordl.price}
                                 </td>
                                 <td>
                                   <c:if test="${ordl.orderId.status == 'Not Verify'}"><h4 style="color: red">Waiting for verify</h4></c:if>
@@ -95,14 +95,14 @@
                                   <c:if test="${ordl.orderId.status == 'Deliveried'}"><h4 style="color: #03c203">Delivered</h4></c:if>
                                 </td>
                                 <td>
-                                  ${ordl.total}
+                                  $ ${ordl.total}
                                 </td>
                               </tr>
                             </c:if>
                           </c:forEach>
                           <tr>
                             <td colspan="6" style="font-size:20px; text-align: right"><b>Total Price:</b></td>
-                            <td style="font-size: 20px"><b><%= total %></b></td>
+                            <td style="font-size: 20px"><b>$ <%= total %></b></td>
                           </tr>
                         </tbody>
                       </c:forEach>
