@@ -16,20 +16,7 @@
             <h2>${article.title}</h2>
             <p>${article.content}<a class="more" href="${article.petGuideId}">View all</a></p>
           </li>
-        </c:forEach>
-
-        <li> <a href="#"><img src="lib/images/cat.jpg" width="114" height="160" alt=""></a>
-          <h2>Something good</h2>
-          <p>Gothica, quam nun c putamus parum claram, anteposuerit litterarum formas humani tatis per seacula. <a class="more" href="#">View all</a></p>
-        </li>
-        <li> <a href="#"><img src="lib/images/koi.jpg" width="114" height="160" alt=""></a>
-          <h2>Kinds of Fish</h2>
-          <p>Quam nunc putamus parum claram, antep osuerit litter arum formas humanitatis per seacula quarta. <a class="more" href="#">View all</a></p>
-        </li>
-        <li> <a href="#"><img src="lib/images/bird.jpg" width="114" height="160" alt=""></a>
-          <h2>Fun birds</h2>
-          <p>Mirum est notare quam littera gothica , quam nunc putamus parum claram, anteposuerit. <a class="more" href="#">View all</a></p>
-        </li>
+        </c:forEach>        
       </ul>
     </div>
     <div id="sidebar" class="col-4 col-xm-8">
