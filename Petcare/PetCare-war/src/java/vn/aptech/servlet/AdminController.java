@@ -18,7 +18,6 @@ import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.PetGuides;
-
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.FeedbacksFacadeLocal;
 import vn.aptech.sb.OrderDetailsFacadeLocal;
@@ -178,17 +177,19 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "petguides":
+                    List<PetGuides> petguides = petGuidesFacade.findAll();
                     request.setAttribute("title", "PetGuides");
                     request.setAttribute("petguide", "active");
+                    request.setAttribute("petguides", petguides);
+
                     request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
                     if (request.getParameter("txtSearch") != null) {
                         request.setAttribute("petguides", accountsFacade.find(request.getParameter("txtSearch")));
                         request.setAttribute("txtSearch", request.getParameter("txtSearch"));
                     } else {
                         System.out.println();
-                        request.setAttribute("Error", "Petguides is already exist!");
+                        request.setAttribute("Error", "Account is already exist!");
                     }
-
                     break;
                 case "addPetguides": {
                     PetGuides pet = new PetGuides();
