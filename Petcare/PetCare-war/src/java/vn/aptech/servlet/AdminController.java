@@ -127,19 +127,6 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("accounts", accountsFacade.filterAdmin());
                     request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
 
-//          List<Accounts> accounts = accountsFacade.filterAdmin();
-//          request.setAttribute("title", "Accounts");
-//          request.setAttribute("Account", "active");
-//          request.setAttribute("accounts", accounts);
-//          request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
-//          if (request.getParameter("txtSearch") != null) {
-//            request.setAttribute("Accounts", accountsFacade.find(request.getParameter("txtSearch")));
-//            request.setAttribute("txtSearch", request.getParameter("txtSearch"));
-//          } else {
-//            System.out.println();
-//            request.setAttribute("Error", "Account is already exist!");
-//          }
-//          break;
                 case "change-state":
 
                     int accId = Integer.parseInt(request.getParameter("accId"));

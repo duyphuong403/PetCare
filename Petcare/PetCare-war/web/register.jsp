@@ -46,13 +46,13 @@
                             </div>
 
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname" required="true">
+                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="email" placeholder="Email" name="email" required="true">
+                                <input class="input--style-3" type="email" placeholder="Email" name="email" required="true" minlength="8" maxlength="200">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" minlength="9" maxlength="10">
+                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" min="111111111" max="999999999">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
