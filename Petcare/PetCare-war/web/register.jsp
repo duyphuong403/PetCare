@@ -52,7 +52,7 @@
                                 <input class="input--style-3" type="email" placeholder="Email" name="email" required="true" minlength="8" maxlength="200">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" min="111111111" max="999999999">
+                                <input class="input--style-3" type="text" placeholder="Phone" name="phone" required="true" pattern="[0-9]{10}" title="Phone number must have 10 digits!">
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">

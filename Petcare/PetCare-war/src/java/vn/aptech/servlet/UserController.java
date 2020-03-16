@@ -176,7 +176,6 @@ public class UserController extends HttpServlet {
 
               try {
                 accountsFacade.create(acc);
-                // cho no dang nhap thanh cong luon
                 session.setAttribute("curAcc", acc);
                 request.getRequestDispatcher("UserController").forward(request, response);
               } catch (Exception e) {
