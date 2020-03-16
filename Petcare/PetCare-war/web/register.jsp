@@ -36,26 +36,26 @@
                         <h2 class="title">Registration Info</h2>
                         <form method="POST" action="UserController?action=register">
                             <div class="input-group">
-                                <input class="input--style-3" type="text" placeholder="Username" name="username" required="true">
+                                <input class="input--style-3" type="text" placeholder="Username" name="username" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password" required="true">
+                                <input class="input--style-3 js-datepicker" type="password" placeholder="Password" name="password" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="password" placeholder="Retype Password" name="re-password" required="true">
+                                <input class="input--style-3 js-datepicker" type="password" placeholder="Confirm Password" name="re-password" required="true">
                             </div>
 
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname">
+                                <input class="input--style-3 js-datepicker" type="text" placeholder="Full name" name="fullname" required="true" minlength="6" maxlength="50">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="email" placeholder="Email" name="email" required="true">
+                                <input class="input--style-3" type="email" placeholder="Email" name="email" required="true" minlength="8" maxlength="200">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3" type="number" placeholder="Phone" name="phone" required="true" minlength="9" maxlength="10">
+                                <input class="input--style-3" type="text" placeholder="Phone" name="phone" required="true" pattern="[1-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
                             </div>
                             <div class="input-group">
-                                <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address">
+                                <input class="input--style-3 js-datepicker" type="text" placeholder="Address" name="address" required="true" maxlength="200">
                             </div>
                             <div>
                                 <button class="btn btn--pill btn--green" type="submit">Register</button
@@ -67,28 +67,7 @@
             </div>
         </div>
 
-<!--        <script>
-            if (document.getElementById('phone').value != ""){
-            var y = document.getElementById('phone').value;
-            if (isNaN(y) || y.indexOf(" ") != - 1)
-            {
-            alert("Invalid Phone number");
-            document.getElementById('mobile_number').focus();
-            return false;
-            }
-            if (y.length > 10 || y.length < 10)
-            {
-            alert("Phone number should be 10 digit");
-            document.getElementById('phone').focus();
-            return false;
-            }
-            if (!(y.charAt(0) == "9" || y.charAt(0) == "8" || y.charAt(0) == "7"))
-            {
-            alert("Phone number should start with 9 ,8 or 7 ");
-            document.getElementById('phone').focus();
-            return false
-            }
-        </script>-->
+
 
         <% if (request.getAttribute("Error") != null) { %>
         <script>
