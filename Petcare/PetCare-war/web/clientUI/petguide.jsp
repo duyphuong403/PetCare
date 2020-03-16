@@ -1,3 +1,14 @@
+<%-- 
+    Document   : petguide
+    Created on : Dec 13, 2019, 11:02:50 AM
+    Author     : Dell
+--%>
+
+
+
+
+
+
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %> 
 
@@ -52,7 +63,10 @@ color: black
                         </div>
             </c:forEach>
         </div>
+      </div>
     </div>
+  </div>  
 
+</div>
 
-    <%@include file="../templates-Client/footer.jsp" %>
+<%@include file="../templates-Client/footer.jsp" %>

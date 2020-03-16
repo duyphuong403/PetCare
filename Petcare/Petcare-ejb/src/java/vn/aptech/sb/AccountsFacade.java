@@ -50,5 +50,14 @@ public class AccountsFacade extends AbstractFacade<Accounts> implements Accounts
       return null;
     }
   }
+    @Override
+  public List<Accounts> filterAdmin(){
+       try {
+      return em.createQuery("select a from Accounts a where a.role = 0 or a.role = 1",Accounts.class).getResultList();
+    } catch (Exception e) {
+      System.out.println(e);
+      return null;
+    }
+  }
 
 }

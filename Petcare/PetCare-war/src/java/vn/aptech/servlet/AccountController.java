@@ -73,7 +73,6 @@ public class AccountController extends HttpServlet {
                             acc.setAddress(request.getParameter("address"));
 //                            acc.setRole(Short.parseShort(request.getParameter("role")));
 //                            acc.setIsInactive(Boolean.parseBoolean(request.getParameter("isInactive")));
-
                             try {
                                 accountsFacade.edit(acc);
                                 request.setAttribute("Success", "Changed information already done!");

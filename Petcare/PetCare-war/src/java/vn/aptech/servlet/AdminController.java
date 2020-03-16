@@ -17,12 +17,10 @@ import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.Orders;
-import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.FeedbacksFacadeLocal;
 import vn.aptech.sb.OrderDetailsFacadeLocal;
 import vn.aptech.sb.OrdersFacadeLocal;
-import vn.aptech.sb.PetGuidesFacadeLocal;
 
 /**
  *
@@ -41,9 +39,6 @@ public class AdminController extends HttpServlet {
 
     @EJB
     private OrdersFacadeLocal ordersFacade;
-
-    @EJB
-    private PetGuidesFacadeLocal petGuidesFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -126,19 +121,12 @@ public class AdminController extends HttpServlet {
                     }
                     break;
                 case "account":
-                    List<Accounts> accounts = accountsFacade.findAll();
-                    request.setAttribute("title", "Accounts");
-                    request.setAttribute("Account", "active");
-                    request.setAttribute("accounts", accounts);
+
+                    request.setAttribute("title", "Account");
+                    request.setAttribute("account", "active");
+                    request.setAttribute("accounts", accountsFacade.filterAdmin());
                     request.getRequestDispatcher("adminUI/account.jsp").forward(request, response);
-                    if (request.getParameter("txtSearch") != null) {
-                        request.setAttribute("Accounts", accountsFacade.find(request.getParameter("txtSearch")));
-                        request.setAttribute("txtSearch", request.getParameter("txtSearch"));
-                    } else {
-                        System.out.println();
-                        request.setAttribute("Error", "Account is already exist!");
-                    }
-                    break;
+
                 case "change-state":
                     int accId = Integer.parseInt(request.getParameter("accId"));
                     boolean value = Boolean.parseBoolean(request.getParameter("value"));
@@ -151,22 +139,28 @@ public class AdminController extends HttpServlet {
                     acc = new Accounts();
                     acc.setUsername(request.getParameter("username"));
                     acc.setPassword(request.getParameter("password"));
-                    acc.setFullname(request.getParameter("fullname"));
-                    acc.setEmail(request.getParameter("email"));
-                    acc.setPhone(Integer.parseInt(request.getParameter("phone")));
-                    acc.setAddress(request.getParameter("address"));
-                    acc.setRole(Short.parseShort(request.getParameter("role")));
-                    acc.setIsActive(Boolean.parseBoolean(request.getParameter("isInactive")));
-                    acc.setDateCreated(new Date());
-                    acc.setReasonBanned(request.getParameter("reasonBanned"));
+                    if (request.getParameter("re-password").compareTo(request.getParameter("password")) != 0) {
+                        request.setAttribute("Error", "Retype password doesn't match!");
+                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
+                    } else {
+                        acc.setUsername(request.getParameter("username"));
+                        acc.setFullname(request.getParameter("fullname"));
+                        acc.setEmail(request.getParameter("email"));
+                        acc.setPhone(Integer.parseInt(request.getParameter("phone")));
+                        acc.setAddress(request.getParameter("address"));
+                        acc.setRole(Short.parseShort(request.getParameter("role")));
+                        acc.setIsActive(Boolean.parseBoolean(request.getParameter("isInactive")));
+                        acc.setDateCreated(new Date());
+                        acc.setReasonBanned(request.getParameter("reasonBanned"));
 
-                    try {
-                        accountsFacade.create(acc);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                        request.setAttribute("Error", "Account is already exist!");
+                        try {
+                            accountsFacade.create(acc);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                            request.setAttribute("Error", "Account is already exist!");
+                        }
+                        request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     }
-                    request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "deleteAccount":
                     accId = Integer.parseInt(request.getParameter("accId"));
@@ -178,10 +172,8 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("AdminController?action=account").forward(request, response);
                     break;
                 case "petguides":
-                    List<PetGuides> petguides = petGuidesFacade.findAll();
                     request.setAttribute("title", "PetGuides");
                     request.setAttribute("petguide", "active");
-                    request.setAttribute("petguides", petguides);
                     request.getRequestDispatcher("adminUI/petguide.jsp").forward(request, response);
                     if (request.getParameter("txtSearch") != null) {
                         request.setAttribute("petguides", accountsFacade.find(request.getParameter("txtSearch")));

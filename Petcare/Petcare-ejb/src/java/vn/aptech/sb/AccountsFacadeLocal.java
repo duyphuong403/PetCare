@@ -35,5 +35,7 @@ public interface AccountsFacadeLocal {
   
 
     List<Accounts> filterEmployee();
+
+    List<Accounts> filterAdmin();
     
 }
