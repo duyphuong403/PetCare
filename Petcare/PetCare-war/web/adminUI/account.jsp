@@ -59,9 +59,9 @@
                                             <th>
                                                 Date Created
                                             </th>
-                                            <th>
+<!--                                            <th>
                                                 Reason Banned
-                                            </th>
+                                            </th>-->
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${accounts}" var="acc">
@@ -98,9 +98,9 @@
                                                         <td>
                                                             <fmt:formatDate value="${acc.dateCreated}" pattern="MM-dd-yyyy" />
                                                         </td>
-                                                        <td>
+<!--                                                        <td>
                                                             ${acc.reasonBanned}
-                                                        </td>
+                                                        </td>-->
                                                         <td>
                                                             <form action="AdminController?action=deleteAccount" method="post" id="deleteAccount${acc.accId}">
                                                                 <input type="text" name="accId" value="${acc.accId}" hidden="true">

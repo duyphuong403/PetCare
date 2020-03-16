@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import vn.aptech.classes.AboutUs;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.Orders;
@@ -315,12 +316,19 @@ public class AdminController extends HttpServlet {
           request.getRequestDispatcher("AdminController?action=petguides").forward(request, response);
           break;
         }
-        case "aboutus":
-          response.sendRedirect("login.jsp");
-          break;
-        case "profile":
-          response.sendRedirect("login.jsp");
-          break;
+//        case "aboutus":
+//          request.setAttribute("title", "About Us");
+//          request.setAttribute("AboutUs", "active");
+//          AboutUs as = new AboutUs();
+//          as.getCompanyName();
+//          as.getAddress();
+//          as.getEmail();
+//          as.getPhone();
+//          as.getEmbededMap();
+//        
+//          request.setAttribute("comInfo", as);
+//          request.getRequestDispatcher("adminUI/aboutus.jsp").forward(request, response);
+//          break;
         case "logout":
           if (session.getAttribute("curAcc") != null) {
             session.removeAttribute("curAcc");

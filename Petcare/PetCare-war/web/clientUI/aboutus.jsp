@@ -8,7 +8,7 @@
 <%@include file="../templates-Client/navbar.jsp" %>
 <style>
   #content {
-    padding-top: 50px;
+    padding-top: 90px;
   }
   .card .card-header-primary:not(.card-header-icon):not(.card-header-text) {
     background: linear-gradient(60deg, #ffad00, #fedd97);
@@ -31,8 +31,50 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
+              <c:set var="as" value="${comInfo}" scope="session" />
               <div class="card-header card-header-primary">
-                <h4 class="card-title ">Coming soon</h4>
+                <h4 class="card-title ">About Us</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating"><strong>${as.companyName}</strong></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Address: <strong>${as.address}</strong></label>
+                        </div>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email: <strong>${as.email}</strong></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Phone: <strong>${as.phone}</strong></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <iframe src="${as.embededMap}" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
