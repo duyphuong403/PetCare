@@ -22,10 +22,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Categories;
+import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.ProductUnits;
 import vn.aptech.entity.Products;
+import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.CategoriesFacadeLocal;
 import vn.aptech.sb.OrderDetailsFacadeLocal;
@@ -33,6 +35,7 @@ import vn.aptech.sb.OrdersFacadeLocal;
 import vn.aptech.sb.PetGuidesFacadeLocal;
 import vn.aptech.sb.ProductUnitsFacadeLocal;
 import vn.aptech.sb.ProductsFacadeLocal;
+import vn.aptech.sb.FeedbacksFacadeLocal;
 
 /**
  *
@@ -68,6 +71,9 @@ public class EmployeeController extends HttpServlet {
     @EJB
     private CategoriesFacadeLocal categoriesFacade;
 
+    
+    @EJB
+    private FeedbacksFacadeLocal feedbacksFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -501,6 +507,22 @@ public class EmployeeController extends HttpServlet {
 
                             request.getRequestDispatcher("employeeUI/petguide.jsp").forward(request, response);
                             break;
+                        case "petguideList":
+                            request.setAttribute("title", "PetGuide");
+                            request.setAttribute("petguideList", "active");
+                            List<PetGuides> petguideList = petGuidesFacade.findAll();
+                            request.setAttribute("petguideList", petguideList);                           
+                            request.getRequestDispatcher("employeeUI/petguideList.jsp").forward(request, response);
+                            break;
+                        
+                        case "feedbackList":
+                            request.setAttribute("title", "Feedback");
+                            request.setAttribute("feedbackList", "active");
+                            List<Feedbacks> feedbackList = feedbacksFacade.findAll();
+                            request.setAttribute("feedbackList", feedbackList);                           
+                            request.getRequestDispatcher("employeeUI/feedbackList.jsp").forward(request, response);
+                            break; 
+                            
                         case "profile":
                             request.setAttribute("title", "Profile-");
                             request.setAttribute("profile", "active");

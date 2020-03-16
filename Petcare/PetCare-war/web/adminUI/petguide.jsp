@@ -16,6 +16,7 @@
                                         Create new PetGuide
 
                                     </a> &emsp; &emsp; &emsp; &emsp; 
+<!--                                    <a href="EmployeeController?action=petguideList" tilte="Print PetGuides List" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>-->
 
                                 </div>
                                 <div class="card-body">
@@ -41,7 +42,7 @@
                                             <th>
                                                 Date Created
                                             </th>
-                                            
+
                                             </thead>
                                             <tbody>
 
@@ -67,12 +68,12 @@
                                                         <td>
                                                             ${item.dateCreated}
                                                         </td>
+
+                                                        <!--                                                        <td>
                                                         
-<!--                                                        <td>
-
-                                                            <a href="AdminController?action=viewEditGuides" type="submit" style="color: #333" title="Edit" id="" ><i class="material-icons">edit</i></a>
-
-                                                        </td>-->
+                                                                                                                    <a href="AdminController?action=viewEditGuides" type="submit" style="color: #333" title="Edit" id="" ><i class="material-icons">edit</i></a>
+                                                        
+                                                                                                                </td>-->
 
                                                         <td class="text-center">
 
@@ -83,22 +84,22 @@
                                                             </form>
                                                         </td>
                                                 <script>
-                                                             function deletepet${item.petGuideId}() {
-                                                                 swal({
-                                                                     title: "Are you sure?",
-                                                                     text: "You will not be able to recover this Account!",
-                                                                     icon: "warning",
-                                                                     buttons: [
-                                                                         'No, cancel it!',
-                                                                         'Yes, I am sure!'
-                                                                     ],
-                                                                     dangerMode: true
-                                                                 }).then(function (isConfirm) {
-                                                                     if (isConfirm) {
-                                                                         $("#deletepet${item.petGuideId}").submit();
-                                                                     }
-                                                                 });
-                                                             }
+                                                    function deletepet${item.petGuideId}() {
+                                                        swal({
+                                                            title: "Are you sure?",
+                                                            text: "You will not be able to recover this Account!",
+                                                            icon: "warning",
+                                                            buttons: [
+                                                                'No, cancel it!',
+                                                                'Yes, I am sure!'
+                                                            ],
+                                                            dangerMode: true
+                                                        }).then(function (isConfirm) {
+                                                            if (isConfirm) {
+                                                                $("#deletepet${item.petGuideId}").submit();
+                                                            }
+                                                        });
+                                                    }
 
                                                 </script>
 
@@ -116,7 +117,7 @@
             </div>
         </div>
     </div>
-                                   
+
     <!-- Modal Create Category -->
     <div class="modal fade" id="addPetguides" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -138,25 +139,25 @@
                             <label for="Content" class="bmd-label-floating">Content</label>
                             <input type="text" class="form-control" id="Content" name="content" required="true" minlength="5" maxlength="50">
                         </div>
-                        
-                         <div class="form-group" style="text-align: center">
+
+                        <div class="form-group" style="text-align: center">
                             <label for="ImageName" class="bmd-label-floating" style="float: left;">Choose Image</label>
                             <img src="#" id="ImageName" height="200" style="max-width: 500px"/>
-                        <input type="file" class="form-control" id="ImageName" name="ImageName" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" />
-                      </div>
-<!--                        <div class="form-group">
-                            <label for="isNew" class="bmd-label-floating">Is New</label><br>
-                                 <input type="radio" id="yes" name="isNew" value="true" checked="checked">
-                            <label for="yes">Yes</label>
-                            <input type="radio" id="no" name="isNew" value="false">
-                            <label for="no">No</label><br>
-                       </div>-->
-                          <div class="form-group">
+                            <input type="file" class="form-control" id="ImageName" name="ImageName" required="true" accept="image/*" style="opacity: 1;position: static;" onchange="readURL(this);" />
+                        </div>
+                        <!--                        <div class="form-group">
+                                                    <label for="isNew" class="bmd-label-floating">Is New</label><br>
+                                                         <input type="radio" id="yes" name="isNew" value="true" checked="checked">
+                                                    <label for="yes">Yes</label>
+                                                    <input type="radio" id="no" name="isNew" value="false">
+                                                    <label for="no">No</label><br>
+                                               </div>-->
+                        <div class="form-group">
                             <label for="Name" class="bmd-label-floating"></label>
                             <input type="hidden" class="form-control" id="imageName" name="curAcc" value="${curAcc.fullname}"  minlength="8" maxlength="200">
                         </div>
 
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

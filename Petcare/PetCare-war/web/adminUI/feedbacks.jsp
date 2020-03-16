@@ -21,6 +21,7 @@
 
 
                   </a> &emsp; &emsp; &emsp; &emsp; 
+                    <a href="EmployeeController?action=feedbackList" tilte="Print Feedback List" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
 
                 </div>
                 <div class="card-body">

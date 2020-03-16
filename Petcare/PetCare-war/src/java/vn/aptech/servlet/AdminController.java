@@ -289,7 +289,7 @@ public class AdminController extends HttpServlet {
                         request.setAttribute("Error", "Feedbacks is already exist!");
                     }
                     break;
-
+                       
                 case "deletefeed":
                     int id = Integer.parseInt(request.getParameter("feedbacktId"));
                     Feedbacks f = feedbacksFacade.find(id);
