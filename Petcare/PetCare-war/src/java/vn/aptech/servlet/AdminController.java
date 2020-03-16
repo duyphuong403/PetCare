@@ -263,7 +263,11 @@ public class AdminController extends HttpServlet {
                     response.sendRedirect("login.jsp");
                     break;
                 case "logout":
-                    session.removeAttribute("curAcc");
+                    if (session.getAttribute("curAcc") != null) {
+                        session.removeAttribute("curAcc");
+
+                    }
+
                     session.removeAttribute("cart");
                     response.sendRedirect(request.getHeader("referer"));
                     break;
