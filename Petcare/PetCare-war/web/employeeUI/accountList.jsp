@@ -147,9 +147,9 @@
                 <th>
                     Date Created
                 </th>
-                <th>
+<!--                <th>
                     Reason Banned
-                </th>
+                </th>-->
                 <c:forEach items="${accountList}" var="acc">
                     <%int i = 1;%>
                     <tr>
@@ -183,9 +183,9 @@
                             <td>
                             <fmt:formatDate value="${acc.dateCreated}" pattern="MM-dd-yyyy" />
                         </td>
-                        <td>
+<!--                        <td>
                             ${acc.reasonBanned}
-                        </td>
+                        </td>-->
                     </tr>
                 </c:forEach>
             </table>
