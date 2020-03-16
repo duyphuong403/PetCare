@@ -44,27 +44,27 @@
                 <input type="text" name="accountId" value="${acc.accId}" hidden="true"/>
                 <input type="text" name="dateCreated" value="${acc.dateCreated}" hidden="true"/>
 
-                <input type="text" readonly="true" class="form-control" id="Username" name="username" required="true" value="${acc.username}" maxlength="200">
+                <input type="text" readonly="true" class="form-control" id="Username" name="username" required="true" value="${acc.username}" minlength="6" maxlength="200">
               </div>
               <div class="form-group">
                 <label for="Password" class="bmd-label-floating">Password</label>
-                <input type="password" class="form-control" id="Password" name="password" required="true" value="${acc.password}">
+                <input type="password" class="form-control" id="Password" name="password" required="true" value="${acc.password}" minlength="6" maxlength="50">
               </div>
               <div class="form-group">
-                <label for="rePassword" class="bmd-label-floating">Retype Password</label>
+                <label for="rePassword" class="bmd-label-floating">Confirm Password</label>
                 <input type="password" class="form-control" id="Password" name="re-password" required="true" value="${acc.password}">
               </div>
               <div class="form-group">
                 <label for="Fullname" class="bmd-label-floating">Full name</label>
-                <input type="text" class="form-control" id="Fullname" name="fullname" required="true" value="${acc.fullname}">
+                <input type="text" class="form-control" id="Fullname" name="fullname" required="true" value="${acc.fullname}" minlength="6" maxlength="50">
               </div>
               <div class="form-group">
                 <label for="Email" class="bmd-label-floating">Email</label>
-                <input type="email" class="form-control" id="Email" name="email" required="true" value="${acc.email}">
+                <input type="email" class="form-control" id="Email" name="email" required="true" value="${acc.email}" minlength="8" maxlength="200">
               </div>
               <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone</label>
-                <input type="number" class="form-control" id="Phone" name="phone" required="true" value="${acc.phone}">
+                <input type="text" class="form-control" id="Phone" name="phone" required="true" value="${acc.phone}" pattern="[1-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
               </div>
               <div class="form-group">
                 <label for="Address" class="bmd-label-floating">Address</label>

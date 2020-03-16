@@ -150,7 +150,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="Username" class="bmd-label-floating">Username</label>
-                <input type="text" class="form-control" id="Username" name="username" required="true" minlength="5" maxlength="50">
+                <input type="text" class="form-control" id="Username" name="username" required="true" minlength="6" maxlength="50">
               </div>
               <div class="form-group">
                 <label for="Password" class="bmd-label-floating">Password</label>
@@ -166,21 +166,21 @@
               </div>
               <div class="form-group">
                 <label for="Fullname" class="bmd-label-floating">Full name</label>
-                <input type="text" class="form-control" id="Fullname" name="fullname" required="true">
+                <input type="text" class="form-control" id="Fullname" name="fullname" required="true" minlength="6" maxlength="50">
               </div>
                 <div class="form-group">
                 <label for="Phone" class="bmd-label-floating">Phone number</label>
-                <input type="number" class="form-control" id="Phone" name="phone" required="true">
+                <input type="text" class="form-control" id="Phone" name="phone" required="true" pattern="[1-9]{9}" title="Phone number must have 9 digits! No need to input 0 at first!">
               </div>
                 <div class="form-group">
                 <label for="Address" class="bmd-label-floating">Address</label>
-                <input type="text" class="form-control" id="Address" name="address" required="true">
+                <input type="text" class="form-control" id="Address" name="address" required="true" minlength="6" maxlength="200">
               </div>
 
               <div class="form-group">
-                <label for="Role" class="bmd-label-floating">Role</label>
-                <INPUT TYPE="radio" name="role" value="0" />Customer
-                <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true" />Employee
+                <label for="Role" class="bmd-label-floating">Role</label>  &nbsp; &nbsp; 
+                <INPUT TYPE="radio" name="role" value="0" />Customer &nbsp; 
+                <INPUT TYPE="radio" NAME="role" VALUE="1" checked="true" />Employee &nbsp; 
                 <INPUT TYPE="radio" NAME="role" VALUE="2" />Administrator
               </div>
               <br/>
@@ -221,7 +221,7 @@
         });
       });
     </script>
- <script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).submit()(function() {
     $('body').(function() {
     var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
@@ -238,6 +238,6 @@ $(document).submit()(function() {
     }
     });
 });
-</script>
+</script>-->
 
     <%@include file="../templates-Admin/footer.jsp" %>

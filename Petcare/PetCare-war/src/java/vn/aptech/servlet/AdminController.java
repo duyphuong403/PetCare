@@ -17,10 +17,14 @@ import javax.servlet.http.HttpSession;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
 import vn.aptech.entity.Orders;
+import vn.aptech.entity.PetGuides;
+
 import vn.aptech.sb.AccountsFacadeLocal;
 import vn.aptech.sb.FeedbacksFacadeLocal;
 import vn.aptech.sb.OrderDetailsFacadeLocal;
 import vn.aptech.sb.OrdersFacadeLocal;
+import vn.aptech.sb.PetGuidesFacadeLocal;
+
 
 /**
  *
@@ -28,6 +32,9 @@ import vn.aptech.sb.OrdersFacadeLocal;
  */
 public class AdminController extends HttpServlet {
 
+    @EJB
+    private PetGuidesFacadeLocal petGuidesFacade;
+    
     @EJB
     private AccountsFacadeLocal accountsFacade;
 
