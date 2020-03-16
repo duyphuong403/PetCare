@@ -94,7 +94,7 @@
             <div class="gb-sidebar">
               <div class="widget-area">           
                 <div class="widget widget_categories">
-                  <h3 class="widget_title">Categories</h3>
+                  <h3 class="widget_title"></h3>
                   <ul>
                     <%@include file="../templates-Client/categories.jsp" %>           
                   </ul>

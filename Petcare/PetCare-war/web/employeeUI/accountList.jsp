@@ -151,6 +151,7 @@
                     Reason Banned
                 </th>
                 <c:forEach items="${accountList}" var="acc">
+                    <%int i = 1;%>
                     <tr>
                         <td>
                             ${acc.accId}
@@ -190,5 +191,6 @@
             </table>
         </div>
     </div>
+    
 </body>
 </html>
