@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Phone" class="bmd-label-floating"><b>Phone</b></label>
-                            <input type="tel" class="form-control" id="Phone" name="phone" required="true" minlength="9" maxlength="10">
+                            <input type="text" class="form-control" id="Phone" name="phone" required="true" pattern="[1-9]{9}" title="Phone number must have 9 digits">
                             <small>Format: 1234567890</small>
                         </div>
                         <div class="form-group">
