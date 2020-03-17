@@ -10,6 +10,8 @@ package vn.aptech.classes;
  * @author Dell
  */
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class CartBean {
 
@@ -66,7 +68,8 @@ public class CartBean {
 
   }
 
-  public void addCart(int prodId, String imageName, String unit, String name, String price, String quantity, int iMaxQuantity) {
+  public void addCart(HttpServletRequest request, int prodId, String imageName, String unit, String name, String price, String quantity, int iMaxQuantity) {
+    HttpSession session = request.getSession();
     boolean isNew = true;
     if (list.size() > 0) {
       CartItemBean cartIB;
@@ -75,9 +78,13 @@ public class CartBean {
         // if name already exist
         if (cartIB.getName() == null ? name == null : cartIB.getName().equals(name)) {
           isNew = false;
-          cartIB.setQuantity(cartIB.getQuantity() + 1);
-          cartIB.setTotalCost(cartIB.getPrice() * cartIB.getQuantity());
-          calculateOrderTotal();
+          if (cartIB.getQuantity() >= cartIB.getMaxQuantity()) {
+            session.setAttribute("Error", "Sorry! Product already in your cart. Quantity in stock not enough.");
+          } else {
+            cartIB.setQuantity(cartIB.getQuantity() + 1);
+            cartIB.setTotalCost(cartIB.getPrice() * cartIB.getQuantity());
+            calculateOrderTotal();
+          }
         }
       }
     }

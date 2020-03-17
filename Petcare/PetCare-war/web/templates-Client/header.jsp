@@ -29,7 +29,7 @@
         
         <link href="lib/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
 
-        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+        <link href="lib/css/material-components-web.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
@@ -46,7 +46,7 @@
         <link rel="stylesheet" href="lib/css/phuc-style.css">
         <script src="lib/js/sweetalert.js"></script>
         <!--[if IE 6]><link href="css/ie6.css" rel="stylesheet" type="text/css"><![endif]-->
-        <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]-->
+        <!--[if IE 7]><link href="css/ie7.css" rel="stylesheet" type="text/css"><![endif]--> 
     </head>
     <body class="container">
       <style>

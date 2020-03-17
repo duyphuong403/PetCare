@@ -26,6 +26,13 @@
                 <c:forEach items="${Products}" var="prod" varStatus="counter">
                   <div class="col-md-6 col-lg-4">
                     <div class="product">
+<!--                       <a href="UserController?action=productDetail&prodId=${prod.prodId}" title="${prod.name}">
+                          <span class="product-image">
+                            <img src="ProductImages/${prod.imageName}" alt="Image" class="img-fluid" style="height: 150px;">
+                          </span>
+                          <span class="product-title prod-name">${prod.name}</span>
+                          <span class="price">$${prod.price}</span>
+                        </a>-->
                       <form method="POST" action="CartController?action=addToCart">
                         <input type="hidden" name="quantity" value="1">
                         <input type="hidden" name="maxQuantity" value="${prod.quantity}">
@@ -50,7 +57,7 @@
                             </c:if>
                             <c:if test="${prod.quantity <= 0}">                                
                               <li style="margin-left: 18px;color: red;">
-                                <button><h4>Out of stock</h4></button>
+                               <h4>Out of stock</h4>
                               </li>
                             </c:if>
                           </ul>

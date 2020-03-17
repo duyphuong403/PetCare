@@ -11,44 +11,69 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <%
-            if (request.getAttribute("title") == null) {
-                request.setAttribute("title", "Home");
-            }
-            Accounts curAcc = (Accounts) session.getAttribute("curAcc");
-            if (curAcc == null) {
-                response.sendRedirect("login.jsp");
-            } else if (curAcc.getRole() == 2) {
-                response.sendRedirect("adminUI/index.jsp");
-            } else if (curAcc.getRole() == 0) {
-                response.sendRedirect("clientUI/index.jsp");
-            }
-        %>
-        <title>Employee | ${title}</title>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="lib/images/pet-icon.png"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <%
+      if (request.getAttribute("title") == null) {
+        request.setAttribute("title", "Home");
+      }
+      Accounts curAcc = (Accounts) session.getAttribute("curAcc");
+      if (curAcc == null) {
+        response.sendRedirect("login.jsp");
+      } else if (curAcc.getRole() == 2) {
+        response.sendRedirect("adminUI/index.jsp");
+      } else if (curAcc.getRole() == 0) {
+        response.sendRedirect("clientUI/index.jsp");
+      }
+    %>
+    <title>Employee | ${title}</title>
 
-        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-        <!--     Fonts and icons     -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-        <!-- CSS Files -->
-        <link href="lib/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
-        <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="lib/css/demo/demo.css" rel="stylesheet" />
-        <style type="text/css">
-            .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu a:hover, .dropdown-menu a:focus, .dropdown-menu a:active {
-                box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
-                background-color: #00bcd4;
-                color: #FFFFFF;
-            }
-        </style>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="lib/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="lib/css/demo/demo.css" rel="stylesheet" />
+    <style type="text/css">
+      .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu a:hover, .dropdown-menu a:focus, .dropdown-menu a:active {
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+        background-color: #00bcd4;
+        color: #FFFFFF;
+      }
+    </style>
 
-        <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-        <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>-->
-        <script src="lib/js/sweetalert.js"></script>
-        
-        <script src="lib/js/jquery.min.js"></script>
-    </head>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.7.2/dist/sweetalert2.all.min.js"></script>-->
+    <script src="lib/js/sweetalert.js"></script>
+
+    <script src="lib/js/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        var maxLength = 300;
+        $(".show-read-more").each(function () {
+          var myStr = $(this).text();
+          if ($.trim(myStr).length > maxLength) {
+            var newStr = myStr.substring(0, maxLength);
+            var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+            $(this).empty().html(newStr);
+            $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+            $(this).append('<span class="more-text">' + removedStr + '</span>');
+          }
+        });
+        $(".read-more").click(function () {
+          $(this).siblings(".more-text").contents().unwrap();
+          $(this).remove();
+        });
+      });
+    </script>
+    <style>
+      .show-read-more .more-text{
+        display: none;
+      }
+    </style>
+  </head>

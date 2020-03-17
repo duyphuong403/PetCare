@@ -95,7 +95,7 @@ public class CartController extends HttpServlet {
       session.setAttribute("cart", cartBean);
     }
 
-    cartBean.addCart(iProdId, iImageName, iUnit, iName, iPrice, iQuantity, iMaxQuantity);
+    cartBean.addCart(request, iProdId, iImageName, iUnit, iName, iPrice, iQuantity, iMaxQuantity);
   }
 
 }

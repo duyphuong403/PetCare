@@ -93,10 +93,10 @@
                             <% i++;
                             %>
                           </td>
-                          <td title="<fmt:formatDate value="${prod.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />">
-                            ${prod.name}
+                          <td>
+                            <p class="show-read-more" title="${prod.name}">${prod.name}</p>
                           </td>
-                          <td class="show-read-more" style="white-space: nowrap; width: 12em; overflow: hidden; text-overflow: ellipsis;" title="${prod.cateId.name}">
+                          <td class="show-read-more" title="${prod.cateId.name}">
                             ${prod.cateId.name}
                           </td>
                           <td>

@@ -334,8 +334,9 @@ public class AdminController extends HttpServlet {
             session.removeAttribute("curAcc");
 
           }
-
-          session.removeAttribute("cart");
+          if (session.getAttribute("cart") != null) {
+            session.removeAttribute("cart");
+          }
           response.sendRedirect(request.getHeader("referer"));
           break;
 

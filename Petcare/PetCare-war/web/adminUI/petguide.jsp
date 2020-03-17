@@ -129,7 +129,7 @@
             </div>
             <div class="form-group">
               <label for="Content" class="bmd-label-floating">Content</label>
-              <input type="text" class="form-control" id="Content" name="content" required="true" minlength="5" maxlength="50">
+              <textarea type="text" class="form-control" id="Content" name="content" required="true" minlength="5" maxlength="5000" rows="5"></textarea>
             </div>
 
             <div class="form-group" style="text-align: center">

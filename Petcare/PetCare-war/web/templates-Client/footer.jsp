@@ -27,8 +27,7 @@
   <script>
     swal("Error", "${Error}", "error");
   </script>
-  <%};
-    session.removeAttribute("Error"); %>
+  <% session.removeAttribute("Error");};%>
   <script src="lib/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
   <script src="lib/js/core/jquery.min.js"></script>
   <script src="lib/js/core/popper.min.js"></script>

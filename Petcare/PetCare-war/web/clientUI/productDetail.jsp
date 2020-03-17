@@ -69,7 +69,10 @@
                               <input type="number" class="form-control" name="quantity" title="quantity" value="1" style="text-align: center" min="1" max="${prod.quantity}" required="true">
                             </div>             
                           </div> 
-
+                          <div class="quantity-price" style="padding-top: 20px;">
+                            <span>Quantity in stock: </span>                          
+                            <h4 style="display: inline-block;color: #2acc0c;font-size: 30px;">${prod.quantity}</h4>
+                          </div> 
                           <div class="add-to-cart" style="padding-top: 20px;">
                             <button type="submit" class="btn btn-success" >Add to Cart</button>
                           </div><!-- /.add-to-cart -->                

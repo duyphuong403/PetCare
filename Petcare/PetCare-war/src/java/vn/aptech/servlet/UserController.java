@@ -80,6 +80,7 @@ public class UserController extends HttpServlet {
         if (action == null) {
             request.setAttribute("Home", "active");
             request.setAttribute("Categories", categoriesFacade.findAll());
+            request.setAttribute("Articles", petGuidesFacade.findAll());
             
             request.getRequestDispatcher("clientUI/index.jsp").forward(request, response);
         } else {

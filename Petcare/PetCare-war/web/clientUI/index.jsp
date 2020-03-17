@@ -5,16 +5,24 @@
 --%>
 <%@include file="../templates-Client/header.jsp" %>
 <%@include file="../templates-Client/navbar.jsp" %>
-
+<style>
+  .show-read-more{
+    display: inline-block;
+    width: 12em;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+</style>
 <div id="body" class="container">
   <div class="banner">&nbsp;</div>
   <div id="content" class="row">
     <div class="content col-8 col-xm-4">
       <ul>
         <c:forEach items="${Articles}" var="article" >
-          <li> <a href="#"><img src="lib/images/${article.imageName}" width="114" height="160" alt=""></a>
+          <li> <a href="UserController?action=petguides"><img src="PetGuideImage/${article.imageName}" width="114" height="160" alt="${article.imageName}"></a>
             <h2>${article.title}</h2>
-            <p>${article.content}<a class="more" href="${article.petGuideId}">View all</a></p>
+            <p class="show-read-more">${article.content}</p>
           </li>
         </c:forEach>        
       </ul>

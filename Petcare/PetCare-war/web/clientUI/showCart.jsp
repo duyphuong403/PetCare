@@ -40,6 +40,9 @@
                       <tr> 
                         <td colspan="6" style="text-align: center; color: #512f04"><b>- Cart is currently empty -</b></td>
                       </tr>
+                      <tr>
+                        <td><a href="UserController?action=petmart" class="btn btn-primary" title="Back" style="float:left;color: #fff;font-weight: 600; background-color: #38ca0e;">Continue Buy</a></td>
+                      </tr>
                     </c:if>
                     <c:if test="${cart.lineItemCount != 0}">
                       <thead class=" text-primary">
@@ -69,10 +72,10 @@
                           <tr>
                             <td> <%= i%><% i++;%></td>
                             <td><img src="ProductImages/${cartItem.imageName}" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 100px;"></td>
-                            <td><c:out value="${cartItem.name}"/></td>
+                            <td style="width: 40%"><c:out value="${cartItem.name}"/></td>
                             <td style="width: 20%">
                               <input type='hidden' name='stt' value='${counter.count}'>
-                              <input type='number' class="form-control" name="quantity" value='${cartItem.quantity}' style="width: 45%;display: inline-block; text-align: center;" min="1" max="${cartItem.maxQuantity}" title="Quantity in stock: ${cartItem.maxQuantity}"> 
+                              <input type='number' class="form-control" name="quantity" value="<c:if test='${cartItem.quantity > cartItem.maxQuantity}'>${cartItem.maxQuantity}</c:if><c:if test='${cartItem.quantity <= cartItem.maxQuantity}'>${cartItem.quantity}</c:if>" style="width: 45%;display: inline-block; text-align: center;" min="1" max="${cartItem.maxQuantity}" title="Quantity in stock: ${cartItem.maxQuantity}"> 
                               <button type="submit" name="action" value="Update" style="color:#001fff" title="Update"><i class="material-icons">refresh</i></button>
                               <button type="submit" name="action" value="Delete" style="color: red;" title="Remove"><i class="material-icons">close</i></button>
                             </td>
