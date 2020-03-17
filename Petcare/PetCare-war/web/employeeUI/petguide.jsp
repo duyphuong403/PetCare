@@ -10,51 +10,11 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title ">Simple Table</h4>
-                <p class="card-category"> Here is a subtitle for this table</p>
+                <h4 class="card-title ">Coming Soon</h4>
+                <p class="card-category"></p>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Title
-                    </th>
-                    <th>
-                      Content
-                    </th>
-                    <th>
-                      Image
-                    </th>                   
-                    <th>
-                      Date Updated
-                    </th>
-                    </thead>
-                    <tbody>
-                      <c:forEach items="${Petguides}" var="petGuide">
-                      <tr>
-                        <td>
-                          ${petGuide.petGuideId}
-                        </td>      
-                        <td>
-                          ${petGuide.title}
-                        </td>
-                        <td>
-                          ${petGuide}
-                        </td>    
-                        <td>
-                          ${petGuide}
-                        </td>    
-                        <td>
-                          <fmt:formatDate value="${petGuide.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
-                        </td>    
-                      </tr>
-                      </c:forEach>
-                    </tbody>
-                  </table>
+                <div class="table-responsive">                 
                 </div>
               </div>
             </div>

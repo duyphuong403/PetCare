@@ -45,10 +45,13 @@
                     </th>
                     </thead>
                     <tbody>
+                      <% int i = 1;%>
                       <c:forEach items="${Categories}" var="cate">
                         <tr>
                           <td>
-                            ${cate.cateId}
+                            <%= i%>
+                            <% i++;
+                            %>
                           </td>
                           <td>
                             ${cate.name}
@@ -57,7 +60,7 @@
                             ${cate.description}
                           </td>
                           <td>
-                           <fmt:formatDate value="${cate.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
+                            <fmt:formatDate value="${cate.dateUpdated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
                             <fmt:formatDate value="${cate.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />

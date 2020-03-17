@@ -7,7 +7,7 @@
 <div id="footer">
   <div id="footnote">
     <div class="section">
-      Copyright &copy; 2019 - 2020 <a href="login.jsp"><b>Petcare</b></a> 
+      Copyright &copy; 2019 - 2020 <strong>Petcare</strong>
       All rights reserved
     </div>
   </div>

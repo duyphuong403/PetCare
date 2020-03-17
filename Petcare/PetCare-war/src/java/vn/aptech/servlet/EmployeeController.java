@@ -231,8 +231,7 @@ public class EmployeeController extends HttpServlet {
                             request.getRequestDispatcher("EmployeeController?action=category").forward(request, response);
                             break;
                         case "editCate":
-                            cate = new Categories();
-                            cate.setCateId(Integer.parseInt(request.getParameter("cateId")));
+                            cate = categoriesFacade.find(Integer.parseInt(request.getParameter("cateId")));
                             cate.setName(request.getParameter("name"));
                             cate.setDescription(request.getParameter("description"));
                             cate.setDateUpdated(new Date());
@@ -447,8 +446,7 @@ public class EmployeeController extends HttpServlet {
                             request.getRequestDispatcher("EmployeeController?action=unit").forward(request, response);
                             break;
                         case "editUnit":
-                            ProductUnits editUnit = new ProductUnits();
-                            editUnit.setUnitId(Integer.parseInt(request.getParameter("unitId")));
+                            ProductUnits editUnit = productUnitsFacade.find(Integer.parseInt(request.getParameter("unitId")));
                             editUnit.setName(request.getParameter("name"));
                             editUnit.setDescription(request.getParameter("description"));
                             editUnit.setDateUpdated(new Date());
