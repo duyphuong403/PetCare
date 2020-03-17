@@ -66,11 +66,11 @@
                             <a href="#" data-toggle="modal" data-target="#editUnit${unit.unitId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
                             <form action="EmployeeController?action=deleteUnit" method="post" id="deleteUnit${unit.unitId}">
                               <input type="text" name="unitId" value="${unit.unitId}" hidden="true">
-                              <a href="#" type="submit" style="color: #333" title="Delete" id="deleteUnit" onclick="deleteUnit()"><i class="material-icons">delete</i></a>
+                              <a href="#" type="submit" style="color: #333" title="Delete" id="deleteUnit" onclick="deleteUnit${unit.unitId}()"><i class="material-icons">delete</i></a>
                             </form>
                           </td>
                       <script>
-                        function deleteUnit() {
+                        function deleteUnit${unit.unitId}() {
                           swal({
                             title: "Are you sure?",
                             text: "You will not be able to recover this Unit!",

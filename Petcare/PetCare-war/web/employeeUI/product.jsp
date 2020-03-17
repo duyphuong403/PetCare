@@ -6,7 +6,15 @@
 
 <%@page import="vn.aptech.entity.ProductUnits"%>
 <%@include file="../templates-Employee/header.jsp" %>
-
+<style>
+  /*  .show-read-more{
+      display: inline-block;
+      width: 12em;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }*/
+</style>
 <div class="wrapper ">
   <%@include file="../templates-Employee/sidebar.jsp" %>    
   <div class="main-panel">
@@ -93,10 +101,10 @@
                             <% i++;
                             %>
                           </td>
-                          <td>
+                          <td style="width:40%">
                             <p class="show-read-more" title="${prod.name}">${prod.name}</p>
                           </td>
-                          <td class="show-read-more" title="${prod.cateId.name}">
+                          <td class="show-read-more" title="${prod.cateId.name}" >
                             ${prod.cateId.name}
                           </td>
                           <td>
@@ -113,31 +121,30 @@
                           </td>
                           <td>
                             <a href="EmployeeController?action=viewEditProd&prodId=${prod.prodId}" style="color: #333" title="Edit"><i class="material-icons">edit</i></a>
-                            <form action="EmployeeController?action=deleteProd" method="post" id="deleteProd${prod.prodId}">
-                              <input type="text" name="prodId" value="${prod.prodId}" hidden="true">
-                              <a href="#" type="submit" style="color: #333" title="Delete" id="deleteProd" onclick="deleteProd()"><i class="material-icons">delete</i></a>
+                            <form action="EmployeeController?action=deleteProd&prodId=${prod.prodId}" method="post" id="deleteProd${prod.prodId}">
+                              <a href="#" type="submit" style="color: #333" title="Delete" id="deleteProd" onclick="deleteProd${prod.prodId}()"><i class="material-icons">delete</i></a>
                             </form>
+                            <script>
+                              function deleteProd${prod.prodId}() {
+                                swal({
+                                  title: "Are you sure?",
+                                  text: "You will not be able to recover this Product!",
+                                  icon: "warning",
+                                  buttons: [
+                                    'No, cancel it!',
+                                    'Yes, I am sure!'
+                                  ],
+                                  dangerMode: true
+                                }).then(function (isConfirm) {
+                                  if (isConfirm) {
+                                    $("#deleteProd${prod.prodId}").submit();
+                                  }
+                                });
+                              }
+                            </script>
                           </td>
                         </tr>
-                      <script>
-                        function deleteProd() {
-                          swal({
-                            title: "Are you sure?",
-                            text: "You will not be able to recover this Product!",
-                            icon: "warning",
-                            buttons: [
-                              'No, cancel it!',
-                              'Yes, I am sure!'
-                            ],
-                            dangerMode: true
-                          }).then(function (isConfirm) {
-                            if (isConfirm) {
-                              $("#deleteProd${prod.prodId}").submit();
-                            }
-                          });
-                        }
-                      </script>
-                    </c:forEach>
+                      </c:forEach>
                     </tbody>
                   </table>
                 </div>
@@ -203,7 +210,7 @@
             <label for="Name" class="bmd-label-floating">Name</label>
             <input type="text" class="form-control" id="Name" name="name" required="true" maxlength="200">
           </div>
-           <div class="form-group">
+          <div class="form-group">
             <label for="Price" class="bmd-label-floating">Price</label>
             <input type="number" class="form-control" id="Price" name="price" required="true" min="0" max="99999">
           </div>          
@@ -211,7 +218,7 @@
             <label for="Quantiy" class="bmd-label-floating">Quantiy</label>
             <input type="number" class="form-control" id="Quantiy" name="quantity" required="true" min="0" max="99999">
           </div>
-         <div class="form-group">
+          <div class="form-group">
             <label for="Description" class="bmd-label-floating">Description</label>
             <textarea row="5" type="text" class="form-control" id="Description" name="description" required="true" maxlength="2147483647"></textarea>
           </div>

@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import vn.aptech.classes.AboutUs;
 import vn.aptech.entity.Accounts;
 import vn.aptech.entity.Feedbacks;
+import vn.aptech.entity.OrderDetails;
 import vn.aptech.entity.Orders;
 import vn.aptech.entity.PetGuides;
 import vn.aptech.sb.AccountsFacadeLocal;
@@ -337,7 +337,7 @@ public class AdminController extends HttpServlet {
           if (session.getAttribute("cart") != null) {
             session.removeAttribute("cart");
           }
-          response.sendRedirect(request.getHeader("referer"));
+          response.sendRedirect("UserController");
           break;
 
         case "feedbacks":
@@ -417,7 +417,27 @@ public class AdminController extends HttpServlet {
           }
           request.getRequestDispatcher("AdminController?action=orders").forward(request, response);
           break;
-
+        case "deleteOrder":
+          int orderId = Integer.parseInt(request.getParameter("orderId"));
+          Orders order = ordersFacade.find(orderId);
+          List<OrderDetails> ordl = orderDetailsFacade.getListOrder(order);
+          for (int i = 0; i < ordl.size(); i++) {
+            try {
+              orderDetailsFacade.remove(ordl.get(i));
+            } catch (Exception e) {
+              System.out.println("Error revmove order detail: " + e);
+              request.setAttribute("Error", "Remove Order Detail failed. Please contact Administrator.");
+            }
+          }
+          try {
+            ordersFacade.remove(order);
+          } catch (Exception e) {
+            System.out.println("Error Remove Order : " + e);
+            request.setAttribute("Error", "Remove Order failed. Please contact Administrator.");
+          }
+          
+          request.getRequestDispatcher("AdminController?action=orders").forward(request, response);
+          break;
       }
 
     }

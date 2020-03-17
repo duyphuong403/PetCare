@@ -87,15 +87,20 @@
                             ${ord.orderId}
                           </td>
                           <td>
-                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="Click to see"><b>${ord.accId.fullname}</b></a>
+                            <a href="#" data-toggle="modal" data-target="#viewUserInfo${ord.orderId}" style="color: #0043ff;" title="See more"><b>${ord.accId.fullname}</b></a>
                           </td>
                           <td>
                             <form action="AdminController?action=updateStatus" method="post" id="updateVerify">
                               <input type="hidden" value="${ord.orderId}" name="orderId"/>
                               <select name="status" class="browser-default custom-select" onchange="this.form.submit()">
-                                <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
-                                <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
-                                <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
+                                <c:if test="${ord.status != 'Cancel'}">
+                                  <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
+                                  <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
+                                  <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
+                                </c:if>
+                                <c:if test="${ord.status == 'Cancel'}">
+                                  <option value="Cancel">Cancel</option>
+                                </c:if>
                               </select>
                             </form>
                           </td>
@@ -106,8 +111,33 @@
                             <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
-                            <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
+                            <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;"  target="_blank"><i class="material-icons">print</i></a>
+                            <c:if test="${ord.status == 'Cancel'}">
+                              <form action="AdminController?action=deleteOrder" method="post" id="deleteOrder${ord.orderId}">
+                                <input type="text" name="orderId" value="${ord.orderId}" hidden="true">
+                                <a href="#" type="submit" style="color: #333" title="Delete" id="deleteOrder" onclick="deleteOrder${ord.orderId}()"><i class="material-icons">delete</i></a>
+                              </form>
+                              <script>
+                                function deleteOrder${ord.orderId}() {
+                                  swal({
+                                    title: "Are you sure?",
+                                    text: "You will not be able to recover this Order!",
+                                    icon: "warning",
+                                    buttons: [
+                                      'No, cancel it!',
+                                      'Yes, I am sure!'
+                                    ],
+                                    dangerMode: true
+                                  }).then(function (isConfirm) {
+                                    if (isConfirm) {
+                                      $("#deleteOrder${ord.orderId}").submit();
+                                    }
+                                  });
+                                }
+                              </script>
+                            </c:if>
                           </td>
+
                         </tr>
                         <!-- Modal Edit Category -->
                       <div class="modal fade" id="viewUserInfo${ord.orderId}" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"

@@ -249,12 +249,15 @@ public class UserController extends HttpServlet {
                             Orders curOrd = ordersFacade.getOrderLastest(curAcc);
                             CartBean cb = (CartBean) session.getAttribute("cart");
                             OrderDetails ordl;
+                            Products prod;
                             boolean isFailed = false;
                             for (int i = 0; i < cb.list.size(); i++) {
                                 CartItemBean cib = (CartItemBean) cb.list.get(i);
+                                prod = productsFacade.find(cib.getProdId());
+                                prod.setQuantity(prod.getQuantity() - cib.getQuantity());
                                 ordl = new OrderDetails();
                                 ordl.setOrderId(curOrd);
-                                ordl.setProdId(productsFacade.find(cib.getProdId()));
+                                ordl.setProdId(prod);
                                 ordl.setName(cib.getName());
                                 ordl.setUnit(cib.getUnit());
                                 ordl.setPrice(cib.getPrice());
@@ -262,6 +265,7 @@ public class UserController extends HttpServlet {
                                 ordl.setTotal(cib.getTotalCost());
                                 try {
                                     orderDetailsFacade.create(ordl);
+                                    productsFacade.edit(prod);
                                 } catch (Exception e) {
                                     System.out.println("Error create order detail: " + e);
                                     isFailed = true;

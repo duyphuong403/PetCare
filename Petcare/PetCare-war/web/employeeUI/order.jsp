@@ -97,14 +97,19 @@
                                   <option value="Not Verify" <c:if test="${ord.status == 'Not Verify'}"> selected="true" </c:if>>Not Verify</option>
                                   <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
                                   <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
+                                  <option value="Cancel" style="color:red"<c:if test="${ord.status == 'Cancel'}"> selected="true" </c:if>>Cancel</option>
                                 </c:if>
                                 <c:if test="${ord.status == 'Verified'}">
                                   <option value="Verified" <c:if test="${ord.status == 'Verified'}"> selected="true" </c:if>>Verified</option>
                                   <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
+                                  <option value="Cancel" style="color:red"<c:if test="${ord.status == 'Cancel'}"> selected="true" </c:if>>Cancel</option>
                                 </c:if>
                                 <c:if test="${ord.status == 'Deliveried'}">
                                   <option value="Deliveried" <c:if test="${ord.status == 'Deliveried'}"> selected="true" </c:if>>Deliveried</option>
-                                </c:if>
+                                </c:if>  
+                                <c:if test="${ord.status == 'Cancel'}">
+                                  <option value="Cancel" disabled="true"<c:if test="${ord.status == 'Cancel'}"> selected="true" </c:if>>Cancel</option>
+                                </c:if> 
                               </select>
                             </form>
                           </td>
@@ -115,7 +120,7 @@
                             <fmt:formatDate value="${ord.dateCreated}" pattern="HH:mm:ss MM-dd-yyyy" />
                           </td>
                           <td>
-                             <a href="EmployeeController?action=orderDetail&orderId=${ord.orderId}" tilte="More Detail" style="color:#000000;font-size: 40px;"><i class="material-icons">more_horiz</i></a>
+                            <a href="EmployeeController?action=orderDetail&orderId=${ord.orderId}" tilte="More Detail" style="color:#000000;font-size: 40px;"><i class="material-icons">more_horiz</i></a>
                             <c:if test="${ord.status != 'Not Verify'}" >
                               <a href="EmployeeController?action=invoice&orderId=${ord.orderId}" tilte="Print Invoice" style="color:#000000;font-size: 40px;"  target="_blank"><i class="material-icons">print</i></a>
                             </c:if>
