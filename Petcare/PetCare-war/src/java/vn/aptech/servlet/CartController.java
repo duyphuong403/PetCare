@@ -30,18 +30,20 @@ public class CartController extends HttpServlet {
       switch (iAction) {
         case "addToCart":
           addToCart(request);
+          response.sendRedirect(request.getHeader("referer"));
           break;
         case "Update":
           updateCart(request);
+          request.getRequestDispatcher("UserController?action=showCart").forward(request, response);
           break;
         case "Delete":
           deleteCart(request);
+          request.getRequestDispatcher("UserController?action=showCart").forward(request, response);
           break;
         default:
           break;
       }
     }
-    response.sendRedirect(request.getHeader("referer"));
   }
 
   protected void deleteCart(HttpServletRequest request) {
@@ -63,16 +65,23 @@ public class CartController extends HttpServlet {
     HttpSession session = request.getSession();
 
     String iQuantity = request.getParameter("quantity");
-    String iSTT = request.getParameter("stt");
-
-    CartBean cartBean = null;
-
-    if (session.getAttribute("cart") != null) {
-      cartBean = (CartBean) session.getAttribute("cart");
+    if (iQuantity == null) {
+      request.setAttribute("Error", "Quantity cannot equal 0 or null");
     } else {
-      cartBean = new CartBean();
+      if (Integer.parseInt(iQuantity) <= 0) {
+        request.setAttribute("Error", "Quantity cannot equal 0 or null");
+      } else {
+        String iSTT = request.getParameter("stt");
+        CartBean cartBean = null;
+
+        if (session.getAttribute("cart") != null) {
+          cartBean = (CartBean) session.getAttribute("cart");
+        } else {
+          cartBean = new CartBean();
+        }
+        cartBean.updateCart(iSTT, iQuantity);
+      }
     }
-    cartBean.updateCart(iSTT, iQuantity);
   }
 
   protected void addToCart(HttpServletRequest request) {

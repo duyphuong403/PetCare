@@ -11,6 +11,7 @@
 <h3 class="widget_title">Categories</h3>
 <hr/>
 <ul>
+  <li><a href="UserController?action=petmart">All</a></li>
   <c:forEach items="${Categories}" var="item">
     <li><a href="UserController?action=petmart&category=${item.cateId}">${item.name}</a></li>
   </c:forEach>

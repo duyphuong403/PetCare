@@ -40,4 +40,8 @@ public interface ProductsFacadeLocal {
   List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage);
   
   List<Products> searchCateWithPagination(Categories category, int currentPage, int recordsPerPage);
+  
+  int countWithTxtSearch(String txtSearch);
+  
+  int countWithCategory(String cate);
 }

@@ -71,43 +71,48 @@ public class CartBean {
   public void addCart(HttpServletRequest request, int prodId, String imageName, String unit, String name, String price, String quantity, int iMaxQuantity) {
     HttpSession session = request.getSession();
     boolean isNew = true;
-    if (list.size() > 0) {
-      CartItemBean cartIB;
-      for (int i = 0; i < list.size(); i++) {
-        cartIB = (CartItemBean) list.get(i);
-        // if name already exist
-        if (cartIB.getName() == null ? name == null : cartIB.getName().equals(name)) {
-          isNew = false;
-          if (cartIB.getQuantity() >= cartIB.getMaxQuantity()) {
-            session.setAttribute("Error", "Sorry! Product already in your cart. Quantity in stock not enough.");
-          } else {
-            cartIB.setQuantity(cartIB.getQuantity() + 1);
-            cartIB.setTotalCost(cartIB.getPrice() * cartIB.getQuantity());
-            calculateOrderTotal();
+    if (list.size() >= 10) {
+      session.setAttribute("Error", "You cannot add more than 10 products in a same cart.");
+    } else {
+
+      if (list.size() > 0) {
+        CartItemBean cartIB;
+        for (int i = 0; i < list.size(); i++) {
+          cartIB = (CartItemBean) list.get(i);
+          // if name already exist
+          if (cartIB.getName() == null ? name == null : cartIB.getName().equals(name)) {
+            isNew = false;
+            if (cartIB.getQuantity() >= cartIB.getMaxQuantity()) {
+              session.setAttribute("Error", "Sorry! Product already in your cart. Quantity in stock not enough.");
+            } else {
+              cartIB.setQuantity(cartIB.getQuantity() + 1);
+              cartIB.setTotalCost(cartIB.getPrice() * cartIB.getQuantity());
+              calculateOrderTotal();
+            }
           }
         }
       }
-    }
-    if (isNew) {
-      int iPrice = Integer.parseInt(price);
-      int iQuantity = Integer.parseInt(quantity);
-      CartItemBean cartItem = new CartItemBean();
-      try {
-        if (iQuantity > 0) {
-          cartItem.setProdId(prodId);
-          cartItem.setImageName(imageName);
-          cartItem.setName(name);
-          cartItem.setUnit(unit);
-          cartItem.setPrice(iPrice);
-          cartItem.setQuantity(iQuantity);
-          cartItem.setMaxQuantity(iMaxQuantity);
-          cartItem.setTotalCost(iPrice * iQuantity);
-          list.add(cartItem);
-          calculateOrderTotal();
+      if (isNew) {
+        int iPrice = Integer.parseInt(price);
+        int iQuantity = Integer.parseInt(quantity);
+        CartItemBean cartItem = new CartItemBean();
+        try {
+          if (iQuantity > 0) {
+            cartItem.setProdId(prodId);
+            cartItem.setImageName(imageName);
+            cartItem.setName(name);
+            cartItem.setUnit(unit);
+            cartItem.setPrice(iPrice);
+            cartItem.setQuantity(iQuantity);
+            cartItem.setMaxQuantity(iMaxQuantity);
+            cartItem.setTotalCost(iPrice * iQuantity);
+            list.add(cartItem);
+            calculateOrderTotal();
+          }
+        } catch (NumberFormatException nfe) {
+          System.out.println("Error while parsing from String to primitive types: " + nfe.getMessage());
+          nfe.printStackTrace();
         }
-      } catch (NumberFormatException nfe) {
-        System.out.println("Error while parsing from String to primitive types: " + nfe.getMessage());
-        nfe.printStackTrace();
       }
     }
   }

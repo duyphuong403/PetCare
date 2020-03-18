@@ -50,17 +50,17 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
       return null;
     }
   }
-  
+
   @Override
   public List<Products> findByName(String txtSearch) {
     try {
-      return em.createQuery("select e from Products e where e.name like :txtSearch order by e.prodId DESC", Products.class).setParameter("txtSearch", "%" + txtSearch+ "%").getResultList();
+      return em.createQuery("select e from Products e where e.name like :txtSearch order by e.prodId DESC", Products.class).setParameter("txtSearch", "%" + txtSearch + "%").getResultList();
     } catch (Exception ex) {
       System.out.println(ex);
       return null;
     }
   }
-  
+
   @Override
   public List<Products> searchWithPagination(String txtSearch, int currentPage, int recordsPerPage) {
     try {
@@ -70,7 +70,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
       return null;
     }
   }
-  
+
   @Override
   public List<Products> searchCateWithPagination(Categories category, int currentPage, int recordsPerPage) {
     try {
@@ -78,6 +78,26 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
     } catch (Exception ex) {
       System.out.println(ex);
       return null;
+    }
+  }
+
+  @Override
+  public int countWithTxtSearch(String txtSearch) {
+    try {
+      return em.createQuery("select count(e) from Products e where e.name like :txtSearch order by e.prodId DESC", Integer.class).setParameter("txtSearch", txtSearch).getSingleResult();
+    } catch (Exception ex) {
+      System.out.println(ex);
+      return 0;
+    }
+  }
+
+  @Override
+  public int countWithCategory(String cate) {
+    try {
+      return em.createQuery("select count(e) from Products e where e.cateId = :txtSearch order by e.prodId DESC", Integer.class).setParameter("txtSearch", cate).getSingleResult();
+    } catch (Exception ex) {
+      System.out.println(ex);
+      return 0;
     }
   }
 
